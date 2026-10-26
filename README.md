@@ -64,3 +64,12 @@ The first GitHub-connected Cloudflare build is initiated by a new commit after l
 - The original Tagger remains separately hosted at `taggerv1.pages.dev`. Browser storage does **not** sync across those two origins. Import a JSON Tagger backup into Card DB to migrate approved tags.
 - This is **manual intake**, not an automated card-reveal importer or finished Deck Builder. The TEMP data export is the future Deck Builder's input contract.
 - There is no guarantee of continuous cross-device sync; download regular backups. Never interpret preliminary notes as official English card text.
+
+## Deck Builder v0.1
+
+- Page: `public/deck-builder.html`. Reads the Standard catalogue directly from Card DB's embedded JSON and TEMP cards/approved tags from the same-origin Card DB browser store; no duplicated Standard dataset.
+- Draft: `tcg-lab-deck-builder-draft-v1`. Saved library: `tcg-lab-decks-v1`. Saving never writes to Card DB or Tagger storage.
+- Supports 40/60-card decks, printing selection, provisional TEMP cards, explicit save/copy, draft recovery, undo/redo, text and portable JSON imports/exports, full library backup/restore, and 63 × 88 mm print sheets.
+- Simulator transfer uses the existing `tcg-lab-deck-v1` UTF-8 URL-fragment contract, carrying stable card/printing IDs, image URLs, English text and Basic/evolution metadata. Quick Solo starts immediately; Full Tabletop opens configuration and can use the imported deck for either player.
+- Deck checks are a practice guide, not a live legality checker. Text exports cannot carry custom images or translation text; use JSON or Simulator transfer for proxies.
+- Run core checks: `node scripts/test-deck-builder.mjs /path/to/simulator.html`. The simulator argument is optional.
