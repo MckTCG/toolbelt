@@ -142,7 +142,7 @@ function syncTempFilters(){
    opt.textContent=tempSetDisplay(row);sel.insertBefore(opt,sel.options[1]||null);
   }
  }
- const picker=$('#tempCardSet');
+ const picker=$('#temp-set');
  if(picker){
   const was=picker.value;picker.replaceChildren();
   for(const row of store.tempSets){
