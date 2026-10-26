@@ -9,7 +9,7 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
 - [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
 
-The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. Additional cards in the launcher (full Deck Builder, Training Lab, Card DB + Release Tracker) are currently roadmap placeholders, not deployed tools.
+The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. The [Card DB v0.1](https://mute-dust-0d50.forcoin99.workers.dev/card-db.html) is now linked and provides manual TEMP-set creation and card intake on a copy of the original Standard Explorer. Automatic reveal ingestion and full Deck Builder integration are not yet implemented. Additional launcher cards (full Deck Builder and Training Lab) remain roadmap placeholders.
 
 ## Deploy to the existing Cloudflare Worker
 
@@ -54,3 +54,13 @@ This project includes only public-facing launcher content, not private deck data
 ### Cloudflare Git deployment trigger
 
 The first GitHub-connected Cloudflare build is initiated by a new commit after linking the repository. This documentation-only commit intentionally starts that build; future edits to `public/index.html` will deploy through the same connection.
+
+## Card DB v0.1 — TEMP intake
+
+- Page: `public/card-db.html` (based directly on the Tagger v2 Explorer's immutable August 31 Standard snapshot).
+- Supports named Japanese TEMP sets, stable card IDs independent of set/printing, original card image URLs, English text, translation reliability, watch/testing status, notes, and inherited tagging controls.
+- Browser-local storage key: `tcg-lab-card-db-v0.1`.
+- **Export complete backup** and **Export TEMP data** are portable JSON formats; **Choose JSON backup / tags** restores TEMP sets/cards and their associated tags.
+- The original Tagger remains separately hosted at `taggerv1.pages.dev`. Browser storage does **not** sync across those two origins. Import a JSON Tagger backup into Card DB to migrate approved tags.
+- This is **manual intake**, not an automated card-reveal importer or finished Deck Builder. The TEMP data export is the future Deck Builder's input contract.
+- There is no guarantee of continuous cross-device sync; download regular backups. Never interpret preliminary notes as official English card text.
