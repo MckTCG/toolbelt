@@ -46,6 +46,35 @@ button{border:1px solid var(--line);border-radius:9px;background:#202c3e;color:v
 <div id="dataPane" class="hidden"><div class="data-grid"><div class="box data-box"><h3>Back up the full Card DB</h3><p>Download TEMP sets and cards, research notes, approved tags, pending work and rejected suggestions. Restore it here on another browser or device.</p><button class="primary" id="exportBackup">Export complete backup</button></div><div class="box data-box"><h3>Restore backup or import tags</h3><p>Restore a Card DB backup or TEMP card export; merge older Pitch Black, ChatGPT tagging batches, or Standard tags. Already-approved tags won't be overwritten by draft suggestions.</p><button id="importButton">Choose JSON backup / tags</button><input type="file" id="importFile" accept=".json,application/json" class="hidden"></div><div class="box data-box"><h3>Download import template</h3><p>Use this format for future ChatGPT tagging rounds. Imported suggestions enter the review queue rather than being silently approved.</p><button id="downloadTemplate">Download sample JSON</button></div><div class="box data-box"><h3>Current catalogue</h3><p>Original Standard snapshot: 3,345 printings, 2,036 gameplay records (Aug 31, 2026). TEMP cards are stored locally alongside this immutable snapshot. This is a local-first browser app with externally hosted card images.</p><button id="exportCatalogue">Export card catalogue</button></div><div class="box data-box"><h3>Reset prototype</h3><p>Remove custom tags, approvals and rejected suggestions in this browser. TEMP sets/cards remain intact. The seven previously reviewed Pitch Black cards remain seeded.</p><button class="danger" id="resetButton">Reset local changes</button></div><div class="box data-box"><h3>Data limitations</h3><p>This is a dated Standard snapshot, not a live legality checker. The imported card text and image links have not been individually audited. Source images require Internet access. Browser storage is device- and browser-specific; backups are the portability mechanism.</p></div></div></div>
 </div><aside id="inspector" class="inspector box"></aside></div>
 <div class="footer">Unofficial fan-made local-first prototype · Pokémon card artwork belongs to its respective rights holders · Nothing is uploaded by this page.</div></main></div><div id="toast" class="toast" role="status"></div>
+<dialog id="tempSetDialog" class="temp-dialog"><form id="tempSetForm">
+ <h2>Create TEMP set</h2><p class="micro">Use the original Japanese set name. You can add cards before English release. Set identifiers remain stable.</p>
+ <label for="tempSetName">Japanese set name</label><input id="tempSetName" required maxlength="110" placeholder="e.g. 波動シーカー" autocomplete="off">
+ <p class="temp-error" id="tempSetError" role="alert"></p>
+ <div class="buttons"><button type="submit" class="primary">Create set</button><button id="cancelTempSet" type="button">Cancel</button></div>
+ </form></dialog>
+<dialog id="tempCardDialog" class="temp-dialog"><form id="tempCardForm">
+ <h2 id="tempCardHeading">Add TEMP card</h2>
+ <p class="micro">Minimum: set and name. Uncertain details can be completed later. Images stay original; English translation appears separately.</p>
+ <div class="temp-fields">
+ <label>Set<select id="temp-set" required></select></label>
+ <label>Card name<input id="temp-name" required maxlength="140" placeholder="English name, provisional name, or Japanese name"></label>
+ <label>Original Japanese name<input id="temp-jp" maxlength="140" placeholder="Japanese name (if known)"></label>
+ <label>Set card number<input id="temp-number" maxlength="32" placeholder="Optional"></label>
+ <label>Category<select id="temp-category"><option>Pokémon</option><option>Trainer</option><option>Energy</option></select></label>
+ <label>Stage<select id="temp-stage"><option value="">Unknown</option><option>Basic</option><option>Stage 1</option><option>Stage 2</option></select></label>
+ <label>Pokémon type<input id="temp-type" maxlength="36" placeholder="Grass, Fire, etc."></label>
+ <label>HP<input id="temp-hp" maxlength="10" inputmode="numeric"></label>
+ <label>Evolves from<input id="temp-evolves" maxlength="110"></label>
+ <label class="full">Original card image URL<input id="temp-image" type="url" placeholder="https://…"></label>
+ <label class="full">Reveal / source URL<input id="temp-source" type="url" placeholder="https://…"></label>
+ <label>Status<select id="temp-status"><option value="unverified">Unverified</option><option value="provisional">Provisional translation</option><option value="verified">Verified information</option><option value="official">Official wording</option></select></label>
+ <label>Research progress<select id="temp-research"><option value="unreviewed">Unreviewed</option><option value="watch">Watchlist</option><option value="testing">Testing</option><option value="evaluated">Evaluated</option></select></label>
+ <label class="full">English translation / mechanics<textarea id="temp-text" rows="5" placeholder="Provisional English translation or playtesting summary. Original artwork remains unchanged."></textarea></label>
+ <label class="full">Research notes / potential metagame impact<textarea id="temp-notes" rows="4" placeholder="Potential synergies, testing hypotheses, counters, questions…"></textarea></label>
+ </div><p class="temp-error" id="tempCardError" role="alert"></p>
+ <div class="buttons"><button type="submit" class="primary">Save card</button><button id="cancelTempCard" type="button">Cancel</button></div>
+ </form></dialog>
+
 <script>
 'use strict';
 const CATALOG = JSON.parse(document.getElementById('catalog').textContent);
@@ -333,7 +362,8 @@ $('#tempSetForm').addEventListener('submit',e=>{
  e.preventDefault();try{
   const st=createTempSet($('#tempSetName').value);
   $('#tempSetDialog').close();$('#tempSetName').value='';
-  ui.view='explorer';ui.set=st.code;ui.visible=60;
+  ui.view='explorer';ui.set=st.code;ui.visible=60;ui.search='';
+  $('#search').value='';syncTempFilters();
   $('#setFilter').value=st.code;render();toast('TEMP set ready: '+st.name);
  }catch(err){$('#tempSetError').textContent=err.message}
 });
@@ -351,32 +381,4 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-edit-temp
 document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement?.tagName!=='INPUT'&&document.activeElement?.tagName!=='TEXTAREA'){e.preventDefault();ui.view='explorer';render();$('#search').focus()}});
 render();if(!storageOK)toast('Local storage unavailable: export backups to avoid losing changes');
 </script>
-<dialog id="tempSetDialog" class="temp-dialog"><form id="tempSetForm">
- <h2>Create TEMP set</h2><p class="micro">Use the original Japanese set name. You can add cards before English release. Set identifiers remain stable.</p>
- <label for="tempSetName">Japanese set name</label><input id="tempSetName" required maxlength="110" placeholder="e.g. 波動シーカー" autocomplete="off">
- <p class="temp-error" id="tempSetError" role="alert"></p>
- <div class="buttons"><button type="submit" class="primary">Create set</button><button id="cancelTempSet" type="button">Cancel</button></div>
- </form></dialog>
-<dialog id="tempCardDialog" class="temp-dialog"><form id="tempCardForm">
- <h2 id="tempCardHeading">Add TEMP card</h2>
- <p class="micro">Minimum: set and name. Uncertain details can be completed later. Images stay original; English translation appears separately.</p>
- <div class="temp-fields">
- <label>Set<select id="temp-set" required></select></label>
- <label>Card name<input id="temp-name" required maxlength="140" placeholder="English name, provisional name, or Japanese name"></label>
- <label>Original Japanese name<input id="temp-jp" maxlength="140" placeholder="Japanese name (if known)"></label>
- <label>Set card number<input id="temp-number" maxlength="32" placeholder="Optional"></label>
- <label>Category<select id="temp-category"><option>Pokémon</option><option>Trainer</option><option>Energy</option></select></label>
- <label>Stage<select id="temp-stage"><option value="">Unknown</option><option>Basic</option><option>Stage 1</option><option>Stage 2</option></select></label>
- <label>Pokémon type<input id="temp-type" maxlength="36" placeholder="Grass, Fire, etc."></label>
- <label>HP<input id="temp-hp" maxlength="10" inputmode="numeric"></label>
- <label>Evolves from<input id="temp-evolves" maxlength="110"></label>
- <label class="full">Original card image URL<input id="temp-image" type="url" placeholder="https://…"></label>
- <label class="full">Reveal / source URL<input id="temp-source" type="url" placeholder="https://…"></label>
- <label>Status<select id="temp-status"><option value="unverified">Unverified</option><option value="provisional">Provisional translation</option><option value="verified">Verified information</option><option value="official">Official wording</option></select></label>
- <label>Research progress<select id="temp-research"><option value="unreviewed">Unreviewed</option><option value="watch">Watchlist</option><option value="testing">Testing</option><option value="evaluated">Evaluated</option></select></label>
- <label class="full">English translation / mechanics<textarea id="temp-text" rows="5" placeholder="Provisional English translation or playtesting summary. Original artwork remains unchanged."></textarea></label>
- <label class="full">Research notes / potential metagame impact<textarea id="temp-notes" rows="4" placeholder="Potential synergies, testing hypotheses, counters, questions…"></textarea></label>
- </div><p class="temp-error" id="tempCardError" role="alert"></p>
- <div class="buttons"><button type="submit" class="primary">Save card</button><button id="cancelTempCard" type="button">Cancel</button></div>
- </form></dialog>
 </body></html>
