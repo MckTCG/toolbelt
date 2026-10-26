@@ -176,6 +176,11 @@ function applyAuraRevealBatch(db){
  return {added,matched};
 }
 applyAuraRevealBatch(store);
+// Replace only this batch's original hotlinks; keep custom proxy artwork intact.
+for(const row of store.tempCards){
+ const reveal=AURA_REVEALS.find(x=>x.image===row.image&&x.name.toLowerCase()===row.name.toLowerCase());
+ if(reveal)row.image='https://mute-dust-0d50.forcoin99.workers.dev/card-images/m7/'+reveal.number+'.jpg';
+}
 try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){storageOK=false}
 
 for(const row of store.tempSets)if(row&&row.code&&row.name)registerTempSet(row);
