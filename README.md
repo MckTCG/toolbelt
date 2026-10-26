@@ -49,3 +49,7 @@ Edit **`public/index.html`**, commit to `main`, then check the Cloudflare deploy
 Do **not** connect the existing Toolbelt Worker to `prerelease-lab`; that repository is separately deployed.
 
 This project includes only public-facing launcher content, not private deck data or credentials.
+
+### Cloudflare Git deployment trigger
+
+The first GitHub-connected Cloudflare build is initiated by a new commit after linking the repository. This documentation-only commit intentionally starts that build; future edits to `public/index.html` will deploy through the same connection.
