@@ -7,8 +7,9 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [Prerelease Lab](https://prerelease-lab.pages.dev/) — prerelease boxes, free deck editing, transfer to simulator.
 - [TCG Lab Simulator](https://prerelease-lab.pages.dev/simulator.html) — Quick Solo, Full Tabletop, Deck Stats, Deep Lab.
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
+- [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
 
-Additional cards in the launcher (Match Clock, full Deck Builder, Training Lab, Card DB + Release Tracker) are currently roadmap placeholders, not deployed tools.
+The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. Additional cards in the launcher (full Deck Builder, Training Lab, Card DB + Release Tracker) are currently roadmap placeholders, not deployed tools.
 
 ## Deploy to the existing Cloudflare Worker
 
