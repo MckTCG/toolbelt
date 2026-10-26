@@ -85,10 +85,11 @@ function importLibrary(x){
  const old=library;library=[...library,...parsed.map(d=>({...d,id:library.some(x=>x.id===d.id)?uid():d.id}))];if(!persistLibrary()){library=old;return}renderDeck();$('importDialog').close();toast('Saved deck backup imported.');
 }
 function openPrintSheets(){
- let rows=resolvedRows();if($('printScope').value==='temp')rows=rows.filter(r=>r.temp);const copies=rows.flatMap(r=>Array.from({length:r.qty},()=>r));if(!copies.length)return toast('No cards to print for this selection.');if(copies.length>120)return toast('Print a maximum of 120 cards at a time.');
- const win=window.open('','_blank');if(!win)return toast('Allow pop-ups to open the print sheets.');
- const pages=[];for(let i=0;i<copies.length;i+=9)pages.push('<section class="page">'+copies.slice(i,i+9).map(r=>`<div class="card">${imageHTML(r.image,r.name,'',r.imageFallbacks||[])}<span>${esc(r.name)}</span></div>`).join('')+'</section>');
- win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(deck.name)} — proxies</title><style>@page{margin:6mm}*{box-sizing:border-box}body{margin:0;background:#eef1f5;font-family:system-ui}.toolbar{padding:15px;max-width:900px;margin:auto;line-height:1.6}.page{display:grid;grid-template-columns:repeat(3,63mm);grid-auto-rows:88mm;gap:1mm;width:191mm;margin:15px auto;background:white;break-after:page}.page:last-child{break-after:auto}.card{width:63mm;height:88mm;border:.1mm solid #bbb;position:relative;overflow:hidden}.card img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1;background:white}.card span{position:absolute;inset:40% 4px;z-index:0;font-size:11px}button{padding:9px 18px}@media print{body{background:white}.toolbar{display:none}.page{margin:0}}</style></head><body><div class="toolbar"><strong>${esc(deck.name)} · ${copies.length} proxies</strong><br>Print at 100% scale on Letter or A4, with headers and footers disabled. Check images have loaded before printing.<br><button onclick="window.print()">Print sheets</button></div>${pages.join('')}</body></html>`);win.document.close();win.document.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>advanceImage(img)));$('printDialog').close();
+ let rows=resolvedRows();if($('printScope').value==='temp')rows=rows.filter(r=>r.temp);
+ if(!rows.length)return toast('No cards to print for this selection.');
+ const payload=makePayload(deck,rows,location.origin+location.pathname,'print');
+ const url=payloadURL(payload,new URL('./proxy-print.html',location.href).href);
+ window.open(url,'_blank','noopener');$('printDialog').close();
 }
 // UI handlers keep all mutations in this app's draft/library keys.
 $('refreshCatalog').onclick=()=>{visible=60;loadCatalog()};for(const id of ['search','setFilter','categoryFilter','typeFilter','tagFilter'])$(id).addEventListener(id==='search'?'input':'change',()=>{visible=60;renderResults()});

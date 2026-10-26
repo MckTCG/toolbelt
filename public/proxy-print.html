@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TCG Lab — Printable proxies</title><style>
+@page{margin:6mm}*{box-sizing:border-box}body{margin:0;background:#eef1f5;color:#172337;font:14px/1.6 system-ui}.toolbar{padding:18px;max-width:900px;margin:auto}.toolbar h1{font-size:23px;margin:0 0 5px}.toolbar p{margin:4px 0 10px}button,a{padding:9px 18px;border:1px solid #678276;border-radius:8px;background:#ddf7e8;color:#153e2d;text-decoration:none;cursor:pointer;font:inherit}.page{display:grid;grid-template-columns:repeat(3,63mm);grid-auto-rows:88mm;gap:1mm;width:191mm;margin:15px auto;background:white;break-after:page}.page:last-child{break-after:auto}.card{width:63mm;height:88mm;border:.1mm solid #bbb;position:relative;overflow:hidden}.card img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1}.card span{position:absolute;inset:40% 4px;z-index:0;font-size:11px;text-align:center}#error{color:#a52626;white-space:pre-wrap}@media print{body{background:white}.toolbar{display:none}.page{margin:0}}@media screen and (max-width:750px){#sheets{overflow:auto}.page{margin:10px 6px}}
+</style></head><body><header class="toolbar"><h1 id="title">Printable proxies</h1><p id="summary">Preparing sheets…</p><p>Print at <strong>100% scale</strong> on Letter or A4, with headers and footers disabled. Cards are 63 × 88 mm; nine per full sheet.</p><p id="artworkStatus" role="status"></p><button id="print" type="button">Print sheets</button> <a href="./deck-builder.html">← Deck Builder</a><p id="error" role="alert"></p></header><main id="sheets"></main><script type="module">
+import {sanitizePayload,safeURL} from './deck-core.mjs';
+const $=id=>document.getElementById(id);$('print').onclick=()=>window.print();
+try{
+ const match=location.hash.match(/^#import=([^&]+)/);if(!match)throw Error('Open Print proxies from Deck Builder to prepare these sheets.');
+ const text=atob(decodeURIComponent(match[1]).replace(/-/g,'+').replace(/_/g,'/'));
+ const payload=JSON.parse(new TextDecoder().decode(Uint8Array.from(text,c=>c.charCodeAt(0))));sanitizePayload(payload);
+ const cards=payload.cards.flatMap(r=>Array.from({length:r.qty},()=>r));if(cards.length>120)throw Error('Maximum 120 cards per print job.');
+ $('title').textContent=payload.name||'Practice deck';document.title=$('title').textContent+' — proxies';$('summary').textContent=cards.length+' cards · '+Math.ceil(cards.length/9)+' sheets';
+ let loaded=0,failed=0;function status(){$('artworkStatus').textContent=loaded+'/'+cards.length+' images loaded'+(failed?' · '+failed+' unavailable':'')+'. Check the artwork before printing.'}
+ for(let i=0;i<cards.length;i+=9){const page=document.createElement('section');page.className='page';for(const row of cards.slice(i,i+9)){
+  const cell=document.createElement('div');cell.className='card';const label=document.createElement('span');label.textContent=row.name;
+  const img=document.createElement('img');img.alt=row.name;const urls=[row.image,...(row.imageFallbacks||[])].map(safeURL).filter(Boolean);let current=0;
+  img.onload=()=>{loaded++;label.hidden=true;status()};img.onerror=()=>{current++;if(current<urls.length)img.src=urls[current];else{failed++;img.hidden=true;status()}};
+  cell.append(label,img);page.append(cell);if(urls.length)img.src=urls[0];else{failed++;img.hidden=true}
+ }$('sheets').append(page)}status();
+}catch(error){$('error').textContent=error.message;$('summary').textContent='No print sheets available.';$('print').disabled=true}
+</script></body></html>
