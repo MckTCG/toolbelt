@@ -8,7 +8,7 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [TCG Lab Simulator](https://prerelease-lab.pages.dev/simulator.html) — Quick Solo, Full Tabletop, Deck Stats, Deep Lab.
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
 - [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
-- **Proxy Workshop** (`public/proxy-workshop.html`, on the `feature/proxy-workshop` branch) — standalone tabloid quick-print builder with 18 click-to-upload/replace slots, watermark background-opacity slider, and print-to-PDF. **Not yet deployed on `main`.**
+- **Proxy Workshop** (`public/proxy-workshop.html`, on the `feature/proxy-workshop` branch) — standalone Quick Print builder with a paper-size selector: **8.5×11 Letter (9 upright slots, 3×3)** or **11×17 Tabloid (18 sideways slots, 3×6)**. All cards stay at 63×88 mm. Supports click-to-upload/replace, bulk images, copies, watermark background-opacity slider, and print-to-PDF at actual size. Switching format retains slots 10–18 but Letter prints only slots 1–9. **Not yet deployed on `main`.**
 
 The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. The [Card DB v0.1](https://mute-dust-0d50.forcoin99.workers.dev/card-db.html) is now linked and provides manual TEMP-set creation and card intake on a copy of the original Standard Explorer. Automatic reveal ingestion and full Deck Builder integration are not yet implemented. Additional launcher cards (full Deck Builder and Training Lab) remain roadmap placeholders.
 
