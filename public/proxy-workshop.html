@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18-card Proxy Sheet — 11×17</title>
+<style>
+  :root { --wm-bg-opacity: .55; color-scheme: light; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#e8edf1; color:#18232b; }
+  .controls {max-width:960px; margin:16px auto; background:white; border-radius:12px; padding:20px; box-shadow:0 2px 10px #0001;}
+  h1 {font-size:21px;margin:0 0 8px;}
+  p {font-size:13px; line-height:1.5; color:#536170; margin:8px 0}
+  .bar {display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:16px 0 10px;}
+  label {font-size:13px; display:grid;gap:5px;color:#30414f}
+  input[type="number"] {padding:7px; width:76px;}
+  input[type="file"] {font-size:13px;}
+  input[type="range"] {width:175px;accent-color:#255d7e;cursor:pointer;}
+  .opacity-control {min-width:220px;}
+  .opacity-control .range-row {display:flex;align-items:center;gap:8px;}
+  output {min-width:40px;font-variant-numeric:tabular-nums;font-weight:650;}
+  button {border:1px solid #ccd5dc; background:#fff; padding:9px 14px; border-radius:7px; cursor:pointer;font-weight:600;}
+  button.primary {background:#255d7e; border-color:#255d7e; color:white;}
+  .note {background:#f4f8fb; border-radius:7px; padding:10px; margin:10px 0; font-size:12px; color:#485969}
+  .sheet-wrap {overflow:auto;max-width:calc(100vw - 24px); margin:14px auto 35px; padding:12px; width:max-content;}
+  .sheet {width:279.4mm;height:431.8mm;background:white; box-shadow:0 3px 16px #0003;position:relative;}
+  .grid {position:absolute;left:6.7mm;top:24.4mm;display:grid;grid-template-columns:repeat(3, 88mm);grid-template-rows:repeat(6,63mm);column-gap:1mm;row-gap:1mm;}
+  .slot {width:88mm;height:63mm;position:relative; overflow:hidden; outline:0.15mm solid #98a8b3; background:#f5f8fa;cursor:pointer;}
+  .portrait {position:absolute; width:63mm; height:88mm; top:0;left:0;transform-origin:top left;transform:translateX(88mm) rotate(90deg);background:#f5f8fa;}
+  .portrait img {position:absolute;width:63mm;height:88mm;object-fit:fill;left:0;top:0;}
+  .placeholder {position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#b7c3cb; gap:2mm;}
+  .placeholder b {font-size:12mm;}
+  .placeholder span {font-size:2.7mm;letter-spacing:.1mm}
+  .wm {position:absolute;right:2.5mm;bottom:3.5mm;background:rgba(255,255,255,var(--wm-bg-opacity));border:.16mm solid rgba(40,50,60,.55);border-radius:1mm;color:#202b33;font:bold 3.05mm/5.6mm Arial,sans-serif;letter-spacing:.27mm;text-align:center;height:6.2mm;width:21.5mm;}
+  .slot:hover:not(:has(img)) {outline:0.35mm solid #255d7e;}
+  .counter {text-align:right;font-size:12px;color:#536170;}
+  @page {size:11in 17in;margin:0;}
+  @media print {
+    body {margin:0;background:white;}
+    .controls {display:none!important;}
+    .sheet-wrap {margin:0;padding:0;max-width:none;width:auto;overflow:visible;}
+    .sheet {box-shadow:none;width:279.4mm;height:431.8mm;}
+    .slot {outline:.12mm solid #b1b9bf;}
+    .placeholder {display:none;}
+    .portrait:not(:has(img)) {background:white;}
+    .wm {print-color-adjust:exact; -webkit-print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="controls">
+<h1>Pokémon proxy sheet · Tabloid 11×17</h1>
+<p>18 card slots, each <b>63 × 88 mm</b> (rotated to fit). A small <b>PROXY</b> watermark is overlaid automatically on every image. Everything runs locally in your browser; images are not uploaded.</p>
+<div class="bar">
+  <label>Choose card images <input id="files" type="file" accept="image/*" multiple></label>
+  <label>Copies of each image <input id="copies" type="number" min="1" max="18" value="1"></label>
+  <button id="add" class="primary">Add to sheet</button>
+  <label class="opacity-control" for="wmOpacity">Watermark background opacity <span class="range-row"><input id="wmOpacity" type="range" min="0" max="100" step="5" value="55"><output id="wmOpacityValue" for="wmOpacity">55%</output></span></label>
+  <button id="clear">Clear all</button>
+  <button id="print" class="primary">Print / Save PDF</button>
+</div>
+<p>The white background starts at 55% opacity (45% transparent). The PROXY lettering stays fully opaque. Slide to 0% for no white background, or 100% for solid white.</p>
+<div class="counter" id="count">0 / 18 slots filled</div>
+<div class="note">You can also click any card slot to add or replace its image. Print at <strong>100% / Actual size</strong>, set paper to <strong>11×17 (Tabloid)</strong>, <strong>margins none</strong>, <strong>scale 100%</strong>, and disable headers/footers. The print shop should not use “Fit to page.” Images should ideally be in a 63:88 aspect ratio and approximately 744×1039 pixels or larger for 300 dpi.</div>
+</div>
+<div class="sheet-wrap"><div class="sheet"><div class="grid" id="grid"></div></div></div>
+<input id="replace" type="file" accept="image/*" style="display:none"/>
+<script>
+(function(){
+'use strict';
+const grid=document.getElementById('grid');
+const wmOpacity=document.getElementById('wmOpacity');
+const wmOpacityValue=document.getElementById('wmOpacityValue');
+wmOpacity.addEventListener('input',()=>{const amount=Number(wmOpacity.value);document.documentElement.style.setProperty('--wm-bg-opacity',String(amount/100));wmOpacityValue.value=amount+'%';});
+const urls=Array(18).fill(null);
+let replaceIndex=-1;
+function update(){
+ for(let i=0;i<18;i++){
+  let slot=grid.children[i]; const portrait=slot.querySelector('.portrait');
+  let img=portrait.querySelector('img');
+  if(urls[i]){
+    if(!img){ img=document.createElement('img');img.alt='Card '+(i+1);portrait.insertBefore(img,portrait.firstChild); }
+    img.src=urls[i];
+    portrait.querySelector('.placeholder').style.display='none';
+  } else {
+    if(img)img.remove();
+    portrait.querySelector('.placeholder').style.display='flex';
+  }
+ }
+ document.getElementById('count').textContent=urls.filter(Boolean).length+' / 18 slots filled';
+}
+for(let i=0;i<18;i++){
+ const slot=document.createElement('div');slot.className='slot';slot.title='Click to add or replace card '+(i+1);
+ const portrait=document.createElement('div');portrait.className='portrait';
+ portrait.innerHTML='<div class="placeholder"><b>'+String(i+1).padStart(2,'0')+'</b><span>CLICK TO ADD IMAGE</span></div><div class="wm">PROXY</div>';
+ slot.appendChild(portrait);slot.onclick=()=>{replaceIndex=i;document.getElementById('replace').click()};grid.appendChild(slot);
+}
+document.getElementById('replace').addEventListener('change',e=>{
+ const f=e.target.files[0];if(f && replaceIndex>=0){urls[replaceIndex]=URL.createObjectURL(f);update()}e.target.value='';
+});
+document.getElementById('add').addEventListener('click',()=>{
+ const files=[...document.getElementById('files').files];
+ if(!files.length){alert('Choose one or more images first.');return;}
+ const copies=Math.min(18,Math.max(1,parseInt(document.getElementById('copies').value,10)||1));
+ for(const f of files){const imageUrl=URL.createObjectURL(f);for(let c=0;c<copies;c++){const i=urls.findIndex(x=>!x);if(i===-1){update();alert('All 18 slots are filled.');return;}urls[i]=imageUrl;}}
+ update();document.getElementById('files').value='';
+});
+document.getElementById('clear').addEventListener('click',()=>{if(!confirm('Clear all 18 slots?'))return;urls.fill(null);update();});
+document.getElementById('print').addEventListener('click',()=>window.print());
+update();
+})();
+</script>
+</body></html>
