@@ -8,6 +8,7 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [TCG Lab Simulator](https://prerelease-lab.pages.dev/simulator.html) — Quick Solo, Full Tabletop, Deck Stats, Deep Lab.
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
 - [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
+- **Proxy Workshop** (`public/proxy-workshop.html`, on the `feature/proxy-workshop` branch) — standalone tabloid quick-print builder with 18 click-to-upload/replace slots, watermark background-opacity slider, and print-to-PDF. **Not yet deployed on `main`.**
 
 The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. The [Card DB v0.1](https://mute-dust-0d50.forcoin99.workers.dev/card-db.html) is now linked and provides manual TEMP-set creation and card intake on a copy of the original Standard Explorer. Automatic reveal ingestion and full Deck Builder integration are not yet implemented. Additional launcher cards (full Deck Builder and Training Lab) remain roadmap placeholders.
 
@@ -73,3 +74,24 @@ The first GitHub-connected Cloudflare build is initiated by a new commit after l
 - Simulator transfer uses the existing `tcg-lab-deck-v1` UTF-8 URL-fragment contract, carrying stable card/printing IDs, image URLs, English text and Basic/evolution metadata. Quick Solo starts immediately; Full Tabletop opens configuration and can use the imported deck for either player.
 - Deck checks are a practice guide, not a live legality checker. Text exports cannot carry custom images or translation text; use JSON or Simulator transfer for proxies.
 - Run core checks: `node scripts/test-deck-builder.mjs /path/to/simulator.html`. The simulator argument is optional.
+
+
+## Proxy Workshop — Phase 1 (feature branch only)
+
+Source: `public/proxy-workshop.html`. Launcher: `public/index.html`, with a **Proxy Workshop** card linking to `./proxy-workshop.html` so preview deployments can use their own origin.
+
+This is the existing standalone Quick Print v1.1, not the planned Advanced Print workflow. Preserved functions:
+
+- Click any of the 18 slots to choose or replace a card image; or bulk-add images with a single copies-per-image setting.
+- Each card is physically 63 × 88 mm, rotated to fit three columns by six rows on an 11 × 17-inch sheet.
+- Apply the legible PROXY corner label; the white background opacity adjusts from 0% to 100% (default 55%), while lettering stays opaque.
+- Print / Save PDF through the browser print dialog with 11 × 17 paper, 100% scale, zero margins, and no header/footer.
+- Self-contained/offline HTML, no external image requests or server upload.
+
+**Not yet supported**: letter/A4 size selection, individual quantities per card, multiple pages, native PDF export, decklist import, card database search, Pokémon/Trainer/Energy filters, or reusable print queues. These are later phases, deliberately not introduced in Phase 1.
+
+### Testing and release
+
+The original standalone builder was smoke-tested locally with a sample image: 18 slots, bulk upload with three copies, per-slot replacement, background-opacity change, and one 792 × 1224 pt (11 × 17 in) PDF output. Test the feature branch's hosted path after a preview deployment; local tests do not constitute production deployment. The production Worker builds from `main`; nothing on this branch should publish until intentionally merged/deployed.
+
+For physical printing, confirm the shop's printable area and print at 100%/actual size. Print the first sheet and measure it with a ruler before committing to a batch.
