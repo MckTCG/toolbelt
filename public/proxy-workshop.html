@@ -41,7 +41,9 @@
     .sheet-wrap {margin:0;padding:0;max-width:none;width:auto;overflow:visible;}
     .sheet {box-shadow:none;width:279.4mm;height:431.8mm;}
     .slot {outline:.12mm solid #b1b9bf;}
-    .placeholder {display:none;}
+    .placeholder {display:none!important;}
+    .slot:not(:has(img)) {outline:0; background:white;}
+    .slot:not(:has(img)) .wm {display:none;}
     .portrait:not(:has(img)) {background:white;}
     .wm {print-color-adjust:exact; -webkit-print-color-adjust:exact;}
   }
