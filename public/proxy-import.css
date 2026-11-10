@@ -1,0 +1,44 @@
+/* Phase 2 is progressive: Quick Print remains the default when the importer is closed. */
+#proxyImporter[hidden],.proxy-hidden{display:none!important}
+#proxyImporter{margin:16px 0 2px;padding:16px;border:1px solid #bed0dc;background:#f8fbff;border-radius:12px;max-height:min(78vh,900px);overflow:auto}
+#proxyImporter .pi-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#proxyImporter h2{font-size:18px;margin:0;color:#173247}
+#proxyImporter h3{font-size:15px;margin:14px 0 9px}
+#proxyImporter .pi-tabs{display:flex;gap:6px;margin:14px 0;flex-wrap:wrap}
+#proxyImporter button[aria-selected="true"]{background:#255d7e;color:#fff;border-color:#255d7e}
+#proxyImporter .pi-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-bottom:12px}
+#proxyImporter .pi-toolbar label{flex:1 1 145px;max-width:330px}
+#proxyImporter input[type="search"],#proxyImporter input[type="text"],#proxyImporter textarea,#proxyImporter select{border:1px solid #b9c9d5;border-radius:7px;padding:8px;width:100%;background:white;color:#142e40;font-size:13px}
+#proxyImporter .pi-toolbar label:first-child{flex:2 1 230px}
+#proxyImporter input[type="number"]{width:66px;padding:6px}
+#proxyImporter .pi-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:11px}
+#proxyImporter .pi-card{background:white;border:1px solid #d1dde6;border-radius:10px;padding:10px;min-width:0}
+#proxyImporter .pi-card img{display:block;object-fit:contain;height:190px;width:100%;background:#e9eff5;border-radius:6px}
+#proxyImporter .pi-card strong{display:block;margin:8px 0 4px;font-size:13px;overflow-wrap:anywhere}
+#proxyImporter .pi-sub{font-size:11px;color:#516374;line-height:1.45}
+#proxyImporter .pi-card select{margin-top:8px}
+#proxyImporter .pi-card .pi-add{display:flex;gap:5px;align-items:center;margin-top:8px}
+#proxyImporter .pi-card .pi-add button{flex:1}
+#proxyImporter .pi-card .pi-add input{flex:0 0 55px}
+#proxyImporter .pi-quick{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}
+#proxyImporter .pi-quick button{padding:4px 7px;font-size:11px}
+#proxyImporter .pi-status{font-size:12px;color:#486277;margin:8px 0;white-space:pre-wrap}
+#proxyImporter .pi-status[role="alert"]{color:#a32c28;font-weight:650}
+#proxyImporter .pi-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #dce5ed;flex-wrap:wrap}
+#proxyImporter .pi-row img{height:74px;width:53px;object-fit:contain;background:#e3eaf0;flex:0 0 53px}
+#proxyImporter .pi-row-main{flex:2 1 180px;min-width:130px}
+#proxyImporter .pi-row-main strong{display:block;font-size:13px}
+#proxyImporter .pi-row-main select{margin-top:5px;max-width:310px}
+#proxyImporter .pi-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+#proxyImporter .pi-actions button{padding:6px 10px;font-size:12px}
+#proxyImporter .pi-row input[type="checkbox"]{width:auto;accent-color:#255d7e}
+#proxyImporter textarea{min-height:95px;resize:vertical}
+#proxyImporter .pi-deck-import{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#proxyImporter .pi-deck-import>*{min-width:0}
+#proxyImporter .pi-deck-import button{margin-top:7px}
+#proxyImporter .pi-limit{max-width:550px}
+#proxyImporter .pi-footer{position:sticky;bottom:-16px;background:#f8fbff;padding:12px 0 0;border-top:1px solid #dae5ec;margin-top:10px}
+#proxyImporter .pi-footer button.primary{min-width:180px}
+@media(max-width:650px){#proxyImporter{padding:10px;max-height:none}#proxyImporter .pi-deck-import{grid-template-columns:1fr}#proxyImporter .pi-results{grid-template-columns:repeat(2,minmax(0,1fr))}#proxyImporter .pi-card img{height:155px}#proxyImporter .pi-header{align-items:flex-start}}
+@media(max-width:400px){#proxyImporter .pi-results{grid-template-columns:1fr}#proxyImporter .pi-card img{height:195px}}
+@media print{#proxyImporter,#openImporter{display:none!important}}

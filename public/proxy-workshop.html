@@ -105,6 +105,7 @@ const wmOpacity=document.getElementById('wmOpacity');
 const wmOpacityValue=document.getElementById('wmOpacityValue');
 // A flat, indexed queue: changing the paper size repaginates rather than hiding cards.
 const slots=[];
+const sourceMetadata=new Map();
 const capacity=()=>paperSize.value==='letter'?9:18;
 const printWidth=()=>overlaySize.value==='overlay'?62:63;
 const printHeight=()=>overlaySize.value==='overlay'?87:88;
@@ -204,6 +205,7 @@ function render(){
  }
  const total=slots.filter(Boolean).length;
  document.getElementById('count').textContent=total+' cards · '+count+' '+(count===1?'sheet':'sheets')+' · '+n+' slots per sheet';
+ window.dispatchEvent(new Event('proxy-queue-change'));
 }
 wmOpacity.addEventListener('input',()=>{
  const opacity=Number(wmOpacity.value);
@@ -236,10 +238,56 @@ document.getElementById('clear').addEventListener('click',()=>{
  if(!confirm('Clear all sheets?'))return;
  const urls=[...new Set(slots.filter(Boolean))];slots.length=0;urls.forEach(u=>{if(u.startsWith('blob:'))URL.revokeObjectURL(u)});render();
 });
-document.getElementById('print').addEventListener('click',()=>window.print());
+document.getElementById('print').addEventListener('click',async()=>{
+ const images=[...pages.querySelectorAll('.slot img')];
+ const status=await Promise.all(images.map(img=>img.decode().then(()=>true,()=>false)));
+ if(status.some(ok=>!ok)){alert('Some card images are unavailable or still loading. Resolve the artwork before printing.');return}
+ window.print();
+});
+// Minimal bridge for native imports; Quick Print keeps its original slots and behaviour.
+function grouped(){
+ const groups=new Map();
+ for(const url of slots){if(!url)continue;const item=groups.get(url);if(item)item.qty++;else groups.set(url,{url,qty:1,...(sourceMetadata.get(url)||{name:'Uploaded artwork',source:'upload'})});}
+ return [...groups.values()];
+}
+function setQuantity(url,n){
+ n=Number(n);if(!Number.isInteger(n)||n<0||n>999)throw Error('Quantity must be a whole number between 0 and 999.');
+ const indexes=[];for(let i=0;i<slots.length;i++)if(slots[i]===url)indexes.push(i);
+ if(!indexes.length)return;
+ const first=indexes[0];slots.splice(0,slots.length,...slots.filter(x=>x!==url));
+ if(n)slots.splice(Math.min(first,slots.length),0,...Array(n).fill(url));
+ else{sourceMetadata.delete(url);clearUnusedObjectUrl(url)}
+ render();
+}
+function addEntries(entries){
+ for(const entry of entries){
+  if(!entry?.url||!/^https?:\/\//i.test(entry.url))throw Error('Cannot queue a card without accessible artwork.');
+  const qty=Math.max(1,Math.min(999,Number(entry.qty)||1));
+  sourceMetadata.set(entry.url,{name:entry.name||'Card',source:entry.source||'database',printingId:entry.printingId||'',entityId:entry.entityId||'',fallbacks:entry.fallbacks||[]});
+  for(let i=0;i<qty;i++)placeImage(entry.url);
+ }
+ render();
+}
+function replaceGroup(url,entry){
+ if(!entry?.url||!/^https?:\/\//i.test(entry.url))throw Error('No artwork for this printing.');
+ for(let i=0;i<slots.length;i++)if(slots[i]===url)slots[i]=entry.url;
+ sourceMetadata.set(entry.url,{name:entry.name||'Card',source:entry.source||'database',printingId:entry.printingId||'',entityId:entry.entityId||'',fallbacks:entry.fallbacks||[]});
+ if(!slots.includes(url)){sourceMetadata.delete(url);clearUnusedObjectUrl(url)}
+ render();
+}
+function moveGroup(url,dir){
+ const all=grouped(),index=all.findIndex(g=>g.url===url),other=index+dir;
+ if(index<0||other<0||other>=all.length)return;
+ [all[index],all[other]]=[all[other],all[index]];
+ slots.splice(0,slots.length,...all.flatMap(g=>Array(g.qty).fill(g.url)));
+ render();
+}
+window.__proxyQueue={groups:grouped,addEntries,setQuantity,replaceGroup,moveGroup,
+ remove:url=>setQuantity(url,0),capacity,diagnostics:()=>({cards:slots.filter(Boolean).length,pages:numPages()})};
 setAppearance();
 // Exposed only to facilitate offline regression testing; no network calls.
 window.__proxyDiagnostics=()=>({cards:slots.filter(Boolean).length,pages:numPages(),capacity:capacity(),format:paperSize.value,overlay:overlaySize.value,cutGuides:cutGuides.checked});
 })();
 </script>
+<script type="module" src="./proxy-import.mjs"></script>
 </body></html>

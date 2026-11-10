@@ -117,3 +117,18 @@ English **Delta Reign (DLR)**, released 6 November 2026, is now an ordinary set 
 - English DLR entries do **not** require the user to visit an importer or write to browser localStorage; the published set is part of the master catalogue for every visitor after deployment.
 - Source extraction and basic structure/asset checks passed. End-to-end browser-level printing and live Cloudflare deployment remain separate verification steps. Proxy Workshop Phase 2 remains unchanged.
 
+
+
+## Proxy Workshop — Phase 2 native import (feature branch)
+
+Proxy Workshop extends existing Quick Print without changing the primary workflow. **Import cards / decks** is an optional, collapsible panel; manual image upload and browser Print / Save PDF work as before, including offline when the separate JavaScript module or Card DB is unavailable.
+
+- Search the existing Standard + browser-local TEMP catalogue by name, set, category, Pokémon type and subtype; select exact set/printing and quantities (including 1–4 quick-add).
+- Select saved Deck Builder decks from the shared browser origin, or preview Deck Builder JSON, deck backups and text decklists. Choose a scope (entire deck, Pokémon, Trainers, Energy or checked cards) and change printings and quantities before adding to sheets. Source decks are never modified.
+- All sources feed into the **existing** multi-page Letter/Tabloid queue; adjust group quantities, remove cards, move groups, or change an exact printing. No second master catalogue or new browser storage keys are introduced.
+- Artwork loads from the verified same-origin image manifest where available, with existing source URLs and conservative fallback candidates. Missing art is reported rather than silently substituted, and printing is blocked if an image cannot decode.
+- Card browsing needs the hosted Card DB HTML, Deck Core module, manifest and new importer module; a downloaded single HTML file remains a **manual Quick Print-only** offline tool, not an offline copy of the whole Standard dataset.
+
+**QA:** Node regression and Deck Builder tests; browser-level (Chromium/Playwright) test for Quick Print, native importing and PDF generation. See the project workflow file. Never promote without actual test results and a production print smoke test.
+
+See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
