@@ -107,6 +107,15 @@ For physical printing, confirm the shop's printable area and print at 100%/actua
 Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
 
 
+## Locally hosted Delta Reign artwork (November 2026)
+
+- **107 of 113 M6 printings** are stored under `public/assets/card-art/TMPDELTAREIGN/` with SHA-256 hashes, dimensions, provenance and exact printing IDs in `public/data/card-art-manifest.json`.
+- 104 source images are from the official Japanese card host, discovered using number-matched catalogue records. Three Special Energy printings (#104–106) use inspected Japanese catalogue scans. These are **Japanese-language printings**, not English translations.
+- Six paired Stadium printings (#071–076) remain explicitly `missing`. Do not substitute a partial or low-resolution thumbnail for printing.
+- `public/card-art-resolver.mjs` resolves only `verified` entries to same-origin absolute URLs; Deck Builder prefers these without altering any browser-local Card DB records. Other sources still use existing legacy paths.
+- Staging and promotion pipelines are documented in `docs/card-art-local-library.md`; the report and original candidates remain on the dedicated staging branch.
+- The image list is not a second card DB. Browser print-to-PDF and deploy behavior still require separate end-to-end verification. Preserve original card name, number and variant identity when updating assets.
+
 ## Delta Reign artwork audit and repair (November 2026)
 
 - Browser audit: `public/delta-reign-artwork-audit.html` (open from the Delta Reign importer, on the same Worker origin as Card DB).
