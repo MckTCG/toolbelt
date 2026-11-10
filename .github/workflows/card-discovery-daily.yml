@@ -1,8 +1,8 @@
-name: Daily Card Reveal Discovery (staging only)
+name: Card Reveal Discovery + TEMP Recheck (staging only)
 on:
-  # 08:15 UTC = 04:15 Santo Domingo; existing 03:55 reminder remains independent
+  # Every 4 hours; the user's existing 03:55 reminder is unchanged.
   schedule:
-    - cron: '15 8 * * *'
+    - cron: '15 */4 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,7 +29,10 @@ jobs:
           git show origin/automation/card-discovery-feed:public/data/card-discoveries-v1.json > /tmp/card-discoveries-prior.json || true
       - name: Discover new cards (no gameplay DB modifications)
         run: |
-          python3 scripts/discover-card-reveals.py --max-articles 12 --max-proxies 50 \
+          EXTRA=""
+          if [ "$(date -u +%H)" = "08" ]; then EXTRA="--recheck-older"; fi
+          python3 scripts/discover-card-reveals.py --max-articles 8 --max-proxies 30 \
+            --recheck-budget 8 $EXTRA \
             --prior /tmp/card-discoveries-prior.json --out /tmp/card-discoveries-v1.json
       - name: Enforce unverified staging and deduplication
         run: node scripts/verify-card-discovery-feed.mjs /tmp/card-discoveries-v1.json
