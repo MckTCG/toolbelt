@@ -107,35 +107,11 @@ For physical printing, confirm the shop's printable area and print at 100%/actua
 Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
 
 
-## Locally hosted Delta Reign artwork (November 2026)
+## Delta Reign (English DLR) — pending master catalogue import
 
-- **107 of 113 M6 printings** are stored under `public/assets/card-art/TMPDELTAREIGN/` with SHA-256 hashes, dimensions, provenance and exact printing IDs in `public/data/card-art-manifest.json`.
-- 104 source images are from the official Japanese card host, discovered using number-matched catalogue records. Three Special Energy printings (#104–106) use inspected Japanese catalogue scans. These are **Japanese-language printings**, not English translations.
-- Six paired Stadium printings (#071–076) remain explicitly `missing`. Do not substitute a partial or low-resolution thumbnail for printing.
-- `public/card-art-resolver.mjs` resolves only `verified` entries to same-origin absolute URLs; Deck Builder prefers these without altering any browser-local Card DB records. Other sources still use existing legacy paths.
-- Staging and promotion pipelines are documented in `docs/card-art-local-library.md`; the report and original candidates remain on the dedicated staging branch.
-- The image list is not a second card DB. Browser print-to-PDF and deploy behavior still require separate end-to-end verification. Preserve original card name, number and variant identity when updating assets.
+The earlier Japanese M6 / Storm Emeralda provisional seed, browser importer, artwork audit, and hosted M6 image files have been removed from the active Toolbelt source. **No English DLR records have been imported yet.**
 
-## Delta Reign artwork audit and repair (November 2026)
+Planned source hierarchy: Limitless TCG for English printing IDs, set numbering, card text and artwork; official Pokémon TCG publications for validation; independent set checklists for reconciliation. Verify sources, licensing and images before bundling. Integrate the published English DLR set into the existing master Card DB, not a new TEMP seed or separate catalogue.
 
-- Browser audit: `public/delta-reign-artwork-audit.html` (open from the Delta Reign importer, on the same Worker origin as Card DB).
-- Tests all 113 primary artwork URLs using browser image loading; only tests the corresponding Japanese art URL when the primary fails. Client-side checks may vary with connectivity and remote image hosting.
-- The repair button is enabled only when an installed TEMP card still uses the original seeded primary URL **and** the distinct Japanese image has loaded successfully in the browser. Every change is preceded by a complete browser-local Card DB JSON backup. Tags, other TEMP records and saved decks are untouched; the repair does not create duplicates.
-- The Japanese fallback is **not** a translated image, and successful loading is **not** verification of the correct print or art. Manual visual checks remain required. Cases without a working alternate are reported for further research, never silently substituted.
-- The seed stays a historical provisional dataset; the repair affects only the current browser's `tcg-lab-card-db-v0.1` storage. Export/import a Card DB backup to move the repaired records to another browser.
+Preserve unrelated browser-local TEMP records, tags, and saved decks. Historical M6 records already imported into a user's browser may still exist in its local storage and require a separate, reviewed migration/removal; this repository cleanup does not silently delete them.
 
-## Delta Reign provisional TEMP migration (November 2026)
-
-A reviewed, deterministic 113-card M6 provisional seed is included at `public/data/delta-reign-temp-seed.json`.
-The browser-local one-time importer is `public/delta-reign-import.html`, accessible under the same Worker origin as Card DB and Deck Builder.
-
-- Source: `MckTCG/prerelease-lab`, embedded `Delta Reign` data: 76 base M6 printings (001–076) plus 37 alternate printings (077–113). All 113 have preliminary text summaries, provisional English image URLs and source provenance. None is represented as official English wording.
-- The 22 supplementary prerelease-deck cards are **not imported**, because their names already match records in the Card DB's catalog. Exact artwork selection is still the user's responsibility.
-- The importer reads/writes the existing browser-local `tcg-lab-card-db-v0.1` TEMP set/card schema, preserving the existing `tags`, `rejected`, unrelated `tempSets`, and unrelated `tempCards` fields. It downloads a pre-import backup, chooses an existing Delta Reign TEMP collection when present, and uses stable IDs plus set-number/name matching to avoid repeat duplicates.
-- If Card DB has never been opened, the importer initializes its store from `card-db.html`'s existing `reviewed_seed`, rather than losing existing baseline tags.
-- After importing, refresh `/card-db.html` or `/deck-builder.html` to see Delta Reign under TEMP. The migration is **per browser**: another device needs the importer or a normal Card DB TEMP backup/restore.
-- **Other TEMP cards** already belong to the TEMP collection; no unrelated card is moved, deleted, reclassified or overwritten. An unrecognized orphan is left untouched rather than guessing where it belongs.
-- No simulator code is changed. No new card database is created; this populates Card DB's existing TEMP fields.
-- Unverified artwork links can fail or lead to nonprintable scans. Confirm loaded images and printed artwork manually before use.
-
-Integrity validation: 113 unique IDs, complete M6 number sequence, valid TEMP IDs/set code and image URL format, second-run idempotency, and preservation of unrelated TEMP cards and tags. These are data-structure tests, not proof of live image availability or completed browser-device migration.
