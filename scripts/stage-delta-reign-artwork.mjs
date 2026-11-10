@@ -48,8 +48,11 @@ async function load(url){
   return {bytes,image};
  }finally{clearTimeout(timer)}
 }
-const rows=[];
-for(const [i,card] of seed.cards.entries()){
+const rows=new Array(seed.cards.length);
+let next=0;
+async function worker(){
+ while(next<seed.cards.length){
+ const i=next++,card=seed.cards[i];
  const number=String(i+1).padStart(3,'0');
  if(!card.id.endsWith(number)||Number(card.number.split('/')[0])!==i+1)throw Error('Seed order mismatch at '+number);
  const candidates=[...new Set([card.image,card.imageJP].filter(Boolean))];
@@ -64,9 +67,11 @@ for(const [i,card] of seed.cards.entries()){
    attempts.push({url,status:'staged'});break;
   }catch(e){attempts.push({url,status:'failed',error:String(e.message).slice(0,180)})}
  }
- rows.push({entityId:card.id,printingId:card.id+':printing',name:card.name,setCode:card.setCode,number:card.number,status:selected?'needs-visual-review':'missing',asset:selected,attempts});
+ rows[i]={entityId:card.id,printingId:card.id+':printing',name:card.name,setCode:card.setCode,number:card.number,status:selected?'needs-visual-review':'missing',asset:selected,attempts};
  process.stdout.write('['+(i+1)+'/113] '+card.name+' '+(selected?'staged':'missing')+'\n');
+ }
 }
+await Promise.all(Array.from({length:8},()=>worker()));
 const manifest={schema:'tcg-lab-card-art-staging-v1',generatedAt:new Date().toISOString(),setCode:seed.set.code,verifiedCount:0,stagedCount:rows.filter(r=>r.asset).length,missingCount:rows.filter(r=>!r.asset).length,rows};
 await fs.writeFile(path.join(output,'staging-report.json'),JSON.stringify(manifest,null,2));
 const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
