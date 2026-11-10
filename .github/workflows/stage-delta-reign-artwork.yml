@@ -2,7 +2,7 @@ name: Stage Delta Reign artwork candidates
 on:
   push:
     branches:
-      - feature/local-card-artwork-library-20261109
+      - main
     paths:
       - scripts/stage-delta-reign-artwork.mjs
       - .github/workflows/stage-delta-reign-artwork.yml
