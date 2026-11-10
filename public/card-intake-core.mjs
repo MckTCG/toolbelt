@@ -73,15 +73,22 @@ export function normalizeCandidate(input={}) {
   return record;
 }
 export function mechanicsSignature(c) {
-  // Strict identity: only normalizes spacing/case. Does not infer card text equivalence or errata.
+  // Strict mechanical identity, with structured attack/Ability arrays used only
+  // when legacy summary columns were not supplied. Never infer errata equivalence.
+  const ab=Array.isArray(c.abilities)?c.abilities:[],at=Array.isArray(c.attacks)?c.attacks:[],rules=Array.isArray(c.rules)?c.rules:[];
+  const summary=(value,items,transform)=>comparable(value || items.map(transform).join(' | '));
   return JSON.stringify([
     comparable(c.name),comparable(c.category||c.card_type),comparable(c.stage),
     comparable(c.pokemon_types),comparable(c.hp),comparable(c.evolves_from),
     comparable(c.combined_text),comparable(c.weakness),comparable(c.resistance),
     comparable(c.retreat_cost),
-    comparable(c.ability_names),comparable(c.ability_effects),comparable(c.attack_names),
-    comparable(c.attack_costs),comparable(c.attack_damage),comparable(c.attack_effects),
-    comparable(c.rules_text)
+    summary(c.ability_names,ab,a=>a.name),
+    summary(c.ability_effects,ab,a=>a.text),
+    summary(c.attack_names,at,a=>a.name),
+    summary(c.attack_costs,at,a=>Array.isArray(a.cost)?a.cost.join(' '):''),
+    summary(c.attack_damage,at,a=>a.damage),
+    summary(c.attack_effects,at,a=>a.text),
+    comparable(c.rules_text||rules.join('\n'))
   ]);
 }
 function partialSimilarity(a,b) {
