@@ -371,7 +371,7 @@ def main():
     master=json.loads(match.group(1))
     catalog_keys={(p["set_code"].upper(),str(p["card_number"]).lstrip("0")) for e in master["entities"] for p in e.get("printings",[])}
     prior={}
-    if args.prior and pathlib.Path(args.prior).exists():
+    if args.prior and pathlib.Path(args.prior).is_file() and pathlib.Path(args.prior).stat().st_size>0:
         prior=json.loads(pathlib.Path(args.prior).read_text("utf8"))
         if prior.get("schema")!=SCHEMA:raise ValueError("Unsupported prior feed format")
     candidates=[];errors=[];stats={}
@@ -380,6 +380,7 @@ def main():
         articles=parse_feed(feed)[:args.max_articles]
         stats["rss_articles"]=len(articles)
         for index,article in enumerate(articles):
+            if not args.fixture_dir and index:__import__("time").sleep(0.8)
             try:
                 slug=article["url"].split("/")[-1]
                 page=read_fixture("pokebeach-"+slug+".html",(article["url"],{"www.pokebeach.com","pokebeach.com"}))
