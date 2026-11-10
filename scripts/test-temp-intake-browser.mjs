@@ -26,8 +26,9 @@ const jpOnly={
   review_note:'Japanese card without translated text; independent source not yet verified.',
   status:'provisional',source_verified:false,artwork_verified:false
 };
-const context=await chromium.launch({headless:true});
-const page=await context.newPage({viewport:{width:1260,height:900}});
+const browser=await chromium.launch({headless:true});
+const context=await browser.newContext({viewport:{width:1260,height:900}});
+const page=await context.newPage();
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 page.on('dialog',d=>d.accept());
 const svg='<svg xmlns="http://www.w3.org/2000/svg" width="460" height="640"><rect width="460" height="640" fill="#aaccdd"/><text x="40" y="80" font-size="40">JP only</text></svg>';
@@ -69,7 +70,7 @@ try{
  await page.locator('#approveCard').click();
  assert((await page.locator('#feedback').textContent()).includes('Cannot approve'),'Unverified JP card bypassed Master approval gate');
  const simHash='#add='+encodeURIComponent(JSON.stringify({entityId:row.id,printingId:row.id+':printing'}));
- const builder=await page.context().newPage(); // same-origin TEMP storage must be shared
+ const builder=await context.newPage(); // same-origin TEMP storage must be shared
  await builder.goto(base+'/deck-builder.html'+simHash,{waitUntil:'domcontentloaded'});
  await builder.waitForFunction(()=>{
    const raw=localStorage.getItem('tcg-lab-deck-builder-draft-v1');
@@ -106,4 +107,4 @@ try{
  assert.equal((await page.locator('#tempStatus').textContent()).includes('Translation unofficial'),true);
  assert.deepEqual(errors,[],'Browser errors: '+errors.join('; '));
  console.log('PASS JP TEMP browser: no-English acceptance, shared storage, instant Deck Builder availability, Master approval gate, update preview before explicit revision, no duplicate IDs.');
-}finally{await context.close();await new Promise(resolve=>server.close(resolve))}
+}finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
