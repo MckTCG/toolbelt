@@ -8,6 +8,7 @@ on:
       - public/card-intake*.mjs
       - public/card-intake.html
       - .github/workflows/card-discovery-qa.yml
+      - .github/workflows/card-discovery-daily.yml
   pull_request:
     paths:
       - scripts/discover-card-reveals.py
@@ -15,6 +16,7 @@ on:
       - public/card-intake*.mjs
       - public/card-intake.html
       - .github/workflows/card-discovery-qa.yml
+      - .github/workflows/card-discovery-daily.yml
   workflow_dispatch:
 permissions:
   contents: read
