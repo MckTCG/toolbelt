@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-const pages=['https://limitlesstcg.com/cards/en/DLR/2','https://limitlesstcg.com/cards/en/DLR/84','https://limitlesstcg.com/cards/en/DLR/141'];
+const pages=['https://limitlesstcg.com/cards/en/DLR/2','https://limitlesstcg.com/cards/en/DLR/84','https://limitlesstcg.com/cards/en/DLR/141','https://limitlesstcg.com/cards/en/DLR/90','https://limitlesstcg.com/cards/en/DLR/94','https://limitlesstcg.com/cards/en/DLR/132'];
 const report=[];
 for(const url of pages){
  try{
