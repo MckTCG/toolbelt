@@ -50,5 +50,14 @@ try {
   await page.reload({waitUntil:'domcontentloaded'});
   assert.equal(await page.locator('.candidate').count(),2,'Intake candidates lost on reload');
   assert.deepEqual(errs,[], 'Browser errors: '+errs.join('; '));
+  // Independent deployed Phase 1 check: exercise the real Worker, not just an HTML fetch.
+  const live=await browser.newPage();
+  try{
+    await live.goto('https://mute-dust-0d50.forcoin99.workers.dev/card-intake.html',{waitUntil:'domcontentloaded',timeout:30000});
+    await live.waitForFunction(()=>document.querySelector('#catalogStatus')?.textContent.includes('gameplay records'),{timeout:30000});
+    const status=await live.locator('#catalogStatus').textContent();
+    assert(status.includes('2,143')&&status.includes('3,486'),'Deployed Card Intake did not load the authoritative Master DB: '+status);
+    console.log('PASS: live Cloudflare Card Intake connected to Master DB: '+status);
+  }finally{await live.close()}
   console.log('PASS: browser loaded two reveals from one article, forced provisional review, deduped on recheck, persisted safely, preserved existing Card DB browser tags.');
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
