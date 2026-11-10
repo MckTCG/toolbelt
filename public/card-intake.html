@@ -119,14 +119,17 @@
 <div id="diagnostic" role="status">No candidate selected.</div>
 <section class="temp-accept" aria-label="Pre-release TEMP acceptance">
 <h3>Use now · TEMP</h3>
-<p class="hint">A Japanese-only image is enough for a proxy; a name and category are enough for a Manual Simulator card. Neither requires official English text, a set code, or a release date. TEMP records remain provisional and are stored locally in this browser.</p>
+<p class="hint">Japanese-only cards are usable immediately for manual play or proxies. First acceptance makes a local playtest draft; **sharing across devices requires publishing the reviewed TEMP proposal to the central catalogue**. English Master approval remains separate.</p>
 <label>Destination TEMP set
 <select id="tempDestination" aria-label="TEMP destination set"><option value="">Auto: match or create from set name</option></select></label>
 <div class="actions">
-<button id="acceptTemp" type="button">Accept to TEMP</button>
+<button id="acceptTemp" type="button">Accept TEMP draft</button>
+<button id="exportCentralTemp" type="button">Export central TEMP proposal</button>
 <button id="addTempDeck" type="button" disabled>Add to Deck Builder</button>
 <button id="openTempProxy" type="button" disabled>Open Proxy Workshop</button>
 </div>
+<p class="hint">Local acceptance lets you test cards now. Central publication is a separate reviewed GitHub change; this browser cannot write to the shared catalogue without authentication.</p>
+<div id="centralTempStatus" class="hint" role="status">Loading shared TEMP catalogue…</div>
 <div id="tempStatus" role="status"></div>
 <div id="tempReviewChanges" role="status"></div>
 <button id="loadTempSuggestion" type="button" hidden>Review latest suggested fields</button>
@@ -136,7 +139,7 @@
 <div id="feedback" role="status"></div>
 </section>
 </div>
-<p class="hint">TEMP acceptance is local and playable immediately through the existing Deck Builder/Manual Simulator and Proxy Workshop. Official Master publication still requires review. Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
+<p class="hint">TEMP drafts are playable immediately. Only a reviewed publication to the central TEMP catalogue makes them available on every device; official Master DB publication requires additional verification. Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
 </main>
 
 <dialog id="cardLoupe" class="card-loupe" aria-modal="true" aria-labelledby="cardLoupeTitle">
