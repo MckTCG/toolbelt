@@ -2,10 +2,15 @@ import {
   INTAKE_SCHEMA,MAX_INTAKE_CARDS,safeHTTPS,parseCardURL,normalizeCandidate,
   classifyCandidate,completeness,importBatch,exportBatch,readCSV,intakeIdentity,importDiscoveryFeed
 } from './card-intake-core.mjs';
+import {setupCardLoupe} from './card-intake-loupe.mjs';
 
 const STORAGE_KEY='tcg-lab-card-intake-v1';
 const $=id=>document.getElementById(id);
 const form=$('cardForm');
+const loupe=setupCardLoupe();
+$('previewSelected').addEventListener('click',()=>{
+  loupe.open({name:getElement('name').value,image_url:getElement('image_url').value});
+});
 let queue=[],selected=-1,catalog=null;
 function notice(message,kind=''){const el=$('feedback');el.textContent=message;el.className=kind}
 function saveLocal(){
@@ -50,6 +55,7 @@ function fill(c){
   getElement('abilities_json').value=raw.abilities?.length?JSON.stringify(raw.abilities,null,2):'';
   form.querySelectorAll('input,select,textarea,button').forEach(el=>{el.disabled=!c});
   $('formTitle').textContent=c?(c.name||'New card candidate'):'Select a candidate';
+  $('previewSelected').hidden=!safeHTTPS(raw.image_url);
   check();
 }
 function check(){
@@ -90,7 +96,20 @@ function renderQueue(){
     const text=document.createElement('span');text.style.flex='1';text.textContent=c.name||'(Unidentified reveal)';
     const sub=document.createElement('small');sub.textContent=[c.set_code,c.card_number?'#'+c.card_number:'',c.language].filter(Boolean).join(' · ');text.appendChild(sub);
     const badge=document.createElement('span');badge.className='pill';badge.textContent=c.status;
-    btn.append(image,text,badge);btn.addEventListener('click',()=>{selected=c._index;fill(queue[selected]);renderQueue()});box.appendChild(btn);
+    btn.append(image,text,badge);
+    btn.addEventListener('click',()=>{selected=c._index;fill(queue[selected]);renderQueue()});
+    const wrap=document.createElement('div');
+    wrap.className='candidate-wrap';
+    wrap.append(btn);
+    if(safeHTTPS(c.image_url)){
+      const magnify=document.createElement('button');
+      magnify.type='button';magnify.className='candidate-loupe-trigger';
+      magnify.setAttribute('aria-label','Enlarge '+(c.name||'card')+' artwork');
+      magnify.title='Enlarge card artwork';
+      magnify.addEventListener('click',()=>loupe.open(c));
+      wrap.append(magnify);
+    }
+    box.append(wrap);
   }
   if(!candidates.length){const empty=document.createElement('p');empty.className='empty';empty.textContent=queue.length?'No matches for this filter.':'No cards staged yet. Add a reveal URL to begin.';box.appendChild(empty)}
   $('queueCount').textContent=queue.length+' staged · '+queue.filter(x=>x.status==='approved').length+' approved';
@@ -192,6 +211,9 @@ $('exportApproved').addEventListener('click',()=>{
 });
 for(const id of ['filter','statusFilter'])$(id).addEventListener(id==='filter'?'input':'change',renderQueue);
 form.addEventListener('input',check);form.addEventListener('change',check);
+getElement('image_url').addEventListener('input',()=>{
+  $('previewSelected').hidden=!safeHTTPS(getElement('image_url').value);
+});
 queue=restoreLocal();showSelected();
 (async()=>{
   try{
