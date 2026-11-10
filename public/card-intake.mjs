@@ -217,7 +217,8 @@ $('loadDiscoveries').addEventListener('click',async()=>{
     const payload=JSON.parse(raw);
     const cards=importDiscoveryFeed(payload);
     const results=mergeImported(cards);
-    pendingTempUpdates=tempCandidateUpdates(readTempStore(),cards);
+    try{pendingTempUpdates=tempCandidateUpdates(readTempStore(),cards)}
+    catch(error){pendingTempUpdates=[];notice('Discoveries loaded, but existing TEMP storage could not be compared: '+error.message,'warn')}
     refreshTempStatus();
     $('discoveryStatus').textContent='Discovery feed '+(payload.generated_at||'unknown update')+
       ' · '+cards.length+' reviewed-source candidates available · '+results.added+' newly staged · '+results.skipped+' already present.'+
