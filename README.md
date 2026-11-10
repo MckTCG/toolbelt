@@ -107,6 +107,14 @@ For physical printing, confirm the shop's printable area and print at 100%/actua
 Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
 
 
+## Delta Reign artwork audit and repair (November 2026)
+
+- Browser audit: `public/delta-reign-artwork-audit.html` (open from the Delta Reign importer, on the same Worker origin as Card DB).
+- Tests all 113 primary artwork URLs using browser image loading; only tests the corresponding Japanese art URL when the primary fails. Client-side checks may vary with connectivity and remote image hosting.
+- The repair button is enabled only when an installed TEMP card still uses the original seeded primary URL **and** the distinct Japanese image has loaded successfully in the browser. Every change is preceded by a complete browser-local Card DB JSON backup. Tags, other TEMP records and saved decks are untouched; the repair does not create duplicates.
+- The Japanese fallback is **not** a translated image, and successful loading is **not** verification of the correct print or art. Manual visual checks remain required. Cases without a working alternate are reported for further research, never silently substituted.
+- The seed stays a historical provisional dataset; the repair affects only the current browser's `tcg-lab-card-db-v0.1` storage. Export/import a Card DB backup to move the repaired records to another browser.
+
 ## Delta Reign provisional TEMP migration (November 2026)
 
 A reviewed, deterministic 113-card M6 provisional seed is included at `public/data/delta-reign-temp-seed.json`.
