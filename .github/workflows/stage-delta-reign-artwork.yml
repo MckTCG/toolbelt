@@ -8,7 +8,7 @@ on:
       - .github/workflows/stage-delta-reign-artwork.yml
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   stage:
     runs-on: ubuntu-latest
@@ -28,3 +28,28 @@ jobs:
           name: delta-reign-unverified-artwork
           path: artifacts/delta-reign-staging/
           retention-days: 14
+
+      - name: Check out isolated candidate staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging/delta-reign-artwork-candidates
+          path: candidate-repository
+          persist-credentials: true
+      - name: Save downloaded binaries and report on staging branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s artifacts/delta-reign-staging/staging-report.json
+          rm -rf candidate-repository/artifacts/delta-reign-staging
+          mkdir -p candidate-repository/artifacts/delta-reign-staging
+          cp -R artifacts/delta-reign-staging/. candidate-repository/artifacts/delta-reign-staging/
+          cd candidate-repository
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A artifacts/delta-reign-staging
+          if git diff --cached --quiet; then
+            echo 'Candidate art unchanged; nothing to commit.'
+          else
+            git commit -m "Stage unverified Delta Reign card artwork candidates"
+            git push origin HEAD:staging/delta-reign-artwork-candidates
+          fi
