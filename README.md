@@ -132,3 +132,15 @@ Proxy Workshop extends existing Quick Print without changing the primary workflo
 **QA:** Node regression and Deck Builder tests; browser-level (Chromium/Playwright) test for Quick Print, native importing and PDF generation. See the project workflow file. Never promote without actual test results and a production print smoke test.
 
 See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
+
+
+## Card DB Intake v1 — reviewed reveal queue (feature branch)
+
+- **Workspace:** \`public/card-intake.html\` (Toolbelt → **New Cards · Review Intake**). It reads the same Master Card DB catalogue as Card Explorer, Deck Builder and Proxy Workshop; no second authoritative database.
+- Stage HTTPS reveal URLs, import JSON/CSV batches, fill/verify card details, detect existing printings and ambiguous gameplay identities, approve individual English cards, and export an approved JSON batch. The draft queue stays in browser \`localStorage\` under \`tcg-lab-card-intake-v1\`, isolated from all existing tag and deck storage.
+- **Safe publishing:** \`node scripts/publish-card-intake.mjs --batch reviewed.json\` previews changes, then \`--apply\` updates a local Git checkout after validations. Review and commit on a feature branch; no browser-side GitHub credentials, automatic merge or silent production update.
+- URL imports do **not** automatically scrape PokéBeach/Proxies pages; Limitless EN/JP card links prefill set and collector number only. The existing scheduled reveal reminder is **not yet connected**. Automatic discovery is the next phase.
+- Confirmed English printing imagery currently remains an HTTPS source reference in newly published records; the next controlled artwork milestone will verify and host assets locally. Delta Reign's existing local artwork remains intact.
+- Regression: \`node scripts/test-card-intake.mjs\`; browser QA: \`node scripts/test-card-intake-browser.mjs\` (requires Playwright). See \`docs/card-db-intake-v1.md\`.
+
+**Do not confuse review approval with publication.** Publication requires a reviewed GitHub PR and deployed-app verification. Assisted Play and Proxy Workshop are unchanged.
