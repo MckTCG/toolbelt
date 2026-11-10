@@ -1,10 +1,12 @@
 import {normalizeName,safeURL,baseStage,isBasicEnergy,deckChecks,makePayload,payloadURL,parseTextDeck,mergeLines,sanitizePayload} from './deck-core.mjs';
 import {indexedArt,localArtworkFor} from './card-art-resolver.mjs';
+import {loadCentralTemp,mergeTempStores} from './temp-central-core.mjs';
 const $=id=>document.getElementById(id),DB_KEY='tcg-lab-card-db-v0.1',LIB_KEY='tcg-lab-decks-v1',DRAFT_KEY='tcg-lab-deck-builder-draft-v1',SIM_URL='https://prerelease-lab.pages.dev/simulator.html';
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const uid=()=>crypto.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
 const fresh=()=>({id:uid(),name:'Untitled deck',size:60,mode:'practice',rows:[],updatedAt:new Date().toISOString()});
 let cards=[],cardMap=new Map(),sets=[],dbStore={},standard=null,library=[],deck=fresh(),dirty=true,undo=[],redo=[],visible=60,preview=null,toastTimer,localArt=new Map();
+let centralTempCatalog=null;
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('on');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('on'),5500)}
 function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}}
 function rememberDraft(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify({deck,dirty}));return true}catch{toast('Draft could not be saved in this browser. Export JSON to keep your work.');return false}}
@@ -22,14 +24,15 @@ document.addEventListener('error',e=>{if(e.target.tagName==='IMG')advanceImage(e
 function tempEntity(r){return {entity_id:r.id,name:r.name,card_type:r.category,stage:r.stage||'',pokemon_types:r.pokemonType||'',hp:r.hp||'',evolves_from:r.evolvesFrom||'',combined_text:r.textEN||'',temp:true,tempStatus:r.status,printings:[{printing_id:r.id+':printing',set_code:r.setCode,card_number:r.number||'?',image_url:localArtworkFor(localArt,r.id+':printing')||r.image||'',rarity:'Provisional'}]}}
 function tags(c){return (dbStore.tags?.[c.entity_id]||[]).filter(t=>t.status==='approved')}
 function integrateCatalog(){
- dbStore=readJSON(DB_KEY,{});const tempCards=(Array.isArray(dbStore.tempCards)?dbStore.tempCards:[]).filter(r=>r&&r.setCode!=='TMPDELTAREIGN'&&typeof r.id==='string'&&typeof r.name==='string'&&Array.isArray(dbStore.tempSets)&&dbStore.tempSets.some(s=>s.code===r.setCode)).map(tempEntity);
+ const browserStore=readJSON(DB_KEY,{});
+ dbStore=centralTempCatalog?mergeTempStores(browserStore,centralTempCatalog).view:browserStore;const tempCards=(Array.isArray(dbStore.tempCards)?dbStore.tempCards:[]).filter(r=>r&&r.setCode!=='TMPDELTAREIGN'&&typeof r.id==='string'&&typeof r.name==='string'&&Array.isArray(dbStore.tempSets)&&dbStore.tempSets.some(s=>s.code===r.setCode)).map(tempEntity);
  cards=[...standard.entities.map(c=>({...c,printings:c.printings.map(p=>({...p,image_url:localArtworkFor(localArt,p.printing_id)||p.image_url,image_fallbacks:imageFallbacks(p)}))})),...tempCards];cardMap=new Map(cards.map(c=>[c.entity_id,c]));
  sets=[...standard.sets.map(s=>({code:s.set_code,name:s.name})),...(dbStore.tempSets||[]).filter(s=>s.code!=='TMPDELTAREIGN').map(s=>({code:s.code,name:'TEMP — '+s.name}))];
  const setVal=$('setFilter').value,typeVal=$('typeFilter').value,tagVal=$('tagFilter').value;
  $('setFilter').innerHTML='<option value="">All Standard + TEMP</option>'+sets.map(s=>`<option value="${esc(s.code)}">${esc(s.name)} (${esc(s.code)})</option>`).join('');if(sets.some(s=>s.code===setVal))$('setFilter').value=setVal;
  const types=[...new Set(cards.flatMap(c=>String(c.pokemon_types||'').split(/[|,]/).map(x=>x.trim()).filter(Boolean)))].sort();$('typeFilter').innerHTML='<option value="">All types</option>'+types.map(t=>`<option>${esc(t)}</option>`).join('');if(types.includes(typeVal))$('typeFilter').value=typeVal;
  const labels=[...new Set(cards.flatMap(c=>tags(c).map(t=>t.label)))].sort();$('tagFilter').innerHTML='<option value="">Any approved tag</option>'+labels.map(t=>`<option>${esc(t)}</option>`).join('');if(labels.includes(tagVal))$('tagFilter').value=tagVal;
- $('catalogStatus').textContent=`${standard.entities.length.toLocaleString()} Standard records · ${tempCards.length} TEMP cards · shared with Card DB in this browser`+(tempCards.length?'':' · Open Card DB to create or load TEMP sets.');
+ $('catalogStatus').textContent=`${standard.entities.length.toLocaleString()} Standard records · ${tempCards.length} TEMP cards (central catalogue + browser drafts)`+(tempCards.length?'':' · Open Card DB to create or load TEMP sets.');
  renderResults();renderDeck();
 }
 async function loadCatalog(){
@@ -43,6 +46,8 @@ async function loadCatalog(){
    const artResponse=await fetch('./data/card-art-manifest.json',{cache:'no-cache'});
    if(artResponse.ok)localArt=indexedArt(await artResponse.json());
   }catch{localArt=new Map();}
+  try{centralTempCatalog=await loadCentralTemp();}
+  catch(error){centralTempCatalog=null;console.warn('Central TEMP catalogue unavailable; using local TEMP only:',error.message)}
   integrateCatalog();$('loadError').classList.add('hidden');
  }catch(error){$('loadError').textContent='Could not load Card DB: '+error.message+' Your saved decks are still available. Try Refresh cards.';$('loadError').classList.remove('hidden');$('resultCount').textContent='Catalogue unavailable';renderDeck()}
  finally{$('refreshCatalog').disabled=false}

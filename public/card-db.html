@@ -473,5 +473,39 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-edit-temp
 });
 document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement?.tagName!=='INPUT'&&document.activeElement?.tagName!=='TEXTAREA'){e.preventDefault();ui.view='explorer';render();$('#search').focus()}});
 render();if(!storageOK)toast('Local storage unavailable: export backups to avoid losing changes');
+// Read the reviewed, centrally published TEMP catalogue. This is a read-only
+// overlay: private tags and unpublished drafts remain untouched in localStorage.
+fetch('./data/temp-catalog-v1.json',{cache:'no-cache'})
+ .then(r=>{if(!r.ok)throw Error('Central TEMP HTTP '+r.status);return r.json()})
+ .then(shared=>{
+  if(shared.schema!=='tcg-lab-central-temp-v1'||!Array.isArray(shared.sets)||
+     !Array.isArray(shared.cards)||shared.cards.length>5000)throw Error('Unexpected central TEMP schema');
+  const localIds=new Set(store.tempCards.map(x=>x.id));
+  for(const set of shared.sets){
+   if(!set?.code||!/^TMP[A-Z0-9]{3,35}$/.test(set.code)||set.code==='TMPDELTAREIGN')continue;
+   registerTempSet(set);
+   for(const id of ['setFilter','queueSet']){
+    const el=$('#'+id);
+    if(el && ![...el.options].some(x=>x.value===set.code)){
+     const opt=document.createElement('option');opt.value=set.code;
+     opt.textContent='TEMP — '+set.name+' (shared)';
+     el.insertBefore(opt,el.options[1]||null);
+    }
+   }
+  }
+  let added=0;
+  for(const card of shared.cards){
+   if(!card?.id||!card?.setCode||!card?.name||!SETMAP.has(card.setCode))continue;
+   if(!/^temp:[A-Za-z0-9:_-]+$/.test(card.id))continue;
+   registerTempCard(card);
+   if(!localIds.has(card.id))added++;
+  }
+  for(const set of shared.sets){
+   const found=SETMAP.get(set.code);
+   if(found)found.imported_printings=CARDS.filter(x=>x.temp&&x.printings?.some(p=>p.set_code===set.code)).length;
+  }
+  if(shared.cards.length){render();console.info('Central TEMP loaded',shared.cards.length,'published cards;',added,'new locally')}
+ })
+ .catch(e=>console.warn('Central TEMP unavailable; browser TEMP still works:',e.message));
 </script>
 </body></html>

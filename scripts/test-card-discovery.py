@@ -101,6 +101,27 @@ class DiscoveryTest(unittest.TestCase):
   self.assertEqual(len(flagged["candidates"]),2)
   self.assertTrue(all("Possible cross-source overlap" in c.get("review_note","") for c in flagged["candidates"]))
 
+ def test_recheck_schedule(self):
+  import datetime as dt
+  now=dt.datetime(2026,11,10,8,15,tzinfo=dt.timezone.utc)
+  recent="https://www.pokebeach.com/2026/11/recent-reveal"
+  old="https://www.pokebeach.com/2026/10/older-reveal"
+  soon="https://www.pokebeach.com/2026/09/near-release"
+  rows={"candidates":[
+    {"discovery_id":"a"*22,"source_url":recent,"source_kind":"pokebeach-card-spoiler",
+     "source_published_at":"Sun, 08 Nov 2026 10:00:00 GMT","name":"Recent"},
+    {"discovery_id":"b"*22,"source_url":old,"source_kind":"pokebeach-card-spoiler",
+     "source_published_at":"Thu, 01 Oct 2026 10:00:00 GMT","name":"Old"},
+    {"discovery_id":"c"*22,"source_url":soon,"source_kind":"pokebeach-card-spoiler",
+     "source_published_at":"Mon, 01 Sep 2026 10:00:00 GMT","release_jp":"2026/11/20","name":"Near release"},
+    {"discovery_id":"d"*22,"source_url":recent,"source_kind":"pokebeach-card-spoiler",
+     "source_published_at":"Sun, 08 Nov 2026 10:00:00 GMT","name":"Other card same article"}]}
+  four_hour=m.followup_articles(rows,set(),8,False,now)
+  self.assertEqual([x["url"] for x in four_hour],[recent])
+  daily=m.followup_articles(rows,set(),8,True,now)
+  self.assertEqual({x["url"] for x in daily},{recent,soon})
+  self.assertEqual(len(m.followup_articles(rows,{recent},8,False,now)),0)
+  self.assertEqual(len(m.followup_articles(rows,set(),0,True,now)),0)
  def test_untrusted_url_rejection(self):
   for url in ["http://www.pokebeach.com/","https://www.pokebeach.com@127.0.0.1/","https://127.0.0.1/","https://www.pokebeach.com.evil.org/"]:
    with self.assertRaises(ValueError):m.safe_url(url,{"www.pokebeach.com"})

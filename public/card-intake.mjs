@@ -3,6 +3,8 @@ import {
   classifyCandidate,completeness,importBatch,exportBatch,readCSV,intakeIdentity,importDiscoveryFeed
 } from './card-intake-core.mjs';
 import {setupCardLoupe} from './card-intake-loupe.mjs';
+import {TEMP_DB_KEY,planTempAcceptance,tempCandidateUpdates,tempReady} from './temp-intake-core.mjs';
+import {loadCentralTemp,mergeTempStores,createTempProposal} from './temp-central-core.mjs';
 
 const STORAGE_KEY='tcg-lab-card-intake-v1';
 const $=id=>document.getElementById(id);
@@ -12,6 +14,60 @@ $('previewSelected').addEventListener('click',()=>{
   openLoupeFor({name:getElement('name').value,image_url:getElement('image_url').value},selected);
 });
 let queue=[],selected=-1,catalog=null;
+let pendingTempUpdates=[];
+let centralTemp=null;
+function readTempStore(){try{return JSON.parse(localStorage.getItem(TEMP_DB_KEY)||'null')||{}}catch{throw Error('Existing Card DB TEMP storage cannot be read. Export a backup before continuing.')}}
+function tempRecord(candidate=queue[selected]){
+  if(!candidate)return null;
+  const store=readTempStore();
+  const rows=[...(store.tempCards||[]),...(centralTemp?.cards||[])];
+  return rows.find(c=>candidate.temp_entity_id&&c.id===candidate.temp_entity_id)||
+    rows.find(c=>candidate.discovery_id&&
+       (c.discoveryId===candidate.discovery_id||c.discoveryIds?.includes(candidate.discovery_id)))||null;
+}
+function updateTempDestination(){
+  const select=$('tempDestination'),previous=select.value;
+  let store;
+  try{store=readTempStore()}
+  catch(error){select.disabled=true;$('tempStatus').textContent='TEMP unavailable: '+error.message;return}
+  select.disabled=selected<0;
+  select.replaceChildren();
+  const auto=document.createElement('option');auto.value='';auto.textContent='Auto: match set name / create TEMP set';select.append(auto);
+  for(const set of [...(centralTemp?.sets||[]),...(store.tempSets||[])]){
+    if(!set?.code||set.code==='TMPDELTAREIGN')continue;
+    const option=document.createElement('option');option.value=set.code;option.textContent='TEMP — '+set.name;
+    select.append(option);
+  }
+  const linked=tempRecord(),code=linked?.setCode||previous;
+  if(code&&[...select.options].some(o=>o.value===code))select.value=code;
+}
+function refreshTempStatus(){
+  const label=$('tempStatus');
+  let row;
+  try{row=tempRecord()}
+  catch(error){
+    label.textContent='TEMP unavailable: '+error.message;
+    $('addTempDeck').disabled=true;$('openTempProxy').disabled=true;
+    $('tempReviewChanges').textContent='';$('loadTempSuggestion').hidden=true;
+    return;
+  }
+  const ready=tempReady(row);
+  const published=!!row&&!!centralTemp?.cards?.some(c=>c.id===row.id);
+  label.textContent=row?((published?'Shared TEMP published: ':'TEMP draft saved locally (not yet published): ')+row.name+' · '+row.setCode+
+    ' · Manual Simulator '+(ready.manualSimulator?'ready':'missing name/category')+
+    ' · Proxy '+(ready.proxy?'image ready':'needs artwork')+
+    ' · Translation '+ready.translation+
+    '. English Master approval is separate.'):
+    'Not accepted to TEMP yet. Japanese-only and unofficial translations are allowed.';
+  $('addTempDeck').disabled=!ready.manualSimulator;
+  $('openTempProxy').disabled=!ready.proxy;
+  const report=pendingTempUpdates.find(u=>row&&u.recordId===row.id);
+  $('tempReviewChanges').textContent=report?
+    'New source information to review (not applied):\n'+
+    report.changes.map(d=>d.label+': '+(d.before||'(empty)')+' → '+(d.after||'(empty)')).join('\n'):
+    '';
+  $('loadTempSuggestion').hidden=!report;
+}
 function notice(message,kind=''){const el=$('feedback');el.textContent=message;el.className=kind}
 function saveLocal(){
   try {localStorage.setItem(STORAGE_KEY,JSON.stringify(exportBatch(queue)));return true}
@@ -29,7 +85,7 @@ function getElement(name){return form.elements.namedItem(name)}
 function collect(){
   const raw={...queue[selected]};
   const keys=[
-    'source_url','name','category','language','set_code','set_name','card_number','stage','pokemon_types','hp',
+    'source_url','name','name_jp','category','language','translation_status','translation_source_url','release_jp','release_en','set_code','set_name','card_number','stage','pokemon_types','hp',
     'evolves_from','weakness','resistance','retreat_cost','regulation_mark','release_date','rarity','image_url',
     'combined_text','rules_text','existing_entity_id','status','review_note'
   ];
@@ -46,7 +102,7 @@ function collect(){
 }
 function fill(c){
   const raw=c||{};
-  const keys=['source_url','name','category','language','set_code','set_name','card_number','stage','pokemon_types','hp',
+  const keys=['source_url','name','name_jp','category','language','translation_status','translation_source_url','release_jp','release_en','set_code','set_name','card_number','stage','pokemon_types','hp',
     'evolves_from','weakness','resistance','retreat_cost','regulation_mark','release_date','rarity','image_url',
     'combined_text','rules_text','existing_entity_id','status','review_note'];
   for(const key of keys)getElement(key).value=raw[key]??(key==='language'?'unknown':key==='status'?'discovered':'');
@@ -56,6 +112,8 @@ function fill(c){
   form.querySelectorAll('input,select,textarea,button').forEach(el=>{el.disabled=!c});
   $('formTitle').textContent=c?(c.name||'New card candidate'):'Select a candidate';
   $('previewSelected').hidden=!safeHTTPS(raw.image_url);
+  updateTempDestination();
+  refreshTempStatus();
   check();
 }
 function check(){
@@ -111,7 +169,7 @@ function renderQueue(){
     const image=document.createElement('img');image.alt='';if(safeHTTPS(c.image_url))image.src=c.image_url;
     const text=document.createElement('span');text.style.flex='1';text.textContent=c.name||'(Unidentified reveal)';
     const sub=document.createElement('small');sub.textContent=[c.set_code,c.card_number?'#'+c.card_number:'',c.language].filter(Boolean).join(' · ');text.appendChild(sub);
-    const badge=document.createElement('span');badge.className='pill';badge.textContent=c.status;
+    const badge=document.createElement('span');badge.className='pill';badge.textContent=c.temp_entity_id?'TEMP · '+c.status:c.status;
     btn.append(image,text,badge);
     btn.addEventListener('click',()=>{selected=c._index;fill(queue[selected]);renderQueue()});
     const wrap=document.createElement('div');
@@ -163,9 +221,13 @@ $('loadDiscoveries').addEventListener('click',async()=>{
     const payload=JSON.parse(raw);
     const cards=importDiscoveryFeed(payload);
     const results=mergeImported(cards);
+    try{pendingTempUpdates=tempCandidateUpdates(centralTemp?mergeTempStores(readTempStore(),centralTemp).view:readTempStore(),cards)}
+    catch(error){pendingTempUpdates=[];notice('Discoveries loaded, but existing TEMP storage could not be compared: '+error.message,'warn')}
+    refreshTempStatus();
     $('discoveryStatus').textContent='Discovery feed '+(payload.generated_at||'unknown update')+
       ' · '+cards.length+' reviewed-source candidates available · '+results.added+' newly staged · '+results.skipped+' already present.'+
-      (payload.errors?.length?' Some sources reported errors; see the intake feed report.':'');
+      (payload.errors?.length?' Some sources reported errors; see the intake feed report.':'')+
+      (pendingTempUpdates.length?' · '+pendingTempUpdates.length+' TEMP record(s) have changes to review.':'');
     notice('Discovered cards are still provisional/unverified. Review them before approval.','good');
   }catch(error){
     $('discoveryStatus').textContent='Discovery feed unavailable: '+error.message+
@@ -195,6 +257,65 @@ form.addEventListener('submit',e=>{
     queue[selected]=c;saveLocal();showSelected();notice('Draft saved locally. No Master DB changes made.','good');
   }catch(error){notice(error.message,'bad')}
 });
+$('acceptTemp').addEventListener('click',()=>{
+  if(selected<0)return;
+  try{
+    const c=collect(),now=new Date().toISOString(),opts={setCode:$('tempDestination').value,now,seedTags:catalog?.reviewed_seed};
+    const local=readTempStore();
+    const code=opts.setCode,centralSet=centralTemp?.sets?.find(x=>x.code===code);
+    const base=structuredClone(local);
+    if(centralSet){
+      base.tempSets=Array.isArray(base.tempSets)?base.tempSets:[];
+      if(!base.tempSets.some(x=>x.code===code))base.tempSets.push(centralSet);
+    }
+    let result=planTempAcceptance(c,base,opts);
+    if(result.kind==='update-review-required'){
+      const summary=result.changes.map(d=>d.label+': '+(d.before||'(empty)')+' → '+(d.after||'(empty)')).join('\n');
+      if(!confirm('Update an existing TEMP card? Its gameplay identity and tags will be preserved. Changes:\n'+summary))return;
+      result=planTempAcceptance(c,base,{...opts,allowUpdate:true});
+    }
+    // Commit both storages only after all candidate validations completed.
+    try{localStorage.setItem(TEMP_DB_KEY,JSON.stringify(result.store))}
+    catch(error){throw Error('Could not save TEMP. Export your Card DB backups: '+error.message)}
+    c.temp_entity_id=result.record.id;c.temp_accepted_at=now;
+    queue[selected]=c;saveLocal();showSelected();
+    notice((result.kind==='created'?'Accepted new':result.kind==='updated'?'Updated':'Already accepted')+
+      ' TEMP draft. It is playable in this browser; export a central TEMP proposal and merge its reviewed GitHub PR to share across devices. English Master remains unchanged.','good');
+  }catch(error){notice(error.message,'bad')}
+});
+$('exportCentralTemp').addEventListener('click',()=>{
+  try{
+    const proposal=createTempProposal(readTempStore());
+    download('TCG_Lab_Central_TEMP_Proposal.json',proposal);
+    notice('Exported '+proposal.cards.length+' TEMP card(s) without personal tags or notes. Publication requires the reviewed GitHub TEMP publisher and an approved PR. No shared records were changed.','good');
+  }catch(error){notice('Could not prepare central TEMP proposal: '+error.message,'bad')}
+});
+$('addTempDeck').addEventListener('click',()=>{
+  const row=tempRecord();if(!tempReady(row).manualSimulator)return;
+  const hash='#add='+encodeURIComponent(JSON.stringify({entityId:row.id,printingId:row.id+':printing'}));
+  window.open('./deck-builder.html'+hash,'_blank','noopener');
+});
+$('openTempProxy').addEventListener('click',()=>{
+  if(!tempReady(tempRecord()).proxy)return;
+  window.open('./proxy-workshop.html','_blank','noopener');
+});
+$('loadTempSuggestion').addEventListener('click',()=>{
+  const row=tempRecord(),report=pendingTempUpdates.find(u=>row&&u.recordId===row.id);
+  if(!report)return;
+  if(!confirm('Load the latest unverified source fields into this form for review? Your saved TEMP record will remain unchanged until you click Accept to TEMP.'))return;
+  const existing=collect();
+  const next={...existing};
+  for(const [key,value]of Object.entries(report.candidate)){
+    if(value!==undefined&&value!==null&&String(value).trim()&&
+      !['status','source_verified','artwork_verified','reviewed_distinct_gameplay','temp_entity_id','temp_accepted_at'].includes(key)){
+      next[key]=value;
+    }
+  }
+  next.status='provisional';next.source_verified=false;next.artwork_verified=false;
+  fill(next);
+  notice('Source suggestions loaded into form only. Verify differences, then Accept to TEMP to apply and record a revision.','warn');
+});
+
 $('approveCard').addEventListener('click',()=>{
   if(selected<0||!catalog)return;
   try{
@@ -227,6 +348,9 @@ $('exportApproved').addEventListener('click',()=>{
 });
 for(const id of ['filter','statusFilter'])$(id).addEventListener(id==='filter'?'input':'change',renderQueue);
 form.addEventListener('input',check);form.addEventListener('change',check);
+window.addEventListener('storage',e=>{
+  if(e.key===TEMP_DB_KEY){try{updateTempDestination();refreshTempStatus()}catch{}}
+});
 getElement('image_url').addEventListener('input',()=>{
   $('previewSelected').hidden=!safeHTTPS(getElement('image_url').value);
 });
@@ -241,6 +365,14 @@ queue=restoreLocal();showSelected();
     const data=JSON.parse(node.textContent);
     if(data.schema!=='tcg-lab-catalog-v2'||!Array.isArray(data.entities))throw Error('Unexpected catalogue format.');
     catalog=data;
+    try{
+      centralTemp=await loadCentralTemp();
+      $('centralTempStatus').textContent='Central TEMP: '+centralTemp.cards.length+' shared cards in '+centralTemp.sets.length+' sets. Browser drafts are still private until published through GitHub.';
+    }catch(error){
+      centralTemp=null;
+      $('centralTempStatus').textContent='Central TEMP unavailable ('+error.message+'). Local playtesting drafts still work; central publication cannot be verified here.';
+    }
+    updateTempDestination();refreshTempStatus();
     const printings=data.entities.reduce((n,c)=>n+(c.printings||[]).length,0);
     $('catalogStatus').textContent='Connected to Master Card DB · '+data.entities.length.toLocaleString()+' gameplay records · '+printings.toLocaleString()+' printings. Review is local; publication is separate.';
     $('catalogStatus').className='stats good';

@@ -157,3 +157,16 @@ See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
 - **QA:** \`python3 scripts/test-card-discovery.py\`, \`node scripts/test-card-discovery-browser.mjs\` (requires Playwright), full live-adapter smoke tests, and existing database regressions. See \`docs/card-db-discovery-phase2.md\`.
 
 Assisted Play and Proxy Workshop are outside Phase 2. No automatic card approval, database modifications, reminder changes, or merge/deployment are authorized by the discovery pipeline itself.
+
+
+## Card DB Phase 3 — JP-first TEMP, central publishing and rapid rechecks (PR #25, not merged)
+
+The new **Accept TEMP draft** action lets Japanese-only cards (name and category; artwork for proxy printing) become playable immediately in the same browser. No official English text, English set, or release date is required.
+
+**The shared source of truth is \`public/data/temp-catalog-v1.json\`, not browser storage.** Browser-local \`tcg-lab-card-db-v0.1\` retains personal tags, drafts, research notes and offline working copies. The existing Card Explorer, Deck Builder and Proxy importer now load reviewed **centrally published TEMP** cards from the same deployed catalogue; cards remain provisional and are transferred to the Manual Simulator through Deck Builder.
+
+Because the Cloudflare deployment is static and there is no authenticated write API, a new draft becomes shared **only after exporting a central TEMP proposal, validating it with \`scripts/publish-central-temp.mjs\`, and merging a reviewed GitHub PR**. No unauthenticated browser can publish central records. Exported proposals explicitly omit personal tags and notes.
+
+Provisional translation updates preserve stable IDs and revision history, and require approval. GitHub discovery checks run every **four hours** with follow-ups for recent and release-near articles, including URLs listed in the central TEMP catalogue. The user's original 3:55 AM reminder remains unchanged.
+
+This release is **not merged or deployed** until user approval. Complete safeguards, publishing commands, migration guidance and QA: \`docs/card-db-temp-phase3.md\`.

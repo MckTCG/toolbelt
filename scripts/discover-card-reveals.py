@@ -8,6 +8,7 @@ No image downloads, user data, catalogue modifications or auto-approval.
 """
 import argparse
 import datetime as dt
+from email.utils import parsedate_to_datetime
 import hashlib
 import html
 from html.parser import HTMLParser
@@ -140,6 +141,47 @@ def parse_feed(xml_text):
         except ValueError:continue
         rows.append({"title":title,"url":url,"published":date})
     return rows
+
+def followup_articles(prior, already_seen=None, limit=8, include_older=False, clock=None):
+    """Revisit source articles after their first discovery, without a private watchlist.
+
+    For the first 72 hours, check at every 4-hour scheduled run.
+    Older items (up to 30 days) recheck in the daily deep pass; older than
+    30 days weekly, unless a known release is within 30 days.
+    """
+    clock=clock or dt.datetime.now(dt.timezone.utc)
+    seen=set(already_seen or [])
+    by_url={}
+    for card in prior.get("candidates",[]):
+        url=card.get("source_url","")
+        if not card.get("source_kind","").startswith("pokebeach") or url in seen:continue
+        try:safe_url(url,{"www.pokebeach.com","pokebeach.com"})
+        except ValueError:continue
+        stamp=card.get("source_published_at") or card.get("discovered_at") or ""
+        date=None
+        if stamp:
+            try:
+                date=parsedate_to_datetime(stamp)
+            except (TypeError,ValueError):
+                try:date=dt.datetime.fromisoformat(stamp.replace("Z","+00:00"))
+                except ValueError:pass
+        if date and date.tzinfo is None:date=date.replace(tzinfo=dt.timezone.utc)
+        age=max(0,(clock-date).total_seconds()/3600) if date else 99999
+        upcoming=False
+        for key in ("release_jp","release_en","release_date"):
+            val=card.get(key) or ""
+            try:
+                release=dt.date.fromisoformat(val.replace("/","-"))
+                if -30<=(release-clock.date()).days<=30:upcoming=True
+            except ValueError:pass
+        recent=age<=72
+        revisit=recent or (include_older and (age<=24*30 or upcoming or clock.weekday()==0))
+        if not revisit:continue
+        priority=(0 if upcoming else 1 if recent else 2,age)
+        if url not in by_url or priority<by_url[url][0]:
+            by_url[url]=(priority,{"title":card.get("name","Previously revealed card"),
+              "url":url,"published":stamp})
+    return [x[1] for x in sorted(by_url.values(),key=lambda row:row[0])[:limit]]
 
 def convert_symbols(text):
     return [SYMBOLS.get(s,s) for s in re.findall(r"\[([GRWLPFDMCNY])\]",text)]
@@ -376,10 +418,14 @@ def main():
     ap.add_argument("--max-proxies",type=int,default=25)
     ap.add_argument("--card-url",action="append",default=[])
     ap.add_argument("--fixture-dir")
+    ap.add_argument("--recheck-budget",type=int,default=8)
+    ap.add_argument("--recheck-older",action="store_true")
+    ap.add_argument("--central-temp",default="public/data/temp-catalog-v1.json")
     args=ap.parse_args()
     import pathlib
     if args.max_articles<0 or args.max_articles>30:raise ValueError("max-articles must be 0..30")
     if args.max_proxies<0 or args.max_proxies>100:raise ValueError("max-proxies must be 0..100")
+    if args.recheck_budget<0 or args.recheck_budget>20:raise ValueError("recheck-budget must be 0..20")
     def read_fixture(name,live):
         p=pathlib.Path(args.fixture_dir or "")/name
         if args.fixture_dir and p.exists():return p.read_text(encoding="utf8")
@@ -394,11 +440,36 @@ def main():
     if args.prior and pathlib.Path(args.prior).is_file() and pathlib.Path(args.prior).stat().st_size>0:
         prior=json.loads(pathlib.Path(args.prior).read_text("utf8"))
         if prior.get("schema")!=SCHEMA:raise ValueError("Unsupported prior feed format")
-    candidates=[];errors=[];stats={}
+    # Scheduled checks can now see centrally accepted TEMP records. Browser-only
+    # notes/tags remain private and are never read by this bot.
+    watch_prior={**prior,"candidates":list(prior.get("candidates",[]))}
+    try:
+        central_file=pathlib.Path(args.central_temp)
+        if central_file.is_file():
+            central=json.loads(central_file.read_text("utf8"))
+            if central.get("schema")!="tcg-lab-central-temp-v1":raise ValueError("Unexpected central TEMP schema")
+            for card in central.get("cards",[])[:5000]:
+                source=card.get("source","")
+                if not source.startswith("https://www.pokebeach.com/"):continue
+                watch_prior["candidates"].append({
+                    "source_kind":"pokebeach-card-spoiler",
+                    "source_url":source,
+                    "name":card.get("name",""),
+                    "source_published_at":card.get("updatedAt") or card.get("addedAt",""),
+                    "release_jp":card.get("releaseJP",""),
+                    "release_en":card.get("releaseEN","")
+                })
+    except Exception as exc:
+        raise ValueError("Cannot read central TEMP watchlist: "+str(exc)[:150])
+    candidates=[];errors=[];stats={"central_temp_watchlist":len(watch_prior["candidates"])-len(prior.get("candidates",[]))}
     try:
         feed=read_fixture("rss.xml",(RSS,{"kaprestridge.github.io"}))
         articles=parse_feed(feed)[:args.max_articles]
-        stats["rss_articles"]=len(articles)
+        recent_urls={x["url"] for x in articles}
+        followups=followup_articles(watch_prior,recent_urls,args.recheck_budget,args.recheck_older)
+        articles.extend(followups)
+        stats["rss_articles"]=len(articles)-len(followups)
+        stats["followup_articles"]=len(followups)
         for index,article in enumerate(articles):
             if not args.fixture_dir and index:__import__("time").sleep(0.8)
             try:
