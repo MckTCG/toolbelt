@@ -1,6 +1,6 @@
 {
   "schema": "tcg-lab-card-discovery-feed-v1",
-  "generated_at": "2026-11-10T08:28:07Z",
+  "generated_at": "2026-11-10T13:04:36Z",
   "source_note": "Unverified staged discoveries only. The authoritative Card DB is separate.",
   "candidates": [
     {
@@ -12,8 +12,51 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Article identified but no structured card-spoiler blocks: Espeon and Umbreon Ultra PRO Product Line Revealed!",
-      "discovered_at": "2026-11-10T08:28:02Z",
+      "discovered_at": "2026-11-10T13:04:33Z",
       "source_published_at": "Wed, 04 Nov 2026 16:30:00 GMT"
+    },
+    {
+      "source_url": "https://www.pokebeach.com/2026/11/kecleon-from-aura-seeker-revealed",
+      "source_kind": "pokebeach-card-spoiler",
+      "discovery_id": "9434d8e61f68357844fdba",
+      "language": "unknown",
+      "status": "provisional",
+      "source_verified": false,
+      "artwork_verified": false,
+      "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Kecleon from “Aura Seeker” Revealed!",
+      "discovered_at": "2026-11-10T13:04:25Z",
+      "name": "Kecleon",
+      "category": "Pokémon",
+      "stage": "Basic",
+      "pokemon_types": "Colorless",
+      "hp": "80",
+      "evolves_from": "",
+      "weakness": "Fighting x2",
+      "resistance": "none",
+      "retreat_cost": "1",
+      "set_name": "Aura Seeker",
+      "card_number": "71",
+      "image_url": "https://www.pokebeach.com/news/2026/11/Kecleon-M7.jpg",
+      "abilities": [
+        {
+          "name": "Synchro Body",
+          "text": "As long as this Pokemon is in play, it has the same type as all of your Benched Pokemon, in addition to its original type. (If you have Pokemon of 2 or more types, it has each of those types.)"
+        }
+      ],
+      "attacks": [
+        {
+          "name": "Pounce",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "damage": "60+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        }
+      ],
+      "combined_text": "Ability: Synchro Body — As long as this Pokemon is in play, it has the same type as all of your Benched Pokemon, in addition to its original type. (If you have Pokemon of 2 or more types, it has each of those types.)\nAttack: Pounce — 60+ Flip a coin. If heads, this attack does 60 more damage.",
+      "source_published_at": "Tue, 10 Nov 2026 02:05:00 GMT"
     },
     {
       "source_url": "https://www.pokebeach.com/2026/10/tpci-accidentally-reveals-mcdonalds-2027-set-a-year-early-revealing-future-cards",
@@ -24,7 +67,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Article identified but no structured card-spoiler blocks: TPCi Accidentally Reveals McDonald’s 2027 Set a Year Early, Including an Unreleased Squirtle!",
-      "discovered_at": "2026-11-10T08:28:04Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "source_published_at": "Thu, 29 Oct 2026 11:30:00 GMT"
     },
     {
@@ -60,7 +103,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Wooper",
       "category": "Pokémon",
       "stage": "Basic",
@@ -96,7 +139,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Quagsire",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -132,7 +175,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Buizel",
       "category": "Pokémon",
       "stage": "Basic",
@@ -176,7 +219,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Floatzel ex",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -223,7 +266,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Meditite",
       "category": "Pokémon",
       "stage": "Basic",
@@ -259,7 +302,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Medicham",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -305,7 +348,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Machop",
       "category": "Pokémon",
       "stage": "Basic",
@@ -341,7 +384,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Machoke",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -387,7 +430,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Machamp",
       "category": "Pokémon",
       "stage": "Stage 2",
@@ -431,7 +474,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Hitmontop",
       "category": "Pokémon",
       "stage": "Basic",
@@ -476,7 +519,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Throh",
       "category": "Pokémon",
       "stage": "Basic",
@@ -522,7 +565,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Hawlucha",
       "category": "Pokémon",
       "stage": "Basic",
@@ -564,7 +607,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Crasher Wake's Passion",
       "category": "Trainer",
       "stage": "Supporter",
@@ -591,7 +634,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Crasher Wake's Passion",
       "category": "Trainer",
       "stage": "Supporter",
@@ -618,7 +661,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Floatzel ex, Crasher Wake Drawn by Famous Manga Artist, and More from “Aura Seeker” Revealed!",
-      "discovered_at": "2026-11-10T08:28:01Z",
+      "discovered_at": "2026-11-10T13:04:32Z",
       "name": "Meowth",
       "category": "Pokémon",
       "stage": "Basic",
@@ -664,7 +707,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Kubfu, Single Strike Urshifu, and Rapid Strike Urshifu Revealed from “Aura Seeker!”. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:27:58Z",
+      "discovered_at": "2026-11-10T13:04:28Z",
       "name": "Kubfu",
       "category": "Pokémon",
       "stage": "Basic",
@@ -701,7 +744,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Kubfu, Single Strike Urshifu, and Rapid Strike Urshifu Revealed from “Aura Seeker!”. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:27:58Z",
+      "discovered_at": "2026-11-10T13:04:28Z",
       "name": "Single Strike Urshifu",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -739,7 +782,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Kubfu, Single Strike Urshifu, and Rapid Strike Urshifu Revealed from “Aura Seeker!”. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:27:58Z",
+      "discovered_at": "2026-11-10T13:04:28Z",
       "name": "Rapid Strike Urshifu",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -777,7 +820,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Meowth and Persian Revealed from “Aura Seeker!”. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:00Z",
+      "discovered_at": "2026-11-10T13:04:30Z",
       "name": "Meowth",
       "category": "Pokémon",
       "stage": "Basic",
@@ -822,8 +865,8 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Meowth and Persian Revealed from “Aura Seeker!”. CAUTION: multiple Ability descriptions in article; these may be alternate translations. Select only the actual printed Ability after verification.. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:00Z",
+      "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Meowth and Persian Revealed from “Aura Seeker!”. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
+      "discovered_at": "2026-11-10T13:04:30Z",
       "name": "Persian",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -840,10 +883,6 @@
         {
           "name": "Large Coin",
           "text": "Once during your turn, if you have 2 or more Pokemon in play with the \"Pay Day\" attack, you may draw 2 cards."
-        },
-        {
-          "name": "Large Koban",
-          "text": "If you have 2 or more Pokemon in play that have the \"Pay Day\" attack, once during your turn, you may draw 2 cards."
         }
       ],
       "attacks": [
@@ -858,7 +897,7 @@
           "text": "This attack does 20 damage for each card in your hand."
         }
       ],
-      "combined_text": "Ability: Large Coin — Once during your turn, if you have 2 or more Pokemon in play with the \"Pay Day\" attack, you may draw 2 cards.\nAbility: Large Koban — If you have 2 or more Pokemon in play that have the \"Pay Day\" attack, once during your turn, you may draw 2 cards.\nAttack: Greedy Slash — 20x This attack does 20 damage for each card in your hand.",
+      "combined_text": "Ability: Large Coin — Once during your turn, if you have 2 or more Pokemon in play with the \"Pay Day\" attack, you may draw 2 cards.\nAttack: Greedy Slash — 20x This attack does 20 damage for each card in your hand.",
       "source_published_at": "Sat, 07 Nov 2026 02:08:00 GMT"
     },
     {
@@ -870,7 +909,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Vulpix and Ninetales from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:27:57Z",
+      "discovered_at": "2026-11-10T13:04:27Z",
       "name": "Vulpix",
       "category": "Pokémon",
       "stage": "Basic",
@@ -906,7 +945,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: Vulpix and Ninetales from “Aura Seeker” Revealed!. Possible cross-source overlap (pokemonproxies-artwork); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:27:57Z",
+      "discovered_at": "2026-11-10T13:04:27Z",
       "name": "Ninetales",
       "category": "Pokémon",
       "stage": "Stage 1",
@@ -947,7 +986,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Article identified but no structured card-spoiler blocks: Blastoise and Other Cards from “Aura Seeker” Revealed, New Alternate Art Mega Lucario Z ex!",
-      "discovered_at": "2026-11-10T08:28:03Z",
+      "discovered_at": "2026-11-10T13:04:35Z",
       "source_published_at": "Fri, 30 Oct 2026 08:55:00 GMT"
     },
     {
@@ -959,7 +998,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Vulpix",
       "card_number": "12",
       "image_url": "https://www.pokemonproxies.com/assets/7a-012-Vulpix-nUSXUwQA.png"
@@ -973,7 +1012,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Ninetales",
       "card_number": "13",
       "image_url": "https://www.pokemonproxies.com/assets/7a-013-Ninetales-3e2hVYnm.png"
@@ -987,7 +1026,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Wooper",
       "card_number": "17",
       "image_url": "https://www.pokemonproxies.com/assets/7a-017-Wooper-DtCBjc5h.png"
@@ -1001,7 +1040,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Quagsire",
       "card_number": "18",
       "image_url": "https://www.pokemonproxies.com/assets/7a-018-Quagsire-B9-qYRl5.png"
@@ -1015,7 +1054,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Buizel",
       "card_number": "19",
       "image_url": "https://www.pokemonproxies.com/assets/7a-019-Buizel-2CO9NpEO.png"
@@ -1029,7 +1068,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Floatzel ex",
       "card_number": "20",
       "image_url": "https://www.pokemonproxies.com/assets/7a-020-Floatzel_ex-D6XOoA8Y.png"
@@ -1043,7 +1082,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Pawmi",
       "card_number": "23",
       "image_url": "https://www.pokemonproxies.com/assets/7a-023-Pawmi-BBlZV-Qs.png"
@@ -1057,7 +1096,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Pawmo",
       "card_number": "24",
       "image_url": "https://www.pokemonproxies.com/assets/7a-024-Pawmo-DHa6UwFf.png"
@@ -1071,7 +1110,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Pawmot",
       "card_number": "25",
       "image_url": "https://www.pokemonproxies.com/assets/7a-025-Pawmot-lvQomEQ8.png"
@@ -1085,7 +1124,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Meditite",
       "card_number": "28",
       "image_url": "https://www.pokemonproxies.com/assets/7a-028-Meditite-DW37RmaT.png"
@@ -1099,7 +1138,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Medicham",
       "card_number": "29",
       "image_url": "https://www.pokemonproxies.com/assets/7a-029-Medicham-C9y9mmO8.png"
@@ -1113,7 +1152,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Mega Absol Z ex",
       "card_number": "30",
       "image_url": "https://www.pokemonproxies.com/assets/7a-030-Mega_Absol_Z_ex-B_5mRk4W.png"
@@ -1127,7 +1166,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Sigilyph ex",
       "card_number": "31",
       "image_url": "https://www.pokemonproxies.com/assets/7a-031-Sigilyph_ex-DM70FEfW.png"
@@ -1141,7 +1180,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Meloetta",
       "card_number": "32",
       "image_url": "https://www.pokemonproxies.com/assets/7a-032-Meloetta-B6mvJTR5.png"
@@ -1155,7 +1194,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Machop",
       "card_number": "37",
       "image_url": "https://www.pokemonproxies.com/assets/7a-037-Machop-B730VIG8.png"
@@ -1169,7 +1208,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Machoke",
       "card_number": "38",
       "image_url": "https://www.pokemonproxies.com/assets/7a-038-Machoke-Cq8lmVd4.png"
@@ -1183,7 +1222,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Machamp",
       "card_number": "39",
       "image_url": "https://www.pokemonproxies.com/assets/7a-039-Machamp-BbuhYwd2.png"
@@ -1197,7 +1236,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Hitmontop",
       "card_number": "40",
       "image_url": "https://www.pokemonproxies.com/assets/7a-040-Hitmontop-shevUyWk.png"
@@ -1211,7 +1250,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Trapinch",
       "card_number": "41",
       "image_url": "https://www.pokemonproxies.com/assets/7a-041-Trapinch-DB45M5Hd.png"
@@ -1225,7 +1264,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Riolu",
       "card_number": "44",
       "image_url": "https://www.pokemonproxies.com/assets/7a-044-Riolu-BNlew_Ub.png"
@@ -1239,7 +1278,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Throh",
       "card_number": "45",
       "image_url": "https://www.pokemonproxies.com/assets/7a-045-Throh-Q_etHNSn.png"
@@ -1253,7 +1292,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Hawlucha",
       "card_number": "46",
       "image_url": "https://www.pokemonproxies.com/assets/7a-046-Hawlucha-C1B0zorq.png"
@@ -1267,7 +1306,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Kubfu",
       "card_number": "48",
       "image_url": "https://www.pokemonproxies.com/assets/7a-048-Kubfu-DLTcuBsG.png"
@@ -1281,7 +1320,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Single Strike Urshifu",
       "card_number": "49",
       "image_url": "https://www.pokemonproxies.com/assets/7a-049-Single_Strike_Urshifu-DzdCqjn3.png"
@@ -1295,7 +1334,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.. Possible cross-source overlap (pokebeach-card-spoiler); confirm the actual set and printing before combining.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Rapid Strike Urshifu",
       "card_number": "50",
       "image_url": "https://www.pokemonproxies.com/assets/7a-050-Rapid_Strike_Urshifu-BY2eJFWb.png"
@@ -1309,7 +1348,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Mega Lucario Z ex",
       "card_number": "57",
       "image_url": "https://www.pokemonproxies.com/assets/7a-057-Mega_Lucario_Z_ex-9Llh4gNo.png"
@@ -1323,7 +1362,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Varoom",
       "card_number": "60",
       "image_url": "https://www.pokemonproxies.com/assets/7a-060-Varoom-D_8-epbJ.png"
@@ -1337,7 +1376,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Revavroom",
       "card_number": "61",
       "image_url": "https://www.pokemonproxies.com/assets/7a-061-Revavroom-Dkomhh2-.png"
@@ -1351,7 +1390,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Vibrava",
       "card_number": "63",
       "image_url": "https://www.pokemonproxies.com/assets/7a-063-Vibrava-CJeZnI3Q.png"
@@ -1365,7 +1404,7 @@
       "source_verified": false,
       "artwork_verified": false,
       "review_note": "Unverified translated proxy artwork (group 7a). Set identity, language and gameplay text MUST be reviewed.",
-      "discovered_at": "2026-11-10T08:28:07Z",
+      "discovered_at": "2026-11-10T13:04:36Z",
       "name": "Flygon",
       "card_number": "64",
       "image_url": "https://www.pokemonproxies.com/assets/7a-064-Flygon-De61KHn-.png"
@@ -1542,6 +1581,7 @@
     "9140973bf6d9f922b50a0c",
     "9229b7db6544179d2f51be",
     "93689720fd8f4319478e5e",
+    "9434d8e61f68357844fdba",
     "9fe329ae492efad265ffa1",
     "ace70658b5fd121a9d11a9",
     "bd1b6c6179becdc5c92bf5",
@@ -1565,16 +1605,18 @@
     "fee449c60667b27d52a25b",
     "ff5ae9f230a54ce334f084"
   ],
-  "new_count": 66,
+  "new_count": 1,
   "sources": {
     "rss": "https://kaprestridge.github.io/pokebeach-news-feed/feed.xml",
     "pokemonproxies": "https://www.pokemonproxies.com/",
     "limitless": "individual card URLs"
   },
   "stats": {
-    "rss_articles": 9,
-    "pokebeach_cards": 22,
-    "pokemonproxies_artworks": 39
+    "central_temp_watchlist": 0,
+    "rss_articles": 8,
+    "followup_articles": 0,
+    "pokebeach_cards": 23,
+    "pokemonproxies_artworks": 30
   },
   "errors": []
 }
