@@ -49,6 +49,19 @@
 .temp-accept #tempReviewChanges{padding:8px 0;white-space:pre-wrap;font-size:12px;color:var(--amber)}
 .temp-accept a{display:inline-block;text-decoration:none;color:var(--cyan);border:1px solid var(--line);padding:9px;border-radius:8px}
 #acceptTemp{background:#215d56;border-color:#38877b}
+
+/* Bulk queue selection stays separate from the single-card editor and loupe. */
+.candidate-wrap{display:flex;align-items:center;gap:8px}
+.candidate-wrap .candidate{flex:1;min-width:0}
+.candidate-pick{width:36px;min-width:36px;align-self:stretch;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:#18273b}
+.candidate-pick input{width:20px;height:20px;accent-color:#59c7b6;cursor:pointer}
+.candidate-wrap:has(.candidate-pick input:checked) .candidate{border-color:#4eae9d}
+.candidate-loupe-trigger{left:54px}
+.bulk-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:9px 0}
+.bulk-toolbar button{min-height:34px}
+#bulkSelectionStatus{font-size:12px;color:var(--cyan);margin-right:auto}
+#bulkTempReport{font-size:12px;color:var(--muted);white-space:pre-wrap;margin:7px 0}
+@media(max-width:500px){.candidate-pick{min-width:32px;width:32px}.candidate-loupe-trigger{left:50px}.bulk-toolbar button{flex:1}}
 </style>
 </head>
 <body>
@@ -72,7 +85,14 @@
 <section class="panel" aria-label="Intake queue">
 <div class="toolbar"><h2>Review queue</h2><span id="queueCount" class="pill">0</span></div>
 <div class="toolbar"><input id="filter" type="search" placeholder="Search names and sources" style="flex:1"><select id="statusFilter" aria-label="Review status"><option value="">All statuses</option><option>discovered</option><option>provisional</option><option>ready</option><option>approved</option><option>rejected</option></select></div>
+<div class="bulk-toolbar" role="group" aria-label="Bulk TEMP selection">
+<span id="bulkSelectionStatus" role="status">0 selected</span>
+<button id="bulkSelectVisible" type="button">Select all visible</button>
+<button id="bulkClear" type="button">Clear selection</button>
+<button id="bulkAcceptTemp" type="button" disabled>Accept selected to TEMP</button>
+</div>
 <div id="queueList" class="list"></div>
+<div id="bulkTempReport" role="status" aria-live="polite"></div>
 <p class="hint">Queue is saved only in this browser (<code>tcg-lab-card-intake-v1</code>). Export backups when switching devices. Discovery candidates are automatically collected by a separate, review-only GitHub feed. Your existing daily reminder remains unchanged.</p>
 </section>
 <section class="panel" aria-label="Selected card">
