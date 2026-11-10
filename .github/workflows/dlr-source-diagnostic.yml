@@ -29,7 +29,8 @@ jobs:
           persist-credentials: true
       - name: Publish diagnostic to development branch
         run: |
-          cp -R artifacts/dlr-diagnostic destination/
+          mkdir -p destination/artifacts/dlr-diagnostic
+          cp -R artifacts/dlr-diagnostic/. destination/artifacts/dlr-diagnostic/
           cd destination
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
