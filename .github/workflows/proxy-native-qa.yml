@@ -30,6 +30,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-save playwright
+      - run: npm install --no-save playwright pdf-lib
       - run: npx playwright install --with-deps chromium
       - run: node scripts/test-proxy-browser.mjs
