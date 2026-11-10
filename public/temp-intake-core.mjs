@@ -194,9 +194,19 @@ export function planBulkTempAcceptance(queue,selectedIndexes,store,options={}){
   let working=structuredClone(store&&typeof store==='object'?store:{});
   const results=[],skipped=[];
   const now=options.now||new Date().toISOString();
+  const central=Array.isArray(options.centralCards)?options.centralCards:[];
   for(const index of indexes){
     const candidate=queue[index];
     try{
+      const published=central.find(card=>
+        (candidate.temp_entity_id&&card.id===candidate.temp_entity_id)||
+        (candidate.discovery_id&&(card.discoveryId===candidate.discovery_id||
+          card.discoveryIds?.includes(candidate.discovery_id))));
+      if(published){
+        skipped.push({index,name:candidate.name||'(unnamed)',
+          reason:'Already published in central TEMP; no local duplicate was created.'});
+        continue;
+      }
       // Each candidate identifies its own set; a single manually chosen
       // destination must never force unrelated sets together in bulk.
       const result=planTempAcceptance(candidate,working,{
