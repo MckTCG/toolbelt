@@ -1,5 +1,6 @@
 import {combineCatalog,matchCard,findPrinting,imageCandidates,rowsFromDeck,loadDeckDocument,chooseRows,LIB_KEY,DRAFT_KEY,DB_KEY,SUBTYPES} from './proxy-import-core.mjs';
 import {indexedArt,localArtworkFor} from './card-art-resolver.mjs';
+import {loadCentralTemp,mergeTempStores} from './temp-central-core.mjs';
 
 const queue=window.__proxyQueue;
 if(!queue)throw Error('Quick Print queue is unavailable.');
@@ -193,14 +194,21 @@ async function loadCatalog(){
   const res=await fetch('./card-db.html',{cache:'no-cache'});if(!res.ok)throw Error('HTTP '+res.status);
   const doc=new DOMParser().parseFromString(await res.text(),'text/html'),node=doc.querySelector('script#catalog[type="application/json"]');
   if(!node)throw Error('Master catalogue not found.');
-  const standard=JSON.parse(node.textContent),merged=combineCatalog(standard,safeStore(DB_KEY)||{});
+  const standard=JSON.parse(node.textContent);
+  let store=safeStore(DB_KEY)||{},centralStatus='local TEMP only';
+  try{
+    const central=await loadCentralTemp();
+    store=mergeTempStores(store,central).view;
+    centralStatus=central.cards.length+' centrally published TEMP';
+  }catch(error){console.warn('Central TEMP unavailable; preserving local-only cards:',error.message)}
+  const merged=combineCatalog(standard,store);
   allCards=merged.cards;sets=merged.sets;cardById=new Map(allCards.map(c=>[c.entity_id,c]));
   try{const art=await fetch('./data/card-art-manifest.json',{cache:'no-cache'});if(art.ok){const index=indexedArt(await art.json());localArt=new Map([...index].map(([pid])=>[pid,localArtworkFor(index,pid)]))}}catch{localArt=new Map()}
   $('piSet').innerHTML='<option value="">All sets</option>'+sets.map(s=>'<option value="'+esc(s.code)+'">'+esc(s.name)+' ('+esc(s.code)+')</option>').join('');
   const types=[...new Set(allCards.flatMap(c=>String(c.pokemon_types||'').split(/[|,]/).map(t=>t.trim()).filter(Boolean)))].sort();
   $('piType').innerHTML='<option value="">All types</option>'+types.map(t=>'<option>'+esc(t)+'</option>').join('');
   getSavedDecks();renderCards();
-  report(allCards.length.toLocaleString()+' gameplay records ready, including local TEMP cards where available.');
+  report(allCards.length.toLocaleString()+' gameplay records ready, including '+centralStatus+' and browser-local TEMP drafts.');
  }catch(err){report('Card DB could not load ('+err.message+'). Quick Print and manually uploaded images still work.',true);renderCards()}
 }
 getSavedDecks();updateTabs();show('cards');await loadCatalog();
