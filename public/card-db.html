@@ -81,6 +81,17 @@ const CATALOG = JSON.parse(document.getElementById('catalog').textContent);
 const CARDS=CATALOG.entities, BYID=new Map(CARDS.map(c=>[c.entity_id,c])), PRINTINGS=CARDS.flatMap(c=>c.printings.map(p=>({...p,entity_id:c.entity_id}))), PRINTMAP=new Map(PRINTINGS.map(p=>[p.printing_id,p])), SETMAP=new Map(CATALOG.sets.map(s=>[s.set_code,s]));
 // Intentionally retain v1 storage key for automatic in-place migration on the SAME Cloudflare hostname.
 const KEY='tcg-lab-card-db-v0.1';
+// Same-origin preview overrides: never overwrite browser TEMP records.
+const verifiedLocalArt=new Map();
+fetch('./data/card-art-manifest.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(manifest=>{
+ if(manifest?.schema!=='tcg-lab-card-art-manifest-v1'||!Array.isArray(manifest.entries))return;
+ for(const e of manifest.entries){
+  if(e.status==='verified'&&e.printingId&&e.sha256&&/^\.\/assets\/card-art\/[a-z0-9/_-]+\.(png|jpe?g|webp)$/i.test(e.path||'')){
+   verifiedLocalArt.set(e.printingId,new URL(e.path,document.baseURI).href);
+  }
+ }
+ if(verifiedLocalArt.size)render();
+}).catch(()=>{});
 let toastTimer=null;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -104,7 +115,7 @@ function tempSafeUrl(v){try{const u=new URL(String(v||'').trim());return ['https
 function tempSetDisplay(x){return 'TEMP — '+x.name}
 function tempSetByCode(code){return store.tempSets.find(x=>x.code===code)}
 function tempEntity(row){
- const p={printing_id:row.id+':printing',set_code:row.setCode,card_number:row.number||'?',image_url:row.image||'',rarity:'Provisional',artist:null,regulation_mark:'',source_url:row.source||'',release_date:''};
+ const p={printing_id:row.id+':printing',set_code:row.setCode,card_number:row.number||'?',image_url:verifiedLocalArt.get(row.id+':printing')||row.image||'',rarity:'Provisional',artist:null,regulation_mark:'',source_url:row.source||'',release_date:''};
  return {entity_id:row.id,name:row.name,supertype:row.category+(row.stage?' – '+row.stage:''),
   card_type:row.category,stage:row.stage||'',pokemon_types:row.pokemonType||'',hp:row.hp||'',
   evolves_from:row.evolvesFrom||'',ability_names:'',ability_effects:'',attack_names:'',
