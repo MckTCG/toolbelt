@@ -19,7 +19,7 @@ ARTICLE="""<html><main><div class="entry-content">
 <img src="https://www.pokebeach.com/news/2026/11/Persian-m7.jpg" alt="Persian from Aura Seeker (#070)">
 <p class="name"><strong>Persian</strong> - <strong>100 HP</strong> - [C]<br>
 <span class="evonote">Stage 1 - Evolves from Meowth</span></p>
-<span class="abilities"><p><strong>Ability: Large Coin</strong><br>Once during your turn, you may draw two cards.</p></span>
+<span class="abilities"><p><strong>Ability: Large Coin</strong><br>Once during your turn, you may draw two cards.</p><p><strong>Ability: Large Koban</strong><br>If you have two Pokémon with Pay Day, draw two cards.</p></span>
 <span class="attacks"><p class="attack">[C][C][C] <strong>Greedy Slash</strong>: 20x damage. For each card in hand.</p></span>
 <p class="weakness">Weakness: [F] x2<br>Resistance: none<br>Retreat: [C]</p></div></div></div>
 <div class="bbWrapper">User comments are not card source text.</div></main></html>"""
