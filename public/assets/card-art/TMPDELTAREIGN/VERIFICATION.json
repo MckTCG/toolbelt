@@ -1,0 +1,976 @@
+{
+  "schema": "tcg-lab-M6-local-art-verification-v1",
+  "verifiedAssets": [
+    {
+      "number": "001/076",
+      "name": "Heracross",
+      "path": "./assets/card-art/TMPDELTAREIGN/001.jpg",
+      "sha256": "bd588f787ad5816ca61eb049a350c7679e84729950dfc0126aea30d2661e1a12",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050339_P_HERAKUROSU.jpg"
+    },
+    {
+      "number": "002/076",
+      "name": "Surskit",
+      "path": "./assets/card-art/TMPDELTAREIGN/002.jpg",
+      "sha256": "44281c4e212e1d9f686fd428c8b82daeaf04e80913fdcab7bdd48e2f3d07998a",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050340_P_AMETAMA.jpg"
+    },
+    {
+      "number": "003/076",
+      "name": "Masquerain",
+      "path": "./assets/card-art/TMPDELTAREIGN/003.jpg",
+      "sha256": "77814c11c763eb4aa9e768676ba695cd45306ffac25227d69b1efa16fd29314d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050341_P_AMEMOSU.jpg"
+    },
+    {
+      "number": "004/076",
+      "name": "Cacnea",
+      "path": "./assets/card-art/TMPDELTAREIGN/004.jpg",
+      "sha256": "5376a2cb8c12440d5f3ee27e1e2c1e2e03ac916ce4798b36235b077c77263df5",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050342_P_SABONEA.jpg"
+    },
+    {
+      "number": "005/076",
+      "name": "Cacturne",
+      "path": "./assets/card-art/TMPDELTAREIGN/005.jpg",
+      "sha256": "0733788f89e3e33d77074151ddb40ec5646dc7c4d81c9899437437f33227b5ff",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050343_P_NOKUTASU.jpg"
+    },
+    {
+      "number": "006/076",
+      "name": "Combee",
+      "path": "./assets/card-art/TMPDELTAREIGN/006.jpg",
+      "sha256": "c2f27ef5207ae3a4f1321bba9b5d26fdff4ade27c546e07070677c80efff9e5c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050344_P_MITSUHANI.jpg"
+    },
+    {
+      "number": "007/076",
+      "name": "Vespiquen",
+      "path": "./assets/card-art/TMPDELTAREIGN/007.jpg",
+      "sha256": "307d386422b94dcbad4ec477be428c80944aec26dc03beb0c0983c51bae8880a",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050345_P_BIKUIN.jpg"
+    },
+    {
+      "number": "008/076",
+      "name": "Wimpod",
+      "path": "./assets/card-art/TMPDELTAREIGN/008.jpg",
+      "sha256": "f7d542c15174fa6271584acc4b9c40d11391bb7527a98dbac8da933d02ccb893",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050346_P_KOSOKUMUSHI.jpg"
+    },
+    {
+      "number": "009/076",
+      "name": "Mega Golisopod ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/009.jpg",
+      "sha256": "41515abc178941217ce14b533f3e3ecf809c91b524429eac1dd2ab229dfebcb5",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050347_P_MGUSOKUMUSHIXYAIEKKUSU.jpg"
+    },
+    {
+      "number": "010/076",
+      "name": "Growlithe",
+      "path": "./assets/card-art/TMPDELTAREIGN/010.jpg",
+      "sha256": "d240be10231b2448f7cb1174ef3ca75ea500236fe74ea70403e98da696e0ac5d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050348_P_GADEI.jpg"
+    },
+    {
+      "number": "011/076",
+      "name": "Arcanine",
+      "path": "./assets/card-art/TMPDELTAREIGN/011.jpg",
+      "sha256": "d7b4a4f96998418da820a3af1364337812feb3707aa624a50cf5eaa913d1f3b9",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050349_P_UINDEI.jpg"
+    },
+    {
+      "number": "012/076",
+      "name": "Magmar",
+      "path": "./assets/card-art/TMPDELTAREIGN/012.jpg",
+      "sha256": "738ab7b0d0ba90029b20e477d89e87761aa37706c824da1674655afa9ffaafee",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050350_P_BUBA.jpg"
+    },
+    {
+      "number": "013/076",
+      "name": "Magmortar",
+      "path": "./assets/card-art/TMPDELTAREIGN/013.jpg",
+      "sha256": "9640c5c9c691bc9ead0d78395f6120d73f34d1baef41c9baf80aa075c9f1bef3",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050351_P_BUBAN.jpg"
+    },
+    {
+      "number": "014/076",
+      "name": "Torkoal",
+      "path": "./assets/card-art/TMPDELTAREIGN/014.jpg",
+      "sha256": "67b90308a99481b9b56a57e5e54ec10df8c85b5e3f7badd93bffaf130d18f535",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050352_P_KOTASU.jpg"
+    },
+    {
+      "number": "015/076",
+      "name": "Heat Rotom ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/015.jpg",
+      "sha256": "9f35b44e8c8d2e06addd096479c78aaa34076053edf0786d3161d38c05d9cce5",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050353_P_HITOROTOMUIEKKUSU.jpg"
+    },
+    {
+      "number": "016/076",
+      "name": "Heatmor",
+      "path": "./assets/card-art/TMPDELTAREIGN/016.jpg",
+      "sha256": "5422fdb016b83ec5f267c0b06e55e846d4012ad8f07eb7b69b5cb5b62dd32c1c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050354_P_KUITARAN.jpg"
+    },
+    {
+      "number": "017/076",
+      "name": "Mantine",
+      "path": "./assets/card-art/TMPDELTAREIGN/017.jpg",
+      "sha256": "e1d5e01eb562812e00910482fc9f6ca38e53530eb45d7c5548b9a30d2d7e476c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050355_P_MANTAIN.jpg"
+    },
+    {
+      "number": "018/076",
+      "name": "Kyogre",
+      "path": "./assets/card-art/TMPDELTAREIGN/018.jpg",
+      "sha256": "c7c6eb0bbf57acee8a686a8b3d65fc7d6d206eb8ba3f09ad62f70bac1497483e",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050356_P_KAIOGA.jpg"
+    },
+    {
+      "number": "019/076",
+      "name": "Frillish",
+      "path": "./assets/card-art/TMPDELTAREIGN/019.jpg",
+      "sha256": "f7b1af6ece592d92d17c9ceeacd711a596d0d48bcf2edc5f5e87e60df7df5509",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050357_P_PURURIRU.jpg"
+    },
+    {
+      "number": "020/076",
+      "name": "Jellicent",
+      "path": "./assets/card-art/TMPDELTAREIGN/020.jpg",
+      "sha256": "74bb5d52bce27a24d040af87844596542d1b17132130b222d483da1f380c4d8c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050358_P_BURUNGERU.jpg"
+    },
+    {
+      "number": "021/076",
+      "name": "Wishiwashi ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/021.jpg",
+      "sha256": "751861605e282888a4eeea754dc0897dbcf29778983877616e393b6e687b7616",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050359_P_YOWASHIIEKKUSU.jpg"
+    },
+    {
+      "number": "022/076",
+      "name": "Electabuzz",
+      "path": "./assets/card-art/TMPDELTAREIGN/022.jpg",
+      "sha256": "caf7539e406d9c287920edc6fcc177141cd6bae23b8c9b8dcff7d2cd3f7c3a82",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050360_P_EREBU.jpg"
+    },
+    {
+      "number": "023/076",
+      "name": "Electivire",
+      "path": "./assets/card-art/TMPDELTAREIGN/023.jpg",
+      "sha256": "6a6b4fb95c0ceb23c68dff2e0f23bba822cdc3dfb5574cda087a32d9e16df8cb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050361_P_EREKIBURU.jpg"
+    },
+    {
+      "number": "024/076",
+      "name": "Raikou ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/024.jpg",
+      "sha256": "2f3f97502a57abbb2886fb627d9896191082f1562ac5fce370a98165f1e6ae9e",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050362_P_RAIKOUIEKKUSU.jpg"
+    },
+    {
+      "number": "025/076",
+      "name": "Thundurus",
+      "path": "./assets/card-art/TMPDELTAREIGN/025.jpg",
+      "sha256": "7660187e3c44995f78a884d07605cbc35580d4e25c5af23649a3e57d41bd1721",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050363_P_BORUTOROSU.jpg"
+    },
+    {
+      "number": "026/076",
+      "name": "Pincurchin",
+      "path": "./assets/card-art/TMPDELTAREIGN/026.jpg",
+      "sha256": "030a4b784ee9ef2a2c7fbf44c97073b169980cbbcdcfdfd27bfe2eb1861f235d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050364_P_BACHINUNI.jpg"
+    },
+    {
+      "number": "027/076",
+      "name": "Wattrel",
+      "path": "./assets/card-art/TMPDELTAREIGN/027.jpg",
+      "sha256": "f679d5fcff7b0cece7264e127a5a7fbbde34d578be43a572fff9e4030bb4c532",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050365_P_KAIDEN.jpg"
+    },
+    {
+      "number": "028/076",
+      "name": "Kilowattrel",
+      "path": "./assets/card-art/TMPDELTAREIGN/028.jpg",
+      "sha256": "55c47a3652080f97747bd536c14a151fc724144255d7b1ed750fa31c9d7d9f4f",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050366_P_TAIKAIDEN.jpg"
+    },
+    {
+      "number": "029/076",
+      "name": "Drowzee",
+      "path": "./assets/card-art/TMPDELTAREIGN/029.jpg",
+      "sha256": "576e102cc20e90f2847157a4758a5cffb6d33d0f31b5e2d6339e7cdab1f9f23e",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050367_P_SURIPU.jpg"
+    },
+    {
+      "number": "030/076",
+      "name": "Hypno",
+      "path": "./assets/card-art/TMPDELTAREIGN/030.jpg",
+      "sha256": "30a269fcfafa40764241160617ccb74248d68bc18e1f1206e05c5fff1b281a04",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050368_P_SURIPA.jpg"
+    },
+    {
+      "number": "031/076",
+      "name": "Giratina",
+      "path": "./assets/card-art/TMPDELTAREIGN/031.jpg",
+      "sha256": "5a8d0507ba5e8bcf80c4c5f6f73ed29092c70fcb60fa6b08ac835cfa0d46fe56",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050369_P_GIRATEINA.jpg"
+    },
+    {
+      "number": "032/076",
+      "name": "Golett",
+      "path": "./assets/card-art/TMPDELTAREIGN/032.jpg",
+      "sha256": "56c70bd4855a19e609f1e83a322457b65ff904501ba4355afa55aeabf6482cfd",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050370_P_GOBITTO.jpg"
+    },
+    {
+      "number": "033/076",
+      "name": "Mega Golurk ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/033.jpg",
+      "sha256": "a1dac93c39fbf5e7cf9bd120feb54a347f969f05f3036b33311cfb7e950d2bfb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050371_P_MGORUGUIEKKUSU.jpg"
+    },
+    {
+      "number": "034/076",
+      "name": "Enamorus",
+      "path": "./assets/card-art/TMPDELTAREIGN/034.jpg",
+      "sha256": "2369266b8b937053385eeb9c2d54fca01f525b9100e69b0e20a1b5ca70ce4503",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050372_P_RABUTOROSU.jpg"
+    },
+    {
+      "number": "035/076",
+      "name": "Sandshrew",
+      "path": "./assets/card-art/TMPDELTAREIGN/035.jpg",
+      "sha256": "8a980b76c9f6498da33bb55bb5f7986531488797ed6844ea1c968ec1a6fe3c92",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050373_P_SANDO.jpg"
+    },
+    {
+      "number": "036/076",
+      "name": "Sandslash",
+      "path": "./assets/card-art/TMPDELTAREIGN/036.jpg",
+      "sha256": "fadd6b64a8a749ab211c519f758ae0d6d882ae8d0b2d13aba821ece14b191708",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050374_P_SANDOPAN.jpg"
+    },
+    {
+      "number": "037/076",
+      "name": "Onix",
+      "path": "./assets/card-art/TMPDELTAREIGN/037.jpg",
+      "sha256": "efabf1f5bb6b54d4b4a35a18f5729d9a4c455f08d9a5535a178189e8f64f9baf",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050375_P_IWAKU.jpg"
+    },
+    {
+      "number": "038/076",
+      "name": "Steelix",
+      "path": "./assets/card-art/TMPDELTAREIGN/038.jpg",
+      "sha256": "d706cb1fb2d70caefc7ad1ae2c61113e34c50915ca653018e937688896d2ba09",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050376_P_HAGANERU.jpg"
+    },
+    {
+      "number": "039/076",
+      "name": "Groudon",
+      "path": "./assets/card-art/TMPDELTAREIGN/039.jpg",
+      "sha256": "66c39ce4d9657a0ed6627023cfd3264459479c20382800406b83e4c2e12a191a",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050377_P_GURADON.jpg"
+    },
+    {
+      "number": "040/076",
+      "name": "Landorus",
+      "path": "./assets/card-art/TMPDELTAREIGN/040.jpg",
+      "sha256": "49251f8f6de13dce5a58cab7e0d75edcc0fb138d05a2c9d7280266ba132ab1cb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050378_P_RANDOROSU.jpg"
+    },
+    {
+      "number": "041/076",
+      "name": "Nidoran♀",
+      "path": "./assets/card-art/TMPDELTAREIGN/041.jpg",
+      "sha256": "a7086990b1eebc1980e1dfd58f5befd249b0550c2361cc503fe1334f34bc410c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050379_P_NIDORAN.jpg"
+    },
+    {
+      "number": "042/076",
+      "name": "Nidorina",
+      "path": "./assets/card-art/TMPDELTAREIGN/042.jpg",
+      "sha256": "cfe49cd9bd782dc2d7c7d43b377acb19dccb7a571b6147971a0cb4c233027b45",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050380_P_NIDORINA.jpg"
+    },
+    {
+      "number": "043/076",
+      "name": "Nidoqueen",
+      "path": "./assets/card-art/TMPDELTAREIGN/043.jpg",
+      "sha256": "5526077120c9bfa5326db67ea4365cf09b3ecd4c5391fd9dfd496e45203daf36",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050381_P_NIDOKUIN.jpg"
+    },
+    {
+      "number": "044/076",
+      "name": "Spinarak",
+      "path": "./assets/card-art/TMPDELTAREIGN/044.jpg",
+      "sha256": "30632b055d8be23f19d629744d121eaf86eb3d7037a20bd3821f1a33a37e2ba3",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050382_P_ITOMARU.jpg"
+    },
+    {
+      "number": "045/076",
+      "name": "Ariados",
+      "path": "./assets/card-art/TMPDELTAREIGN/045.jpg",
+      "sha256": "20384d3107cdba153d9529e1ce8f4ab8ec7e2f6ec74b848106511f0f77e507bf",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050383_P_ARIADOSU.jpg"
+    },
+    {
+      "number": "046/076",
+      "name": "Sableye",
+      "path": "./assets/card-art/TMPDELTAREIGN/046.jpg",
+      "sha256": "8906e573ab57c2c3b264877c13dc8b928d16bb1a1ca6dac52cfbcb1e94a8df1d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050384_P_YAMIRAMI.jpg"
+    },
+    {
+      "number": "047/076",
+      "name": "Inkay",
+      "path": "./assets/card-art/TMPDELTAREIGN/047.jpg",
+      "sha256": "c436bbf27d4f116549500ab9241e4f0a1d62b982e7808bf102cb60fd60972ddb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050385_P_MAIKA.jpg"
+    },
+    {
+      "number": "048/076",
+      "name": "Mega Malamar ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/048.jpg",
+      "sha256": "f914da3db90e18906b140f5867770d90ca79b75ddc6af8b6652f8e3706beb61c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050386_P_MKARAMANEROIEKKUSU.jpg"
+    },
+    {
+      "number": "049/076",
+      "name": "Druddigon",
+      "path": "./assets/card-art/TMPDELTAREIGN/049.jpg",
+      "sha256": "77693c2373a73afaa650176fc9d542e3d51d99dad2d217b4966b4f098b5d6838",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050387_P_KURIMUGAN.jpg"
+    },
+    {
+      "number": "050/076",
+      "name": "Jangmo-o",
+      "path": "./assets/card-art/TMPDELTAREIGN/050.jpg",
+      "sha256": "dd20f44a580b388af7b15ab2b910a9b3d5c930a3fc8ba15ff02b9c647d5a57e0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050388_P_JIXYARAKO.jpg"
+    },
+    {
+      "number": "051/076",
+      "name": "Hakamo-o",
+      "path": "./assets/card-art/TMPDELTAREIGN/051.jpg",
+      "sha256": "5a60f630ed8b4823cbc086ec25de33d52faea3ae97039936948686bdcf468138",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050389_P_JIXYARANGO.jpg"
+    },
+    {
+      "number": "052/076",
+      "name": "Kommo-o",
+      "path": "./assets/card-art/TMPDELTAREIGN/052.jpg",
+      "sha256": "4effb88444bfe7d8841fe32f6c5780faff0c06ff642271db27e07c5693064a37",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050390_P_JIXYARARANGA.jpg"
+    },
+    {
+      "number": "053/076",
+      "name": "Cyclizar",
+      "path": "./assets/card-art/TMPDELTAREIGN/053.jpg",
+      "sha256": "feb62c20a7404b24db6cc54e57d38f014f8fa8a2bcf461dd94ef770ff6672d30",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050391_P_MOTOTOKAGE.jpg"
+    },
+    {
+      "number": "054/076",
+      "name": "Azurill",
+      "path": "./assets/card-art/TMPDELTAREIGN/054.jpg",
+      "sha256": "2243dc7e32e4de215002f0caa518f31942ecf0a8fab02f7e45c21c584954f002",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050392_P_RURIRI.jpg"
+    },
+    {
+      "number": "055/076",
+      "name": "Swablu",
+      "path": "./assets/card-art/TMPDELTAREIGN/055.jpg",
+      "sha256": "4757eebf0aeeea6ed5a0890d110ba93b1b908f75c687f9deaf0a76701319a4c6",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050393_P_CHIRUTTO.jpg"
+    },
+    {
+      "number": "056/076",
+      "name": "Altaria",
+      "path": "./assets/card-art/TMPDELTAREIGN/056.jpg",
+      "sha256": "3edd77b4ba5d67503f8ef322a3b1bbc0842ef42347b538f764efecf7e07abb8c",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050394_P_CHIRUTARISU.jpg"
+    },
+    {
+      "number": "057/076",
+      "name": "Kecleon",
+      "path": "./assets/card-art/TMPDELTAREIGN/057.jpg",
+      "sha256": "9e5a39a86a012edd5be4f7eba76f90ab446147cf809eff4c1c4543f552e7a7ed",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050395_P_KAKUREON.jpg"
+    },
+    {
+      "number": "058/076",
+      "name": "Mega Rayquaza ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/058.jpg",
+      "sha256": "9e9432d1ca4f602ae234fd7beb7f80b9b6b6f70886bb64c534b469259fb74ce9",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050396_P_MREKKUUZAIEKKUSU.jpg"
+    },
+    {
+      "number": "059/076",
+      "name": "Tornadus",
+      "path": "./assets/card-art/TMPDELTAREIGN/059.jpg",
+      "sha256": "b6595dbf901e1ec7bd6fea00b65b80a60aabba59e3e0645854bbc0e9b20c3b97",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050397_P_TORUNEROSU.jpg"
+    },
+    {
+      "number": "060/076",
+      "name": "Fletchling",
+      "path": "./assets/card-art/TMPDELTAREIGN/060.jpg",
+      "sha256": "0a758c07d8c802d88ee2516cc824b403f2bcb3c639769da1420800f742b0d57b",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050398_P_YAYAKOMA.jpg"
+    },
+    {
+      "number": "061/076",
+      "name": "Fletchinder",
+      "path": "./assets/card-art/TMPDELTAREIGN/061.jpg",
+      "sha256": "380983ab541ebf4ef9103dae2726fab323797b77fce7e9a513e7695eabc4e59f",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050399_P_HINOYAKOMA.jpg"
+    },
+    {
+      "number": "062/076",
+      "name": "Talonflame ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/062.jpg",
+      "sha256": "243a2ece2de81ef5e3ec8c51d3df3a8b5789992134e483f46c1a0f9e5850fdab",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050400_P_FUAIAROIEKKUSU.jpg"
+    },
+    {
+      "number": "063/076",
+      "name": "Delicious Onigiri",
+      "path": "./assets/card-art/TMPDELTAREIGN/063.jpg",
+      "sha256": "e2c9102e0973db023fb6779307a0587f45df43c38e561fa8cf810a1323396314",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050401_T_OISHIIOMUSUBI.jpg"
+    },
+    {
+      "number": "064/076",
+      "name": "Adventure Lantern",
+      "path": "./assets/card-art/TMPDELTAREIGN/064.jpg",
+      "sha256": "dce284b1c79d61f8d229dcfdda2039238b58485e8516280da137f9074b667d38",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050402_T_BOUKENNORANTAN.jpg"
+    },
+    {
+      "number": "065/076",
+      "name": "Custom Vest",
+      "path": "./assets/card-art/TMPDELTAREIGN/065.jpg",
+      "sha256": "8efed2bcd8569bbb42db73588d978a10e5c86d86fffbd90030953c27103d1258",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050403_T_TOKUCHIXYUUCHIXYOKKI.jpg"
+    },
+    {
+      "number": "066/076",
+      "name": "Mega Rayquaza Cap",
+      "path": "./assets/card-art/TMPDELTAREIGN/066.jpg",
+      "sha256": "f9028dbd92e3a297c3e9ba0e8b4ec2dfd797c5cd2643e828e7371e738622bc47",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050404_T_MREKKUUZAKIXYAPPU.jpg"
+    },
+    {
+      "number": "067/076",
+      "name": "Emcee's Hype",
+      "path": "./assets/card-art/TMPDELTAREIGN/067.jpg",
+      "sha256": "0a06e83126502d88fc5ad5ca10135498c3bd8223b95b7f311a5204b48dc6b504",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050405_T_EMUSHINOMORIAGE.jpg"
+    },
+    {
+      "number": "068/076",
+      "name": "Aarune",
+      "path": "./assets/card-art/TMPDELTAREIGN/068.jpg",
+      "sha256": "fcac5f0c5843553ee28da3f5a3f57f4489a194597888397408eb6767ab1cfe25",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050406_T_GIRI.jpg"
+    },
+    {
+      "number": "069/076",
+      "name": "Zinnia's Trust",
+      "path": "./assets/card-art/TMPDELTAREIGN/069.jpg",
+      "sha256": "0204ac3add20d26c5ba146e7698828f904878e13339cab68ffa3aebbe77d4709",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050407_T_HIGANANOSHINRAI.jpg"
+    },
+    {
+      "number": "070/076",
+      "name": "Tate & Liza's Training",
+      "path": "./assets/card-art/TMPDELTAREIGN/070.jpg",
+      "sha256": "da636e7f5e6fba1bdc2633817d7cd565eadbc81c9ada6dce930302b9ff6804e0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050408_T_FUUTORANNOSHIXYUGIXYOU.jpg"
+    },
+    {
+      "number": "077/076",
+      "name": "Masquerain",
+      "path": "./assets/card-art/TMPDELTAREIGN/077.jpg",
+      "sha256": "c186a6dd7272c59ba91202528a6dc39e4da5961339167cdc77ce73c2519c8b6a",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050518_P_AMEMOSU.jpg"
+    },
+    {
+      "number": "078/076",
+      "name": "Growlithe",
+      "path": "./assets/card-art/TMPDELTAREIGN/078.jpg",
+      "sha256": "1fd800064d3b1c6a077cf023c0d76294dc3994b80333f1a0ca34a4a7ee9aa3be",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050519_P_GADEI.jpg"
+    },
+    {
+      "number": "079/076",
+      "name": "Magmortar",
+      "path": "./assets/card-art/TMPDELTAREIGN/079.jpg",
+      "sha256": "5c7ccf750885190a2a2bd0050a55b094b8accefb87bb2c0cf98b79b25f741afd",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050520_P_BUBAN.jpg"
+    },
+    {
+      "number": "080/076",
+      "name": "Kyogre",
+      "path": "./assets/card-art/TMPDELTAREIGN/080.jpg",
+      "sha256": "8e7373e1db2e62d3f160bdd8b4771f8e8877e6a422580e774707b0a0af5532b0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050521_P_KAIOGA.jpg"
+    },
+    {
+      "number": "081/076",
+      "name": "Electivire",
+      "path": "./assets/card-art/TMPDELTAREIGN/081.jpg",
+      "sha256": "0924fbecedf9dc7fe4b58981921262955f1a52ad220d3e65a0e7387234362c1f",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050522_P_EREKIBURU.jpg"
+    },
+    {
+      "number": "082/076",
+      "name": "Pincurchin",
+      "path": "./assets/card-art/TMPDELTAREIGN/082.jpg",
+      "sha256": "441638dadf8c4484001274d15b13bf1ceaaa086aee88c636a0271574d28ae9bf",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050523_P_BACHINUNI.jpg"
+    },
+    {
+      "number": "083/076",
+      "name": "Enamorus",
+      "path": "./assets/card-art/TMPDELTAREIGN/083.jpg",
+      "sha256": "e0ded5d67da776114752eead859ac93655dbce3a5b34a98afa870fb35fde801a",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050524_P_RABUTOROSU.jpg"
+    },
+    {
+      "number": "084/076",
+      "name": "Groudon",
+      "path": "./assets/card-art/TMPDELTAREIGN/084.jpg",
+      "sha256": "fd56a1dc79e07b964c89af0fc93c0522c210e05c3719a531f36ea84d1b70dfe9",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050525_P_GURADON.jpg"
+    },
+    {
+      "number": "085/076",
+      "name": "Inkay",
+      "path": "./assets/card-art/TMPDELTAREIGN/085.jpg",
+      "sha256": "79e4d4599292dd53bdab7a2f9f92d121a6fa8eab0444c0e6b4c72b6b973c72f4",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050526_P_MAIKA.jpg"
+    },
+    {
+      "number": "086/076",
+      "name": "Azurill",
+      "path": "./assets/card-art/TMPDELTAREIGN/086.jpg",
+      "sha256": "248b5d5e3cf074b0e2ebe9f520dce3fd8110e2c008cbb9e69a02e564a171ba7d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050527_P_RURIRI.jpg"
+    },
+    {
+      "number": "087/076",
+      "name": "Altaria",
+      "path": "./assets/card-art/TMPDELTAREIGN/087.jpg",
+      "sha256": "40de246b98ee4b69a8e845970cbf924a71d1d49c6fe0d1e24999409960cf0ce0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050528_P_CHIRUTARISU.jpg"
+    },
+    {
+      "number": "088/076",
+      "name": "Kecleon",
+      "path": "./assets/card-art/TMPDELTAREIGN/088.jpg",
+      "sha256": "2e37929ac8bd0f5ff3d63c0b4813cb86b22deb77fb94b94e914bb61f463bf344",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050529_P_KAKUREON.jpg"
+    },
+    {
+      "number": "089/076",
+      "name": "Mega Golisopod ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/089.jpg",
+      "sha256": "d49ac308f68588c2f1e138b52a0a7339cbc40328daeea6b0ee00578c422aaeb9",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050530_P_MGUSOKUMUSHIXYAIEKKUSU.jpg"
+    },
+    {
+      "number": "090/076",
+      "name": "Heat Rotom ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/090.jpg",
+      "sha256": "76e57cae34972fc36e6f3e842bc9b1581981ab91b310652d725482c2297533c0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050531_P_HITOROTOMUIEKKUSU.jpg"
+    },
+    {
+      "number": "091/076",
+      "name": "Wishiwashi ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/091.jpg",
+      "sha256": "1bb2c2d53b848c2c9d77d97c3b1efaf29ef5287e9a3adb28bc2c735b9e89662e",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050532_P_YOWASHIIEKKUSU.jpg"
+    },
+    {
+      "number": "092/076",
+      "name": "Raikou ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/092.jpg",
+      "sha256": "0304736383a530097f346b6d3feeae5cce3a7b1746fb066e948d91b19df0b9dd",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050533_P_RAIKOUIEKKUSU.jpg"
+    },
+    {
+      "number": "093/076",
+      "name": "Mega Golurk ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/093.jpg",
+      "sha256": "c8f19957fa86cd79bd0e3574d634e1e2b8eb885293341fc2fa03e1d8b3e8ac58",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050534_P_MGORUGUIEKKUSU.jpg"
+    },
+    {
+      "number": "094/076",
+      "name": "Mega Malamar ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/094.jpg",
+      "sha256": "474218b78d61a82d746fa4937c7c0aad66f41d94ec26b10f81f7a3c4a4cfee07",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050535_P_MKARAMANEROIEKKUSU.jpg"
+    },
+    {
+      "number": "095/076",
+      "name": "Mega Rayquaza ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/095.jpg",
+      "sha256": "843fea3a3f35a13a69dae584b6f3cdc317d90a9bac5e0f6fb41bebb3ff6018b7",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050536_P_MREKKUUZAIEKKUSU.jpg"
+    },
+    {
+      "number": "096/076",
+      "name": "Talonflame ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/096.jpg",
+      "sha256": "44e39032765cdc95f28143575e4d0d5807dd5744cd1b25be507bcdbfbd8967ab",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050537_P_FUAIAROIEKKUSU.jpg"
+    },
+    {
+      "number": "097/076",
+      "name": "Adventuring Lantern",
+      "path": "./assets/card-art/TMPDELTAREIGN/097.jpg",
+      "sha256": "15b447012917ae8143d55bcb8078d0b35e908ebad74e9d7043c4e5c5c582d3bb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050538_T_BOUKENNORANTAN.jpg"
+    },
+    {
+      "number": "098/076",
+      "name": "Pokémon Catcher",
+      "path": "./assets/card-art/TMPDELTAREIGN/098.jpg",
+      "sha256": "c7b3f2c8c38a05c58945633b5a6b0b8e148d5829451dc0e87bf927a23e8a53eb",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050539_T_POKEMONKIXYATCHIXYA.jpg"
+    },
+    {
+      "number": "099/076",
+      "name": "Custom Vest",
+      "path": "./assets/card-art/TMPDELTAREIGN/099.jpg",
+      "sha256": "b54618fb9a13682a55394ebb1ee4826ebcb349874de50ce43f5b383a319ed475",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050540_T_TOKUCHIXYUUCHIXYOKKI.jpg"
+    },
+    {
+      "number": "100/076",
+      "name": "Emcee's Hype",
+      "path": "./assets/card-art/TMPDELTAREIGN/100.jpg",
+      "sha256": "f107d6151c56532762918f80f4a6471f32f7d21cae0735456dd9e26878ba7519",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050541_T_EMUSHINOMORIAGE.jpg"
+    },
+    {
+      "number": "101/076",
+      "name": "Aarune",
+      "path": "./assets/card-art/TMPDELTAREIGN/101.jpg",
+      "sha256": "15c188484804b6ec64c8e965df3a764271126db95f1086a0e4381a9007b02a7b",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050542_T_GIRI.jpg"
+    },
+    {
+      "number": "102/076",
+      "name": "Zinnia's Trust",
+      "path": "./assets/card-art/TMPDELTAREIGN/102.jpg",
+      "sha256": "1bf6c8e9beb592cdcac0ccab6d77e4042d172a93887df94219fad366cb78d106",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050543_T_HIGANANOSHINRAI.jpg"
+    },
+    {
+      "number": "103/076",
+      "name": "Tate & Liza's Training",
+      "path": "./assets/card-art/TMPDELTAREIGN/103.jpg",
+      "sha256": "142812e19ac495991400a49d0c36529501f7084ac1180fbec37107c66b5b0cd6",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050544_T_FUUTORANNOSHIXYUGIXYOU.jpg"
+    },
+    {
+      "number": "104/076",
+      "name": "Growing Grass Energy",
+      "path": "./assets/card-art/TMPDELTAREIGN/104.jpg",
+      "sha256": "1c8a5323053357eba2505ebe5cf5678ef3c01a99bcf0efa90da1bf42859a6333",
+      "width": 800,
+      "height": 1116,
+      "source": "https://www.serebii.net/card/stormemeralda/104.jpg"
+    },
+    {
+      "number": "105/076",
+      "name": "Nitro Fire Energy",
+      "path": "./assets/card-art/TMPDELTAREIGN/105.jpg",
+      "sha256": "be167b7ad230a12cb319ac6835c1a89a02ee672b474e82d5d6864515206032ea",
+      "width": 800,
+      "height": 1116,
+      "source": "https://www.serebii.net/card/stormemeralda/105.jpg"
+    },
+    {
+      "number": "106/076",
+      "name": "Bubbly Water Energy",
+      "path": "./assets/card-art/TMPDELTAREIGN/106.jpg",
+      "sha256": "558b8b593d3d58b9a0efb84b9d4b4897d123aef3a678a5f4bcf61413d7e0ccc2",
+      "width": 800,
+      "height": 1116,
+      "source": "https://www.serebii.net/card/stormemeralda/106.jpg"
+    },
+    {
+      "number": "107/076",
+      "name": "Mega Golisopod ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/107.jpg",
+      "sha256": "7fbc105ef45cff5d0ede9974d1d4d4739732279046b3521cd0f17f4950de354e",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050548_P_MGUSOKUMUSHIXYAIEKKUSU.jpg"
+    },
+    {
+      "number": "108/076",
+      "name": "Raikou ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/108.jpg",
+      "sha256": "85fb59a016790acd28f74b7e9f9cf8b8e7a9f391b3f87ff0dd9fdf6bca2a5ee8",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050549_P_RAIKOUIEKKUSU.jpg"
+    },
+    {
+      "number": "109/076",
+      "name": "Mega Golurk ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/109.jpg",
+      "sha256": "427719af8a480ec3f10030546ec1f2c5859538a53c9a4b2efe7141e4ed51965d",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050550_P_MGORUGUIEKKUSU.jpg"
+    },
+    {
+      "number": "110/076",
+      "name": "Mega Rayquaza ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/110.jpg",
+      "sha256": "c9f4542fecc5a85d577ff800574d5122dd5dfa95f99bdfbcf7b0fa99cf3f06f9",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050551_P_MREKKUUZAIEKKUSU.jpg"
+    },
+    {
+      "number": "111/076",
+      "name": "Aarune",
+      "path": "./assets/card-art/TMPDELTAREIGN/111.jpg",
+      "sha256": "353f6160d4d0dcd5e49e2e234e2cc4a469661f25e422539332e7f8e56cc2e654",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050552_T_GIRI.jpg"
+    },
+    {
+      "number": "112/076",
+      "name": "Zinnia's Trust",
+      "path": "./assets/card-art/TMPDELTAREIGN/112.jpg",
+      "sha256": "d77646941224dbd7ec69971c518844169bbaf639b35a3cdb6e580795aa0e417b",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050553_T_HIGANANOSHINRAI.jpg"
+    },
+    {
+      "number": "113/076",
+      "name": "Mega Rayquaza ex",
+      "path": "./assets/card-art/TMPDELTAREIGN/113.jpg",
+      "sha256": "dbbdc3b7e64c4a269490ad0c40cc53ec109337f8c8c59a347c5081cfb5e844b0",
+      "width": 868,
+      "height": 1212,
+      "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050554_P_MREKKUUZAIEKKUSU.jpg"
+    }
+  ],
+  "missingNumbers": [
+    "071/076",
+    "072/076",
+    "073/076",
+    "074/076",
+    "075/076",
+    "076/076"
+  ]
+}
