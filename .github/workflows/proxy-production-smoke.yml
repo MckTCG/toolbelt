@@ -1,0 +1,20 @@
+name: Proxy Workshop Production Smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/check-proxy-production.mjs'
+      - '.github/workflows/proxy-production-smoke.yml'
+      - 'public/proxy-workshop.html'
+      - 'public/proxy-import.mjs'
+      - 'public/proxy-import-core.mjs'
+  workflow_dispatch:
+jobs:
+  live-worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/check-proxy-production.mjs
