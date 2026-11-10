@@ -25,7 +25,9 @@ const catalog=JSON.parse(match[2]);
 if(catalog.schema!=='tcg-lab-catalog-v2'||!Array.isArray(catalog.entities)||!Array.isArray(catalog.sets))throw Error('Unexpected Master DB schema');
 const candidates=importBatch(JSON.parse(await fs.readFile(batchFile,'utf8')));
 const idsBefore=new Set(catalog.entities.map(x=>x.entity_id));
-const printKeysBefore=new Set(catalog.entities.flatMap(e=>e.printings||[]).map(keyFor));
+const baselineKeys=catalog.entities.flatMap(e=>e.printings||[]).map(keyFor);
+const printKeysBefore=new Set(baselineKeys);
+const baselineDuplicateKeyCount=baselineKeys.length-printKeysBefore.size;
 const idSet=new Set(idsBefore);
 const printingIdSet=new Set(catalog.entities.flatMap(e=>(e.printings||[]).map(p=>p.printing_id)));
 const entitiesSnapshot=new Map(catalog.entities.map(e=>[e.entity_id,JSON.stringify({...e,printings:undefined})]));
@@ -120,8 +122,9 @@ for(const e of catalog.entities) {
    throw Error('Unexpected mutation of existing gameplay data: '+e.entity_id);
 }
 const allIds=catalog.entities.map(e=>e.entity_id),allPrintingKeys=catalog.entities.flatMap(e=>e.printings||[]).map(keyFor);
-if(new Set(allIds).size!==allIds.length||new Set(allPrintingKeys).size!==allPrintingKeys.length)
- throw Error('Post-import uniqueness check failed');
+if(new Set(allIds).size!==allIds.length || allPrintingKeys.length-new Set(allPrintingKeys).size>baselineDuplicateKeyCount)
+ throw Error('Post-import uniqueness check failed (new entity or printing collision)');
+status.baseline_duplicate_printing_keys=baselineDuplicateKeyCount;
 status.after={entities:catalog.entities.length,printings:allPrintingKeys.length,sets:catalog.sets.length};
 if(reportFile){await fs.mkdir(path.dirname(reportFile),{recursive:true});await fs.writeFile(reportFile,JSON.stringify(status,null,2)+'\n')}
 console.log(JSON.stringify(status,null,2));
