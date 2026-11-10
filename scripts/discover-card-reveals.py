@@ -218,6 +218,9 @@ def parse_pokebeach_article(markup, url, published="", title=""):
         for atk in attacks:details.append("Attack: "+atk["name"]+" — "+atk["damage"]+" "+atk["text"])
         # English on PokéBeach is commonly translated from JP/CN; not official English confirmation.
         proof="PokéBeach structured spoiler; translation is provisional, no English release/regulation verified. Article: "+(title or name)
+        if len(abilities)>1:
+            proof+=". CAUTION: multiple Ability descriptions in article; these may be alternate translations. Select only the actual printed Ability after verification."
+
         c=candidate(source_url=url,source_kind="pokebeach-card-spoiler",
           discovery_id=stable_id("pokebeach",url,card.attrs.get("id",""),name,index),
           name=name,category=category,stage=stage_m.group(1).replace("Basic Pokemon","Basic") if stage_m else "",
@@ -344,6 +347,23 @@ def build_feed(cards,catalog_keys,prior=None,max_items=500):
         x["artwork_verified"]=False
         x["status"]="discovered" if x.get("language")=="en" else "provisional"
     items=sorted(previous.values(),key=lambda x:(x.get("source_published_at") or x.get("discovered_at") or ""),reverse=True)[:max_items]
+    # Cross-provider similarity is a REVIEW HINT, not proof of printing/translation identity.
+    groups={}
+    for x in items:
+        name=normalized(x.get("name","")).casefold()
+        number=str(x.get("card_number","")).lstrip("0")
+        if name and number:groups.setdefault((name,number),[]).append(x)
+    for group in groups.values():
+        if len(group)<2:continue
+        for x in group:
+            others=[y.get("source_kind","unknown") for y in group if y["discovery_id"]!=x["discovery_id"]]
+            if others and "Possible cross-source overlap" not in x.get("review_note",""):
+                x["review_note"]=(x.get("review_note","")+". Possible cross-source overlap ("+
+                                  ", ".join(sorted(set(others)))+
+                                  "); confirm the actual set and printing before combining.").strip()
+    # Keep the public browser feed small even if sources reveal hundreds of cards.
+    while items and len(json.dumps({"candidates":items,"seen_ids":sorted(seen)[-12000:]},ensure_ascii=False))>1_500_000:
+        items.pop()
     return {"schema":SCHEMA,"generated_at":now(),"source_note":"Unverified staged discoveries only. The authoritative Card DB is separate.",
             "candidates":items,"seen_ids":sorted(seen)[-12000:],"new_count":new}
 
