@@ -45,6 +45,9 @@ jobs:
           obj=json.load(open('/tmp/discovery-live.json'))
           stats=obj['stats']
           print('LIVE DISCOVERY STATS:',stats)
+          for card in obj['candidates']:
+            if card.get('name') in ('Meowth','Persian','Vulpix','Ninetales','Quagsire','Pawmi'):
+              print('CARD SPOT CHECK:',{k:card.get(k) for k in ('name','source_kind','set_name','card_number','hp','stage','pokemon_types','attacks','abilities','weakness','resistance','retreat_cost')})
           print('SOURCE ERRORS:',obj['errors'])
           assert obj['schema']=='tcg-lab-card-discovery-feed-v1'
           assert stats.get('pokebeach_cards',0)>=2,'Failed to extract two cards from structured news'
@@ -53,6 +56,12 @@ jobs:
           assert all(not x['source_verified'] and not x['artwork_verified'] and x['status']!='approved' for x in obj['candidates'])
           print('PASS: Live article/news/proxy extraction staged unverified records; no database writes.')
           PY
+      - name: Retain live preview JSON for source-record QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-pilot-preview
+          path: /tmp/discovery-live.json
+          retention-days: 7
   browser-staging:
     runs-on: ubuntu-latest
     timeout-minutes: 10
