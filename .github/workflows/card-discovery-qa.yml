@@ -4,6 +4,8 @@ on:
     branches: [feature/card-db-discovery-phase2-20261110]
     paths:
       - scripts/discover-card-reveals.py
+      - public/data/temp-catalog-v1.json
+      - public/temp-central-core.mjs
       - scripts/test-card-discovery.py
       - public/card-intake*.mjs
       - public/card-intake.html
@@ -12,6 +14,8 @@ on:
   pull_request:
     paths:
       - scripts/discover-card-reveals.py
+      - public/data/temp-catalog-v1.json
+      - public/temp-central-core.mjs
       - scripts/test-card-discovery.py
       - public/card-intake*.mjs
       - public/card-intake.html
