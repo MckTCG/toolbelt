@@ -23,7 +23,11 @@ function tempRecord(candidate=queue[selected]){
        (c.discoveryId===candidate.discovery_id||c.discoveryIds?.includes(candidate.discovery_id)))||null;
 }
 function updateTempDestination(){
-  const select=$('tempDestination'),previous=select.value,store=readTempStore();
+  const select=$('tempDestination'),previous=select.value;
+  let store;
+  try{store=readTempStore()}
+  catch(error){select.disabled=true;$('tempStatus').textContent='TEMP unavailable: '+error.message;return}
+  select.disabled=selected<0;
   select.replaceChildren();
   const auto=document.createElement('option');auto.value='';auto.textContent='Auto: match set name / create TEMP set';select.append(auto);
   for(const set of store.tempSets||[]){
@@ -35,9 +39,16 @@ function updateTempDestination(){
   if(code&&[...select.options].some(o=>o.value===code))select.value=code;
 }
 function refreshTempStatus(){
-  const row=tempRecord();
-  const ready=tempReady(row);
   const label=$('tempStatus');
+  let row;
+  try{row=tempRecord()}
+  catch(error){
+    label.textContent='TEMP unavailable: '+error.message;
+    $('addTempDeck').disabled=true;$('openTempProxy').disabled=true;
+    $('tempReviewChanges').textContent='';$('loadTempSuggestion').hidden=true;
+    return;
+  }
+  const ready=tempReady(row);
   label.textContent=row?('TEMP saved: '+row.name+' · '+row.setCode+
     ' · Manual Simulator '+(ready.manualSimulator?'ready':'missing name/category')+
     ' · Proxy '+(ready.proxy?'image ready':'needs artwork')+
