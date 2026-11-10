@@ -1,0 +1,15 @@
+{
+  "schema": "tcg-lab-card-discovery-feed-v1",
+  "generated_at": "2026-11-10T08:25:00Z",
+  "source_note": "Staging branch initialized. Feed not populated until successful first discovery run. No verified/approved cards.",
+  "candidates": [],
+  "seen_ids": [],
+  "new_count": 0,
+  "sources": {
+    "rss": "https://kaprestridge.github.io/pokebeach-news-feed/feed.xml",
+    "pokemonproxies": "https://www.pokemonproxies.com/",
+    "limitless": "individual card URLs"
+  },
+  "stats": {},
+  "errors": []
+}
