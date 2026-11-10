@@ -10,4 +10,8 @@ export function indexedArt(manifest){
  }
  return index;
 }
-export function localArtworkFor(index,printingId){return index.get(String(printingId))||null}
+export function localArtworkFor(index,printingId){
+ const local=index.get(String(printingId));
+ if(!local)return null;
+ try{return new URL(local,import.meta.url).href}catch{return null}
+}
