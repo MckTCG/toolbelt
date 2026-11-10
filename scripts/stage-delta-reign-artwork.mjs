@@ -69,7 +69,7 @@ for(const [i,card] of seed.cards.entries()){
 }
 const manifest={schema:'tcg-lab-card-art-staging-v1',generatedAt:new Date().toISOString(),setCode:seed.set.code,verifiedCount:0,stagedCount:rows.filter(r=>r.asset).length,missingCount:rows.filter(r=>!r.asset).length,rows};
 await fs.writeFile(path.join(output,'staging-report.json'),JSON.stringify(manifest,null,2));
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
 const cards=rows.map(r=>'<article><h3>'+esc(r.number)+' '+esc(r.name)+'</h3>'+(r.asset?'<img loading="lazy" src="'+esc(r.asset.path)+'" alt="'+esc(r.name)+'">':'<p>MISSING</p>')+'<p>'+esc(r.status)+'</p><small>'+esc(r.asset?.source||r.attempts.map(a=>a.error).join(' | '))+'</small></article>').join('');
 const page='<!doctype html><meta charset="utf-8"><title>Delta Reign candidate review</title><style>body{font:14px system-ui;background:#101c2d;color:#fff;padding:20px}main{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}article{border:1px solid #4c607b;padding:10px;overflow-wrap:anywhere}img{max-width:100%;height:255px;object-fit:contain}small{color:#bbc8d8}</style><h1>Delta Reign — unverified artwork candidates</h1><p>Loading and resolution do NOT verify printing identity. Review every card manually before promotion. Missing entries are not silently substituted.</p><main>'+cards+'</main>';
 await fs.writeFile(path.join(output,'review.html'),page);
