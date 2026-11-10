@@ -1,0 +1,30 @@
+name: Diagnose live Tagger Master DB CORS
+on:
+  push:
+    branches: [diagnostic/tagger-live-cors-20261110]
+    paths: ['.github/workflows/tagger-live-cors-diagnostic.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-cors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect live Worker response with Tagger origin
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL=https://mute-dust-0d50.forcoin99.workers.dev/card-db.html
+          echo "Checking $URL"
+          curl -fLsS --max-time 45 -H 'Origin: https://taggerv1.pages.dev' -D /tmp/headers -o /tmp/master.html "$URL"
+          echo 'Live response headers:'
+          grep -iE '^(HTTP/|access-control-|content-type:|cache-control:|etag:|server:)' /tmp/headers | tail -25 || true
+          echo "Downloaded bytes: $(wc -c </tmp/master.html)"
+          echo 'DLR-141 in live catalogue:'
+          if grep -q 'DLR-141' /tmp/master.html; then echo 'YES'; else echo 'NO'; fi
+          if ! grep -qi '^access-control-allow-origin: \*' /tmp/headers && ! grep -qi '^access-control-allow-origin: https://taggerv1.pages.dev' /tmp/headers; then
+            echo 'FAILED: Live Worker lacks cross-origin access for Tagger'
+            exit 1
+          fi
+          echo 'PASS: Live Worker grants Tagger read access'
