@@ -1,0 +1,35 @@
+name: Finalize DLR master catalog metadata and artwork views
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/finalize-dlr-master.mjs
+      - .github/workflows/finalize-dlr-master.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/dlr-master-ready
+          path: destination
+          persist-credentials: true
+      - run: node --check scripts/finalize-dlr-master.mjs
+      - run: node scripts/finalize-dlr-master.mjs
+      - name: Commit normalized catalogue to staging branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd destination
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A public/card-db.html public/deck-builder.mjs docs/dlr-master-import-audit.json
+          git diff --cached --quiet || (git commit -m "Normalize DLR evolution stages and serve hosted images in both browser apps" && git push origin HEAD:feature/dlr-master-ready)
