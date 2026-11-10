@@ -41,6 +41,7 @@ try{
  await page.reload({waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>document.querySelector('#catalogStatus').textContent.includes('gameplay records'),{timeout:35000});
  assert.equal(await page.locator('.candidate').count(),1);
+ await page.locator('.candidate').first().click();
  assert.equal(await page.locator('textarea[name=combined_text]').inputValue(),'');
  assert.equal(await page.locator('input[name=set_code]').inputValue(),'');
  assert.equal(await page.locator('input[name=release_date]').inputValue(),'');
