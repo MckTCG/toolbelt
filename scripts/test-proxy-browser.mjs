@@ -1,0 +1,66 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import http from 'node:http';
+import {fileURLToPath} from 'node:url';
+import {chromium} from 'playwright';
+
+const root=path.resolve(fileURLToPath(new URL('../public/',import.meta.url)));
+const mime={'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.json':'application/json','.css':'text/css','.png':'image/png','.jpg':'image/jpeg'};
+const server=http.createServer((req,res)=>{
+ const pathname=decodeURIComponent(new URL(req.url,'http://local.test').pathname),file=path.resolve(root,'.'+pathname);
+ if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return}
+ fs.readFile(file,(err,buffer)=>{if(err){res.writeHead(404).end();return}res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.writeHead(200).end(buffer)});
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const base='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1280,height:900}});
+page.on('pageerror',error=>{throw error});
+const onePixel=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9SAtZpMAAAAASUVORK5CYII=','base64');
+try{
+ await page.goto(base+'/proxy-workshop.html',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#openImporter').count(),'Native import module did not load');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).cards,0);
+ await page.locator('#files').setInputFiles({name:'manual.png',mimeType:'image/png',buffer:onePixel});
+ await page.locator('#copies').fill('10');await page.locator('#add').click();
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).cards,10);
+ await page.selectOption('#paperSize','letter');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).pages,2);
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).capacity,9);
+ await page.selectOption('#overlaySize','overlay');await page.locator('#cutGuides').check();
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).overlay,'overlay');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).cutGuides,true);
+ await page.selectOption('#paperSize','tabloid');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).pages,1);
+ await page.locator('#openImporter').click();
+ await page.waitForFunction(()=>document.querySelector('#piResultCount').textContent.includes('gameplay cards'),{timeout:30000});
+ await page.locator('#piSearch').fill('Rayquaza');
+ await page.waitForFunction(()=>document.querySelectorAll('.pi-card').length>=2);
+ const ray=page.locator('.pi-card').filter({hasText:'Mega Rayquaza ex'}).first();
+ const ids=await ray.locator('select option').evaluateAll(nodes=>nodes.map(n=>n.value));
+ for(const id of ['DLR-084','DLR-138','DLR-141'])assert(ids.includes(id),'Missing print '+id);
+ await ray.locator('select').selectOption('DLR-138');
+ await ray.locator('[data-quick-qty="2"]').click();
+ await page.waitForFunction(()=>window.__proxyDiagnostics().cards===12,{timeout:20000});
+ await page.locator('[data-tab="queue"]').click();
+ const groups=await page.evaluate(()=>window.__proxyQueue.groups());
+ assert.equal(groups.reduce((sum,g)=>sum+g.qty,0),12);
+ assert(groups.some(g=>g.printingId==='DLR-138'&&g.qty===2));
+ await page.locator('[data-queue-qty="1"]').fill('3');await page.locator('[data-queue-qty="1"]').dispatchEvent('change');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).cards,13);
+ await page.locator('[data-tab="decks"]').click();
+ const testPayload={format:'tcg-lab-deck-v1',name:'Ray Test',deckSize:60,cards:[{entity_id:'ce_dlr_084',printing_id:'DLR-141',name:'Mega Rayquaza ex',qty:2,type:'Pokémon',stage:'Basic',setCode:'DLR',number:'141',image:base+'/assets/card-art/DLR/141.png'}]};
+ await page.locator('#piDeckFile').setInputFiles({name:'test-deck.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(testPayload))});
+ await page.waitForFunction(()=>document.querySelectorAll('[data-deck-row]').length===1);
+ await page.locator('#piAddDeck').click();
+ await page.waitForFunction(()=>window.__proxyDiagnostics().cards===15,{timeout:20000});
+ await page.selectOption('#paperSize','letter');
+ assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).pages,2);
+ await page.locator('#closeImporter').click();
+ await page.waitForFunction(()=>[...document.querySelectorAll('.slot img')].every(i=>i.complete&&i.naturalWidth>0),{timeout:25000});
+ const buffer=await page.pdf({printBackground:true,preferCSSPageSize:true});
+ assert(buffer.length>6000,'Rendered PDF too small');
+ assert(buffer.subarray(0,4).toString()==='%PDF');
+ console.log('PASS: Chromium manual upload; 10 copies; Letter/Tabloid reflow; overlay/guides; Rayquaza 84/138/141 picker; local DLR 138 artwork; unified queue edits; JSON deck import; multi-page PDF generation.');
+}finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
