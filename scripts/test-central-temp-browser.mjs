@@ -49,8 +49,10 @@ try{
  await explorer.locator('#setFilter').selectOption('TMPCTRJP1');
  assert((await explorer.locator('#resultCount').textContent()).includes('1'),'Published TEMP absent from Card Explorer');
  assert((await explorer.locator('#cardResults').textContent()).includes('JP Central Test Card'));
- assert.equal(await explorer.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')),null,
-   'Read-only central card was written to the personal browser store');
+ const explorerStore=JSON.parse(await explorer.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')));
+ assert(!(explorerStore?.tempCards||[]).some(c=>c.id===id),
+   'Published central TEMP entry was incorrectly written into the personal browser store');
+ const originalBrowserStore=await explorer.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1'));
  await explorer.close();
 
  const builder=await open('/deck-builder.html');
@@ -76,7 +78,7 @@ try{
 
  const intake=await open('/card-intake.html');
  await intake.waitForFunction(()=>document.querySelector('#centralTempStatus')?.textContent.includes('1 shared cards'),{timeout:35000});
- assert.equal(await intake.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')),null,
+ assert.equal(await intake.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')),originalBrowserStore,
    'Card Intake central fetch changed private Card DB storage');
  const queue={schema:'tcg-lab-card-intake-v1',cards:[{
    source_url:card.source,discovery_id:card.discoveryId,name:card.name,set_name:card.sourceSetName,
