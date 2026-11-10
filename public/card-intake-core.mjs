@@ -80,7 +80,7 @@ export function mechanicsSignature(c) {
   return JSON.stringify([
     comparable(c.name),comparable(c.category||c.card_type),comparable(c.stage),
     comparable(c.pokemon_types),comparable(c.hp),comparable(c.evolves_from),
-    comparable(c.combined_text),comparable(c.weakness),comparable(c.resistance),
+    comparable(c.combined_text),/^(none|n\/a)$/i.test(str(c.weakness))?'':comparable(c.weakness),/^(none|n\/a)$/i.test(str(c.resistance))?'':comparable(c.resistance),
     comparable(c.retreat_cost),
     summary(c.ability_names,ab,a=>a.name),
     summary(c.ability_effects,ab,a=>a.text),
