@@ -1,0 +1,452 @@
+{
+  "schema": "tcg-lab-dlr-import-audit-v1",
+  "status": "staged",
+  "publishedPrintings": 141,
+  "mainPrintings": 103,
+  "originalEntities": 2036,
+  "addedGameplayEntities": 107,
+  "addedPrintings": 141,
+  "imagesHosted": 141,
+  "missingImages": [],
+  "samples": [
+    {
+      "number": 2,
+      "url": "https://limitlesstcg.com/cards/en/DLR/2",
+      "name": "Surskit",
+      "category": "Pokémon",
+      "stage": "Basic",
+      "pokemonType": "Grass",
+      "hp": "50",
+      "abilities": [],
+      "attacks": [
+        {
+          "name": "Multiply",
+          "cost": [
+            "Colorless"
+          ],
+          "converted_energy_cost": 1,
+          "damage": "",
+          "text": "Search your deck for up to 2 Surskit and put them onto your Bench. Then, shuffle your deck."
+        },
+        {
+          "name": "Bug Bite",
+          "cost": [
+            "Grass"
+          ],
+          "converted_energy_cost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "rules": [],
+      "weakness": "Fire",
+      "resistance": "none",
+      "retreat": 1,
+      "regulation": "J",
+      "rarity": "Common",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_002_R_EN.png",
+      "combinedText": "Attack — Multiply [Colorless] : Search your deck for up to 2 Surskit and put them onto your Bench. Then, shuffle your deck.\nAttack — Bug Bite [Grass] 10"
+    },
+    {
+      "number": 84,
+      "url": "https://limitlesstcg.com/cards/en/DLR/84",
+      "name": "Mega Rayquaza ex",
+      "category": "Pokémon",
+      "stage": "Basic",
+      "pokemonType": "Colorless",
+      "hp": "280",
+      "abilities": [
+        {
+          "name": "Ruler's Roar",
+          "text": "Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck."
+        }
+      ],
+      "attacks": [
+        {
+          "name": "Storm Emerald",
+          "cost": [
+            "Fire",
+            "Lightning",
+            "Colorless"
+          ],
+          "converted_energy_cost": 3,
+          "damage": "50×",
+          "text": "This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+        }
+      ],
+      "rules": [],
+      "weakness": "Lightning",
+      "resistance": "Fighting",
+      "retreat": 2,
+      "regulation": "J",
+      "rarity": "Double Rare",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_084_R_EN.png",
+      "combinedText": "Ability — Ruler's Roar: Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck.\nAttack — Storm Emerald [Fire Lightning Colorless] 50×: This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+    },
+    {
+      "number": 90,
+      "url": "https://limitlesstcg.com/cards/en/DLR/90",
+      "name": "Adventure Lantern",
+      "category": "Trainer",
+      "stage": "Item",
+      "pokemonType": "",
+      "hp": "",
+      "abilities": [],
+      "attacks": [],
+      "rules": [
+        "Search your deck for a Basic [Fire] Energy card and a Basic [Lightning] Energy card, reveal them, and put them into your hand. Then, shuffle your deck."
+      ],
+      "weakness": "",
+      "resistance": "",
+      "retreat": 0,
+      "regulation": "J",
+      "rarity": "Uncommon",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_090_R_EN.png",
+      "combinedText": "Search your deck for a Basic [Fire] Energy card and a Basic [Lightning] Energy card, reveal them, and put them into your hand. Then, shuffle your deck."
+    },
+    {
+      "number": 94,
+      "url": "https://limitlesstcg.com/cards/en/DLR/94",
+      "name": "Legendary Pyroduct",
+      "category": "Trainer",
+      "stage": "Stadium",
+      "pokemonType": "",
+      "hp": "",
+      "abilities": [],
+      "attacks": [],
+      "rules": [
+        "Evolution Pokémon in play (both yours and your opponent's) have no Abilities."
+      ],
+      "weakness": "",
+      "resistance": "",
+      "retreat": 0,
+      "regulation": "J",
+      "rarity": "Uncommon",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_094_R_EN.png",
+      "combinedText": "Evolution Pokémon in play (both yours and your opponent's) have no Abilities."
+    },
+    {
+      "number": 95,
+      "url": "https://limitlesstcg.com/cards/en/DLR/95",
+      "name": "Legendary Pyroduct",
+      "category": "Trainer",
+      "stage": "Stadium",
+      "pokemonType": "",
+      "hp": "",
+      "abilities": [],
+      "attacks": [],
+      "rules": [
+        "Evolution Pokémon in play (both yours and your opponent's) have no Abilities."
+      ],
+      "weakness": "",
+      "resistance": "",
+      "retreat": 0,
+      "regulation": "J",
+      "rarity": "Uncommon",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_095_R_EN.png",
+      "combinedText": "Evolution Pokémon in play (both yours and your opponent's) have no Abilities."
+    },
+    {
+      "number": 132,
+      "url": "https://limitlesstcg.com/cards/en/DLR/132",
+      "name": "Bubbly Water Energy",
+      "category": "Energy",
+      "stage": "Special Energy",
+      "pokemonType": "",
+      "hp": "",
+      "abilities": [],
+      "attacks": [],
+      "rules": [
+        "As long as this card is attached to a Pokémon, it provides [Water] Energy. The [Water] Pokémon this card is attached to recovers from all Special Conditions and can't be affected by any Special Conditions."
+      ],
+      "weakness": "",
+      "resistance": "",
+      "retreat": 0,
+      "regulation": "J",
+      "rarity": "Ultra Rare",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_132_R_EN.png",
+      "combinedText": "As long as this card is attached to a Pokémon, it provides [Water] Energy. The [Water] Pokémon this card is attached to recovers from all Special Conditions and can't be affected by any Special Conditions."
+    },
+    {
+      "number": 138,
+      "url": "https://limitlesstcg.com/cards/en/DLR/138",
+      "name": "Mega Rayquaza ex",
+      "category": "Pokémon",
+      "stage": "Basic",
+      "pokemonType": "Colorless",
+      "hp": "280",
+      "abilities": [
+        {
+          "name": "Ruler's Roar",
+          "text": "Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck."
+        }
+      ],
+      "attacks": [
+        {
+          "name": "Storm Emerald",
+          "cost": [
+            "Fire",
+            "Lightning",
+            "Colorless"
+          ],
+          "converted_energy_cost": 3,
+          "damage": "50×",
+          "text": "This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+        }
+      ],
+      "rules": [],
+      "weakness": "Lightning",
+      "resistance": "Fighting",
+      "retreat": 2,
+      "regulation": "J",
+      "rarity": "Special Art Rare",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_138_R_EN.png",
+      "combinedText": "Ability — Ruler's Roar: Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck.\nAttack — Storm Emerald [Fire Lightning Colorless] 50×: This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+    },
+    {
+      "number": 141,
+      "url": "https://limitlesstcg.com/cards/en/DLR/141",
+      "name": "Mega Rayquaza ex",
+      "category": "Pokémon",
+      "stage": "Basic",
+      "pokemonType": "Colorless",
+      "hp": "280",
+      "abilities": [
+        {
+          "name": "Ruler's Roar",
+          "text": "Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck."
+        }
+      ],
+      "attacks": [
+        {
+          "name": "Storm Emerald",
+          "cost": [
+            "Fire",
+            "Lightning",
+            "Colorless"
+          ],
+          "converted_energy_cost": 3,
+          "damage": "50×",
+          "text": "This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+        }
+      ],
+      "rules": [],
+      "weakness": "Lightning",
+      "resistance": "Fighting",
+      "retreat": 2,
+      "regulation": "J",
+      "rarity": "Secret Rare",
+      "image": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpci/DLR/DLR_141_R_EN.png",
+      "combinedText": "Ability — Ruler's Roar: Once during your turn, when you play this Pokémon from your hand onto your Bench, you may use this Ability. Look at the top 4 cards of your deck and attach a Basic Energy card you find there to this Pokémon. Shuffle the other cards and put them on the bottom of your deck.\nAttack — Storm Emerald [Fire Lightning Colorless] 50×: This attack does 50 damage for each [Fire] Energy and each [Lightning] Energy attached to all of your Pokémon."
+    }
+  ],
+  "groupedPrintings": [
+    {
+      "name": "Masquerain",
+      "numbers": [
+        "3",
+        "104"
+      ]
+    },
+    {
+      "name": "Mega Golisopod ex",
+      "numbers": [
+        "11",
+        "118",
+        "135"
+      ]
+    },
+    {
+      "name": "Sprigatito",
+      "numbers": [
+        "12",
+        "105"
+      ]
+    },
+    {
+      "name": "Growlithe",
+      "numbers": [
+        "18",
+        "106"
+      ]
+    },
+    {
+      "name": "Magmortar",
+      "numbers": [
+        "21",
+        "107"
+      ]
+    },
+    {
+      "name": "Heat Rotom ex",
+      "numbers": [
+        "23",
+        "119"
+      ]
+    },
+    {
+      "name": "Wishiwashi ex",
+      "numbers": [
+        "29",
+        "120"
+      ]
+    },
+    {
+      "name": "Electivire",
+      "numbers": [
+        "31",
+        "108"
+      ]
+    },
+    {
+      "name": "Raikou ex",
+      "numbers": [
+        "33",
+        "121",
+        "136"
+      ]
+    },
+    {
+      "name": "Pincurchin",
+      "numbers": [
+        "36",
+        "109"
+      ]
+    },
+    {
+      "name": "Mega Golurk ex",
+      "numbers": [
+        "47",
+        "122",
+        "137"
+      ]
+    },
+    {
+      "name": "Enamorus",
+      "numbers": [
+        "48",
+        "110"
+      ]
+    },
+    {
+      "name": "Groudon",
+      "numbers": [
+        "53",
+        "111"
+      ]
+    },
+    {
+      "name": "Zorua",
+      "numbers": [
+        "66",
+        "112"
+      ]
+    },
+    {
+      "name": "Inkay",
+      "numbers": [
+        "68",
+        "113"
+      ]
+    },
+    {
+      "name": "Mega Malamar ex",
+      "numbers": [
+        "69",
+        "123"
+      ]
+    },
+    {
+      "name": "Eevee",
+      "numbers": [
+        "78",
+        "114"
+      ]
+    },
+    {
+      "name": "Azurill",
+      "numbers": [
+        "80",
+        "115"
+      ]
+    },
+    {
+      "name": "Altaria",
+      "numbers": [
+        "82",
+        "116"
+      ]
+    },
+    {
+      "name": "Kecleon",
+      "numbers": [
+        "83",
+        "117"
+      ]
+    },
+    {
+      "name": "Mega Rayquaza ex",
+      "numbers": [
+        "84",
+        "138",
+        "141"
+      ]
+    },
+    {
+      "name": "Talonflame ex",
+      "numbers": [
+        "88",
+        "124"
+      ]
+    },
+    {
+      "name": "Aarune",
+      "numbers": [
+        "89",
+        "125",
+        "139"
+      ]
+    },
+    {
+      "name": "Adventure Lantern",
+      "numbers": [
+        "90",
+        "126"
+      ]
+    },
+    {
+      "name": "Custom Vest",
+      "numbers": [
+        "91",
+        "127"
+      ]
+    },
+    {
+      "name": "Emcee's Hype",
+      "numbers": [
+        "92",
+        "128"
+      ]
+    },
+    {
+      "name": "Tate & Liza's Training",
+      "numbers": [
+        "102",
+        "130"
+      ]
+    },
+    {
+      "name": "Zinnia's Trust",
+      "numbers": [
+        "103",
+        "131",
+        "140"
+      ]
+    }
+  ],
+  "finalized": {
+    "evolutionLinksNormalized": 32,
+    "cardDBPrintingsClonePatched": true,
+    "deckBuilderLocalArtEnabled": true
+  }
+}
