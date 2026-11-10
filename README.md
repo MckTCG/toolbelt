@@ -105,3 +105,20 @@ For physical printing, confirm the shop's printable area and print at 100%/actua
 5. Print a test page and verify the 50 mm line with a ruler before printing many sheets. It is a practice-only proxy maker, not a sanctioned-tournament card-production tool.
 
 Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
+
+
+## Delta Reign provisional TEMP migration (November 2026)
+
+A reviewed, deterministic 113-card M6 provisional seed is included at `public/data/delta-reign-temp-seed.json`.
+The browser-local one-time importer is `public/delta-reign-import.html`, accessible under the same Worker origin as Card DB and Deck Builder.
+
+- Source: `MckTCG/prerelease-lab`, embedded `Delta Reign` data: 76 base M6 printings (001–076) plus 37 alternate printings (077–113). All 113 have preliminary text summaries, provisional English image URLs and source provenance. None is represented as official English wording.
+- The 22 supplementary prerelease-deck cards are **not imported**, because their names already match records in the Card DB's catalog. Exact artwork selection is still the user's responsibility.
+- The importer reads/writes the existing browser-local `tcg-lab-card-db-v0.1` TEMP set/card schema, preserving the existing `tags`, `rejected`, unrelated `tempSets`, and unrelated `tempCards` fields. It downloads a pre-import backup, chooses an existing Delta Reign TEMP collection when present, and uses stable IDs plus set-number/name matching to avoid repeat duplicates.
+- If Card DB has never been opened, the importer initializes its store from `card-db.html`'s existing `reviewed_seed`, rather than losing existing baseline tags.
+- After importing, refresh `/card-db.html` or `/deck-builder.html` to see Delta Reign under TEMP. The migration is **per browser**: another device needs the importer or a normal Card DB TEMP backup/restore.
+- **Other TEMP cards** already belong to the TEMP collection; no unrelated card is moved, deleted, reclassified or overwritten. An unrecognized orphan is left untouched rather than guessing where it belongs.
+- No simulator code is changed. No new card database is created; this populates Card DB's existing TEMP fields.
+- Unverified artwork links can fail or lead to nonprintable scans. Confirm loaded images and printed artwork manually before use.
+
+Integrity validation: 113 unique IDs, complete M6 number sequence, valid TEMP IDs/set code and image URL format, second-run idempotency, and preservation of unrelated TEMP cards and tags. These are data-structure tests, not proof of live image availability or completed browser-device migration.
