@@ -47,8 +47,8 @@ A successful load proves only transport and decodability, **not that the image i
 
 ## Current status
 
-**Architecture decision documented; image migration incomplete.** No 113-image mirror or verified asset manifest is claimed yet. Audit candidates cannot be treated as production artwork until checked and legally sourced. Do not enable blanket auto-import or report the set as complete.
+**Infrastructure implemented; image migration incomplete.** A 113-record placeholder registry now exists at `public/data/card-art-manifest.json` (all entries deliberately `missing`). `public/card-art-resolver.mjs` accepts only explicit `verified` artwork entries with known paths and hashes; Deck Builder prefers those same-origin assets when they exist, without overwriting TEMP metadata. A manually launchable GitHub Actions workflow stages source candidates as downloadable artifacts, generates an image contact sheet and hash/dimension report, and **does not automatically publish any image**. Candidate acquisition/review and production files are still pending; do not claim the set is complete.
 
 ## Scope
 
-This branch documents the artwork strategy only; it does **not** begin Proxy Workshop Phase 2, change deployed UI, alter simulator, or modify browser storage.
+This workstream implements preparatory artwork ingestion infrastructure and optional Deck Builder lookup, but does **not** begin Proxy Workshop Phase 2, alter the simulator, or modify browser storage. Existing remote images continue as a legacy fallback until reviewed local binaries are promoted.
