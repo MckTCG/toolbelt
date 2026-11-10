@@ -69,7 +69,7 @@ try{
  await page.locator('#approveCard').click();
  assert((await page.locator('#feedback').textContent()).includes('Cannot approve'),'Unverified JP card bypassed Master approval gate');
  const simHash='#add='+encodeURIComponent(JSON.stringify({entityId:row.id,printingId:row.id+':printing'}));
- const builder=await context.newPage();
+ const builder=await page.context().newPage(); // same-origin TEMP storage must be shared
  await builder.goto(base+'/deck-builder.html'+simHash,{waitUntil:'domcontentloaded'});
  await builder.waitForFunction(()=>{
    const raw=localStorage.getItem('tcg-lab-deck-builder-draft-v1');
