@@ -1,6 +1,6 @@
 import {
   INTAKE_SCHEMA,MAX_INTAKE_CARDS,safeHTTPS,parseCardURL,normalizeCandidate,
-  classifyCandidate,completeness,importBatch,exportBatch,readCSV
+  classifyCandidate,completeness,importBatch,exportBatch,readCSV,intakeIdentity,importDiscoveryFeed
 } from './card-intake-core.mjs';
 
 const STORAGE_KEY='tcg-lab-card-intake-v1';
@@ -61,8 +61,8 @@ function check(){
     const problems=completeness(c,match);
     // Same source+number in queue should not silently enter a second record.
     const duplicates=queue.filter((q,i)=>i!==selected&&(
-      (q.set_code&&q.card_number&&q.set_code===c.set_code&&q.card_number===c.card_number)||
-      (q.source_url&&q.source_url===c.source_url)
+      intakeIdentity(q)===intakeIdentity(c) ||
+      (q.set_code&&q.card_number&&q.set_code===c.set_code&&q.card_number===c.card_number)
     ));
     if(duplicates.length)problems.push('Already staged in this intake queue');
     if(c.existing_entity_id) {
@@ -99,15 +99,42 @@ function showSelected(){if(selected>=queue.length)selected=queue.length-1;fill(q
 function mergeImported(cards){
   let added=0,skipped=0;
   for(const c of cards){
-    if(queue.length>=MAX_INTAKE_CARDS)throw Error('500-candidate queue limit reached. Export/clear older batches.');
-    const existing=queue.some(x=>(x.source_url&&x.source_url===c.source_url)||
-      (x.set_code&&x.card_number&&x.set_code===c.set_code&&x.card_number===c.card_number));
+    const id=intakeIdentity(c);
+    const existing=queue.some(x=>intakeIdentity(x)===id ||
+      (x.set_code && c.set_code && x.card_number && c.card_number &&
+        x.set_code===c.set_code && x.card_number===c.card_number));
     if(existing){skipped++;continue}
+    if(queue.length>=MAX_INTAKE_CARDS)throw Error('500-candidate queue limit reached. Export/clear older batches.');
     queue.push(c);added++;
   }
   saveLocal();if(added)selected=queue.length-added;showSelected();
   return {added,skipped};
 }
+// Public GitHub staging branch, not the authoritative Master DB or private tag store.
+// Discovery publishing updates this isolated feed branch; it NEVER changes main.
+const DISCOVERY_URL='https://raw.githubusercontent.com/MckTCG/toolbelt/automation/card-discovery-feed/public/data/card-discoveries-v1.json';
+$('loadDiscoveries').addEventListener('click',async()=>{
+  const button=$('loadDiscoveries');button.disabled=true;
+  $('discoveryStatus').textContent='Checking the unverified discovery staging feed…';
+  try{
+    const response=await fetch(DISCOVERY_URL+'?v='+Date.now(),{cache:'no-store',credentials:'omit',mode:'cors'});
+    if(!response.ok)throw Error('Staging feed HTTP '+response.status+' (feed may not be initialized yet)');
+    const raw=await response.text();
+    if(raw.length>1_800_000)throw Error('Staging feed exceeds size limit');
+    const payload=JSON.parse(raw);
+    const cards=importDiscoveryFeed(payload);
+    const results=mergeImported(cards);
+    $('discoveryStatus').textContent='Discovery feed '+(payload.generated_at||'unknown update')+
+      ' · '+cards.length+' reviewed-source candidates available · '+results.added+' newly staged · '+results.skipped+' already present.'+
+      (payload.errors?.length?' Some sources reported errors; see the intake feed report.':'');
+    notice('Discovered cards are still provisional/unverified. Review them before approval.','good');
+  }catch(error){
+    $('discoveryStatus').textContent='Discovery feed unavailable: '+error.message+
+      '. You can continue adding sources or importing JSON backups manually.';
+    notice('No existing cards or review decisions were changed.','warn');
+  }finally{button.disabled=false}
+});
+
 $('addSource').addEventListener('click',()=>{
   try{
     const parsed=parseCardURL($('sourceInput').value);
@@ -133,7 +160,7 @@ $('approveCard').addEventListener('click',()=>{
   if(selected<0||!catalog)return;
   try{
     const c=collect(),match=classifyCandidate(c,catalog),problems=completeness(c,match);
-    if(queue.some((q,i)=>i!==selected&&((q.source_url&&q.source_url===c.source_url)||(q.set_code&&q.card_number&&q.set_code===c.set_code&&q.card_number===c.card_number))))problems.push('Duplicate intake record');
+    if(queue.some((q,i)=>i!==selected&&(intakeIdentity(q)===intakeIdentity(c)||(q.set_code&&q.card_number&&q.set_code===c.set_code&&q.card_number===c.card_number))))problems.push('Duplicate intake record');
     if(c.existing_entity_id){
       const e=catalog.entities.find(e=>e.entity_id===c.existing_entity_id);
       if(!e||e.name!==c.name||e.card_type!==c.category||e.combined_text.trim().replace(/\s+/g,' ')!==c.combined_text.trim().replace(/\s+/g,' '))problems.push('Linked existing gameplay data mismatch');
