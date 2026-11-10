@@ -1,0 +1,7 @@
+# Read-only public Master Card DB for standalone Tagger V1.
+# The Tagger lives at taggerv1.pages.dev and fetches this HTML's catalog JSON.
+# Assets are public; no credentials, cookies, or user-specific data are shared.
+/card-db.html
+  Access-Control-Allow-Origin: *
+  Access-Control-Expose-Headers: ETag
+  Cache-Control: public, max-age=0, must-revalidate
