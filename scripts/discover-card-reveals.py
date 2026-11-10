@@ -420,6 +420,7 @@ def main():
     ap.add_argument("--fixture-dir")
     ap.add_argument("--recheck-budget",type=int,default=8)
     ap.add_argument("--recheck-older",action="store_true")
+    ap.add_argument("--central-temp",default="public/data/temp-catalog-v1.json")
     args=ap.parse_args()
     import pathlib
     if args.max_articles<0 or args.max_articles>30:raise ValueError("max-articles must be 0..30")
@@ -439,12 +440,33 @@ def main():
     if args.prior and pathlib.Path(args.prior).is_file() and pathlib.Path(args.prior).stat().st_size>0:
         prior=json.loads(pathlib.Path(args.prior).read_text("utf8"))
         if prior.get("schema")!=SCHEMA:raise ValueError("Unsupported prior feed format")
-    candidates=[];errors=[];stats={}
+    # Scheduled checks can now see centrally accepted TEMP records. Browser-only
+    # notes/tags remain private and are never read by this bot.
+    watch_prior={**prior,"candidates":list(prior.get("candidates",[]))}
+    try:
+        central_file=pathlib.Path(args.central_temp)
+        if central_file.is_file():
+            central=json.loads(central_file.read_text("utf8"))
+            if central.get("schema")!="tcg-lab-central-temp-v1":raise ValueError("Unexpected central TEMP schema")
+            for card in central.get("cards",[])[:5000]:
+                source=card.get("source","")
+                if not source.startswith("https://www.pokebeach.com/"):continue
+                watch_prior["candidates"].append({
+                    "source_kind":"pokebeach-card-spoiler",
+                    "source_url":source,
+                    "name":card.get("name",""),
+                    "source_published_at":card.get("updatedAt") or card.get("addedAt",""),
+                    "release_jp":card.get("releaseJP",""),
+                    "release_en":card.get("releaseEN","")
+                })
+    except Exception as exc:
+        raise ValueError("Cannot read central TEMP watchlist: "+str(exc)[:150])
+    candidates=[];errors=[];stats={"central_temp_watchlist":len(watch_prior["candidates"])-len(prior.get("candidates",[]))}
     try:
         feed=read_fixture("rss.xml",(RSS,{"kaprestridge.github.io"}))
         articles=parse_feed(feed)[:args.max_articles]
         recent_urls={x["url"] for x in articles}
-        followups=followup_articles(prior,recent_urls,args.recheck_budget,args.recheck_older)
+        followups=followup_articles(watch_prior,recent_urls,args.recheck_budget,args.recheck_older)
         articles.extend(followups)
         stats["rss_articles"]=len(articles)-len(followups)
         stats["followup_articles"]=len(followups)
