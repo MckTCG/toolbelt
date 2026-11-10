@@ -40,6 +40,15 @@
 #cardLoupeError{color:var(--amber);padding:25px;text-align:center}
 .card-loupe-hint{padding:9px 15px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center;background:#131e30}
 @media(max-width:600px){.card-loupe{width:100vw;height:100dvh;border-radius:0;border:0}.card-loupe-toolbar{padding:9px}.card-loupe-controls{gap:4px}.card-loupe-controls button{min-width:38px;min-height:38px}.card-loupe-hint{font-size:11px;padding:7px}}
+.temp-accept{margin:14px 0;padding:15px;border:1px solid #3c5770;background:#12243a;border-radius:12px}
+.temp-accept h3{margin:0;color:var(--cyan)}
+.temp-accept .hint{margin:7px 0 11px}
+.temp-accept label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.temp-accept select{width:100%}
+.temp-accept #tempStatus{margin-top:10px;min-height:18px;color:var(--cyan);white-space:pre-wrap}
+.temp-accept #tempReviewChanges{padding:8px 0;white-space:pre-wrap;font-size:12px;color:var(--amber)}
+.temp-accept a{display:inline-block;text-decoration:none;color:var(--cyan);border:1px solid var(--line);padding:9px;border-radius:8px}
+#acceptTemp{background:#215d56;border-color:#38877b}
 </style>
 </head>
 <body>
@@ -75,6 +84,9 @@
 <label>Card name<input name="name" maxlength="140" placeholder="Printed card name"></label>
 <label>Category<select name="category"><option value="">Select category</option><option>Pokémon</option><option>Trainer</option><option>Energy</option></select></label>
 <label>Language<select name="language"><option value="unknown">Unknown</option><option value="en">English (verified)</option><option value="jp">Japanese</option><option value="other">Other</option></select></label>
+<label>Japanese name (optional)<input name="name_jp" maxlength="140" placeholder="Printed Japanese name"></label>
+<label>Translation status<select name="translation_status"><option value="">Unspecified</option><option value="jp-only">JP artwork / no translation</option><option value="unofficial">Unofficial English translation</option><option value="official">Official English wording</option></select></label>
+<label class="full">Translation source URL (optional)<input name="translation_source_url" type="url" placeholder="https://…"></label>
 <label>Set code<input name="set_code" maxlength="12" placeholder="e.g. DLR"></label>
 <label>Set name<input name="set_name" maxlength="140" placeholder="Expansion name"></label>
 <label>Card number<input name="card_number" maxlength="25" placeholder="e.g. 138"></label>
@@ -87,6 +99,8 @@
 <label>Retreat cost<input name="retreat_cost" placeholder="0, 1, 2…"></label>
 <label>Regulation mark<input name="regulation_mark" maxlength="4" placeholder="J"></label>
 <label>Release date<input name="release_date" placeholder="YYYY/MM/DD"></label>
+<label>Japanese release (optional)<input name="release_jp" placeholder="YYYY/MM/DD"></label>
+<label>English release (optional)<input name="release_en" placeholder="YYYY/MM/DD"></label>
 <label>Rarity<input name="rarity" placeholder="e.g. Rare"></label>
 <label class="full">Artwork URL (exact printing)<input type="url" name="image_url" placeholder="https://…"></label>
 <label class="full">Complete functional card text<textarea name="combined_text" rows="5" placeholder="Preserve the complete published effects, costs and wording."></textarea></label>
@@ -103,12 +117,25 @@
 <label><input type="checkbox" name="reviewed_distinct_gameplay"> Reviewed as distinct gameplay identity</label>
 </div>
 <div id="diagnostic" role="status">No candidate selected.</div>
+<section class="temp-accept" aria-label="Pre-release TEMP acceptance">
+<h3>Use now · TEMP</h3>
+<p class="hint">A Japanese-only image is enough for a proxy; a name and category are enough for a Manual Simulator card. Neither requires official English text, a set code, or a release date. TEMP records remain provisional and are stored locally in this browser.</p>
+<label>Destination TEMP set
+<select id="tempDestination" aria-label="TEMP destination set"><option value="">Auto: match or create from set name</option></select></label>
+<div class="actions">
+<button id="acceptTemp" type="button">Accept to TEMP</button>
+<button id="addTempDeck" type="button" disabled>Add to Deck Builder</button>
+<button id="openTempProxy" type="button" disabled>Open Proxy Workshop</button>
+</div>
+<div id="tempStatus" role="status"></div>
+<div id="tempReviewChanges" role="status"></div>
+</section>
 <div class="actions"><button type="submit" class="primary" id="saveCard">Save draft</button><button type="button" id="approveCard">Approve for export</button><button type="button" id="rejectCard">Reject</button><button type="button" class="danger" id="deleteCard">Remove candidate</button></div>
 </form>
 <div id="feedback" role="status"></div>
 </section>
 </div>
-<p class="hint">Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
+<p class="hint">TEMP acceptance is local and playable immediately through the existing Deck Builder/Manual Simulator and Proxy Workshop. Official Master publication still requires review. Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
 </main>
 
 <dialog id="cardLoupe" class="card-loupe" aria-modal="true" aria-labelledby="cardLoupeTitle">
