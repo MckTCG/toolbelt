@@ -9,7 +9,7 @@ const $=id=>document.getElementById(id);
 const form=$('cardForm');
 const loupe=setupCardLoupe();
 $('previewSelected').addEventListener('click',()=>{
-  loupe.open({name:getElement('name').value,image_url:getElement('image_url').value});
+  openLoupeFor({name:getElement('name').value,image_url:getElement('image_url').value},selected);
 });
 let queue=[],selected=-1,catalog=null;
 function notice(message,kind=''){const el=$('feedback');el.textContent=message;el.className=kind}
@@ -85,11 +85,27 @@ function check(){
     $('diagnostic').className=problems.length?'warn':'good';
   }catch(error){$('diagnostic').textContent='Review error: '+error.message;$('diagnostic').className='bad'}
 }
-function renderQueue(){
+function visibleQueueEntries(){
   const search=$('filter').value.toLowerCase(),status=$('statusFilter').value;
-  const box=$('queueList');box.replaceChildren();
-  const candidates=queue.map((c,i)=>({...c,_index:i})).filter(c=>
+  return queue.map((c,i)=>({...c,_index:i})).filter(c=>
     (!status||c.status===status)&&(!search||[c.name,c.set_code,c.card_number,c.source_url].join(' ').toLowerCase().includes(search)));
+}
+function openLoupeFor(record,queueIndex){
+  const entries=visibleQueueEntries().filter(c=>safeHTTPS(c.image_url));
+  let position=entries.findIndex(c=>c._index===queueIndex);
+  if(position<0){
+    entries.push({...record,_index:queueIndex});
+    position=entries.length-1;
+  }else{
+    // The selected form can contain a newly edited, unsaved image URL. Preview
+    // those current values without writing them into the underlying queue.
+    entries[position]={...entries[position],...record};
+  }
+  return loupe.open(record,{items:entries,index:position});
+}
+function renderQueue(){
+  const box=$('queueList');box.replaceChildren();
+  const candidates=visibleQueueEntries();
   for(const c of candidates){
     const btn=document.createElement('button');btn.type='button';btn.className='candidate'+(selected===c._index?' active':'');
     const image=document.createElement('img');image.alt='';if(safeHTTPS(c.image_url))image.src=c.image_url;
@@ -106,7 +122,7 @@ function renderQueue(){
       magnify.type='button';magnify.className='candidate-loupe-trigger';
       magnify.setAttribute('aria-label','Enlarge '+(c.name||'card')+' artwork');
       magnify.title='Enlarge card artwork';
-      magnify.addEventListener('click',()=>loupe.open(c));
+      magnify.addEventListener('click',()=>openLoupeFor(c,c._index));
       wrap.append(magnify);
     }
     box.append(wrap);
