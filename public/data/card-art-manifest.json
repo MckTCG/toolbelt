@@ -1,0 +1,1137 @@
+{
+  "schema": "tcg-lab-card-art-manifest-v1",
+  "setCode": "TMPDELTAREIGN",
+  "policy": "Same-origin assets only; a missing entry is not a published image. Verify artwork against exact printing before activation.",
+  "entries": [
+    {
+      "entityId": "temp:deltareignm6001",
+      "printingId": "temp:deltareignm6001:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "001/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6002",
+      "printingId": "temp:deltareignm6002:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "002/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6003",
+      "printingId": "temp:deltareignm6003:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "003/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6004",
+      "printingId": "temp:deltareignm6004:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "004/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6005",
+      "printingId": "temp:deltareignm6005:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "005/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6006",
+      "printingId": "temp:deltareignm6006:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "006/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6007",
+      "printingId": "temp:deltareignm6007:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "007/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6008",
+      "printingId": "temp:deltareignm6008:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "008/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6009",
+      "printingId": "temp:deltareignm6009:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "009/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6010",
+      "printingId": "temp:deltareignm6010:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "010/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6011",
+      "printingId": "temp:deltareignm6011:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "011/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6012",
+      "printingId": "temp:deltareignm6012:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "012/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6013",
+      "printingId": "temp:deltareignm6013:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "013/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6014",
+      "printingId": "temp:deltareignm6014:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "014/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6015",
+      "printingId": "temp:deltareignm6015:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "015/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6016",
+      "printingId": "temp:deltareignm6016:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "016/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6017",
+      "printingId": "temp:deltareignm6017:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "017/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6018",
+      "printingId": "temp:deltareignm6018:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "018/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6019",
+      "printingId": "temp:deltareignm6019:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "019/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6020",
+      "printingId": "temp:deltareignm6020:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "020/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6021",
+      "printingId": "temp:deltareignm6021:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "021/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6022",
+      "printingId": "temp:deltareignm6022:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "022/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6023",
+      "printingId": "temp:deltareignm6023:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "023/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6024",
+      "printingId": "temp:deltareignm6024:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "024/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6025",
+      "printingId": "temp:deltareignm6025:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "025/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6026",
+      "printingId": "temp:deltareignm6026:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "026/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6027",
+      "printingId": "temp:deltareignm6027:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "027/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6028",
+      "printingId": "temp:deltareignm6028:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "028/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6029",
+      "printingId": "temp:deltareignm6029:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "029/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6030",
+      "printingId": "temp:deltareignm6030:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "030/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6031",
+      "printingId": "temp:deltareignm6031:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "031/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6032",
+      "printingId": "temp:deltareignm6032:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "032/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6033",
+      "printingId": "temp:deltareignm6033:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "033/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6034",
+      "printingId": "temp:deltareignm6034:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "034/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6035",
+      "printingId": "temp:deltareignm6035:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "035/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6036",
+      "printingId": "temp:deltareignm6036:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "036/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6037",
+      "printingId": "temp:deltareignm6037:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "037/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6038",
+      "printingId": "temp:deltareignm6038:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "038/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6039",
+      "printingId": "temp:deltareignm6039:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "039/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6040",
+      "printingId": "temp:deltareignm6040:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "040/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6041",
+      "printingId": "temp:deltareignm6041:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "041/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6042",
+      "printingId": "temp:deltareignm6042:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "042/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6043",
+      "printingId": "temp:deltareignm6043:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "043/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6044",
+      "printingId": "temp:deltareignm6044:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "044/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6045",
+      "printingId": "temp:deltareignm6045:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "045/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6046",
+      "printingId": "temp:deltareignm6046:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "046/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6047",
+      "printingId": "temp:deltareignm6047:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "047/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6048",
+      "printingId": "temp:deltareignm6048:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "048/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6049",
+      "printingId": "temp:deltareignm6049:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "049/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6050",
+      "printingId": "temp:deltareignm6050:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "050/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6051",
+      "printingId": "temp:deltareignm6051:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "051/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6052",
+      "printingId": "temp:deltareignm6052:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "052/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6053",
+      "printingId": "temp:deltareignm6053:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "053/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6054",
+      "printingId": "temp:deltareignm6054:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "054/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6055",
+      "printingId": "temp:deltareignm6055:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "055/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6056",
+      "printingId": "temp:deltareignm6056:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "056/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6057",
+      "printingId": "temp:deltareignm6057:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "057/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6058",
+      "printingId": "temp:deltareignm6058:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "058/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6059",
+      "printingId": "temp:deltareignm6059:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "059/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6060",
+      "printingId": "temp:deltareignm6060:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "060/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6061",
+      "printingId": "temp:deltareignm6061:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "061/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6062",
+      "printingId": "temp:deltareignm6062:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "062/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6063",
+      "printingId": "temp:deltareignm6063:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "063/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6064",
+      "printingId": "temp:deltareignm6064:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "064/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6065",
+      "printingId": "temp:deltareignm6065:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "065/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6066",
+      "printingId": "temp:deltareignm6066:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "066/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6067",
+      "printingId": "temp:deltareignm6067:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "067/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6068",
+      "printingId": "temp:deltareignm6068:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "068/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6069",
+      "printingId": "temp:deltareignm6069:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "069/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6070",
+      "printingId": "temp:deltareignm6070:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "070/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6071",
+      "printingId": "temp:deltareignm6071:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "071/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6072",
+      "printingId": "temp:deltareignm6072:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "072/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6073",
+      "printingId": "temp:deltareignm6073:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "073/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6074",
+      "printingId": "temp:deltareignm6074:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "074/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6075",
+      "printingId": "temp:deltareignm6075:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "075/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6076",
+      "printingId": "temp:deltareignm6076:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "076/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6077",
+      "printingId": "temp:deltareignm6077:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "077/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6078",
+      "printingId": "temp:deltareignm6078:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "078/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6079",
+      "printingId": "temp:deltareignm6079:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "079/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6080",
+      "printingId": "temp:deltareignm6080:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "080/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6081",
+      "printingId": "temp:deltareignm6081:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "081/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6082",
+      "printingId": "temp:deltareignm6082:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "082/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6083",
+      "printingId": "temp:deltareignm6083:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "083/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6084",
+      "printingId": "temp:deltareignm6084:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "084/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6085",
+      "printingId": "temp:deltareignm6085:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "085/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6086",
+      "printingId": "temp:deltareignm6086:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "086/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6087",
+      "printingId": "temp:deltareignm6087:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "087/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6088",
+      "printingId": "temp:deltareignm6088:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "088/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6089",
+      "printingId": "temp:deltareignm6089:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "089/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6090",
+      "printingId": "temp:deltareignm6090:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "090/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6091",
+      "printingId": "temp:deltareignm6091:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "091/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6092",
+      "printingId": "temp:deltareignm6092:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "092/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6093",
+      "printingId": "temp:deltareignm6093:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "093/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6094",
+      "printingId": "temp:deltareignm6094:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "094/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6095",
+      "printingId": "temp:deltareignm6095:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "095/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6096",
+      "printingId": "temp:deltareignm6096:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "096/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6097",
+      "printingId": "temp:deltareignm6097:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "097/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6098",
+      "printingId": "temp:deltareignm6098:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "098/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6099",
+      "printingId": "temp:deltareignm6099:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "099/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6100",
+      "printingId": "temp:deltareignm6100:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "100/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6101",
+      "printingId": "temp:deltareignm6101:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "101/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6102",
+      "printingId": "temp:deltareignm6102:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "102/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6103",
+      "printingId": "temp:deltareignm6103:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "103/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6104",
+      "printingId": "temp:deltareignm6104:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "104/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6105",
+      "printingId": "temp:deltareignm6105:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "105/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6106",
+      "printingId": "temp:deltareignm6106:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "106/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6107",
+      "printingId": "temp:deltareignm6107:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "107/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6108",
+      "printingId": "temp:deltareignm6108:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "108/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6109",
+      "printingId": "temp:deltareignm6109:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "109/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6110",
+      "printingId": "temp:deltareignm6110:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "110/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6111",
+      "printingId": "temp:deltareignm6111:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "111/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6112",
+      "printingId": "temp:deltareignm6112:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "112/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    },
+    {
+      "entityId": "temp:deltareignm6113",
+      "printingId": "temp:deltareignm6113:printing",
+      "setCode": "TMPDELTAREIGN",
+      "number": "113/076",
+      "path": null,
+      "status": "missing",
+      "sha256": null,
+      "language": null
+    }
+  ]
+}

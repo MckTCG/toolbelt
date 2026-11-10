@@ -1,0 +1,30 @@
+name: Stage Delta Reign artwork candidates
+on:
+  push:
+    branches:
+      - feature/local-card-artwork-library-20261109
+    paths:
+      - scripts/stage-delta-reign-artwork.mjs
+      - .github/workflows/stage-delta-reign-artwork.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check staging script syntax
+        run: node --check scripts/stage-delta-reign-artwork.mjs
+      - name: Download and validate candidate images
+        run: node scripts/stage-delta-reign-artwork.mjs
+      - name: Archive candidates and report for manual printing verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: delta-reign-unverified-artwork
+          path: artifacts/delta-reign-staging/
+          retention-days: 14

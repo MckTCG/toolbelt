@@ -1,9 +1,10 @@
 import {normalizeName,safeURL,baseStage,isBasicEnergy,deckChecks,makePayload,payloadURL,parseTextDeck,mergeLines,sanitizePayload} from './deck-core.mjs';
+import {indexedArt,localArtworkFor} from './card-art-resolver.mjs';
 const $=id=>document.getElementById(id),DB_KEY='tcg-lab-card-db-v0.1',LIB_KEY='tcg-lab-decks-v1',DRAFT_KEY='tcg-lab-deck-builder-draft-v1',SIM_URL='https://prerelease-lab.pages.dev/simulator.html';
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const uid=()=>crypto.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
 const fresh=()=>({id:uid(),name:'Untitled deck',size:60,mode:'practice',rows:[],updatedAt:new Date().toISOString()});
-let cards=[],cardMap=new Map(),sets=[],dbStore={},standard=null,library=[],deck=fresh(),dirty=true,undo=[],redo=[],visible=60,preview=null,toastTimer;
+let cards=[],cardMap=new Map(),sets=[],dbStore={},standard=null,library=[],deck=fresh(),dirty=true,undo=[],redo=[],visible=60,preview=null,toastTimer,localArt=new Map();
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('on');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('on'),5500)}
 function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}}
 function rememberDraft(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify({deck,dirty}));return true}catch{toast('Draft could not be saved in this browser. Export JSON to keep your work.');return false}}
@@ -18,7 +19,7 @@ function imageFallbacks(p){
 function imageHTML(src,alt,attrs='',fallbacks=[]){return `<img src="${esc(safeURL(src))}" alt="${esc(alt)}" data-fallbacks="${esc(JSON.stringify(fallbacks.map(safeURL).filter(Boolean)))}" ${attrs}>`}
 function advanceImage(img){let candidates=[];try{candidates=JSON.parse(img.dataset.fallbacks||'[]')}catch{}const next=candidates.shift();img.dataset.fallbacks=JSON.stringify(candidates);if(next)img.src=next}
 document.addEventListener('error',e=>{if(e.target.tagName==='IMG')advanceImage(e.target)},true);
-function tempEntity(r){return {entity_id:r.id,name:r.name,card_type:r.category,stage:r.stage||'',pokemon_types:r.pokemonType||'',hp:r.hp||'',evolves_from:r.evolvesFrom||'',combined_text:r.textEN||'',temp:true,tempStatus:r.status,printings:[{printing_id:r.id+':printing',set_code:r.setCode,card_number:r.number||'?',image_url:r.image||'',rarity:'Provisional'}]}}
+function tempEntity(r){return {entity_id:r.id,name:r.name,card_type:r.category,stage:r.stage||'',pokemon_types:r.pokemonType||'',hp:r.hp||'',evolves_from:r.evolvesFrom||'',combined_text:r.textEN||'',temp:true,tempStatus:r.status,printings:[{printing_id:r.id+':printing',set_code:r.setCode,card_number:r.number||'?',image_url:localArtworkFor(localArt,r.id+':printing')||r.image||'',rarity:'Provisional'}]}}
 function tags(c){return (dbStore.tags?.[c.entity_id]||[]).filter(t=>t.status==='approved')}
 function integrateCatalog(){
  dbStore=readJSON(DB_KEY,{});const tempCards=(Array.isArray(dbStore.tempCards)?dbStore.tempCards:[]).filter(r=>r&&typeof r.id==='string'&&typeof r.name==='string'&&Array.isArray(dbStore.tempSets)&&dbStore.tempSets.some(s=>s.code===r.setCode)).map(tempEntity);
@@ -37,6 +38,11 @@ async function loadCatalog(){
   const response=await fetch('./card-db.html',{cache:'no-cache'});if(!response.ok)throw Error('Card DB request failed ('+response.status+').');
   const doc=new DOMParser().parseFromString(await response.text(),'text/html'),node=doc.querySelector('script#catalog[type="application/json"]');if(!node)throw Error('Card DB catalogue was not found.');
   standard=JSON.parse(node.textContent);if(!Array.isArray(standard.entities))throw Error('Unsupported Card DB catalogue.');
+  // Optional same-origin verified image registry; a failed fetch does not break the catalogue.
+  try{
+   const artResponse=await fetch('./data/card-art-manifest.json',{cache:'no-cache'});
+   if(artResponse.ok)localArt=indexedArt(await artResponse.json());
+  }catch{localArt=new Map();}
   integrateCatalog();$('loadError').classList.add('hidden');
  }catch(error){$('loadError').textContent='Could not load Card DB: '+error.message+' Your saved decks are still available. Try Refresh cards.';$('loadError').classList.remove('hidden');$('resultCount').textContent='Catalogue unavailable';renderDeck()}
  finally{$('refreshCatalog').disabled=false}
