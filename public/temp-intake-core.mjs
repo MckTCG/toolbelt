@@ -176,3 +176,45 @@ export function tempCandidateUpdates(store,candidates){
   }
   return reports;
 }
+
+
+/**
+ * Bulk TEMP intake: process each explicitly selected queue entry against an
+ * in-memory store snapshot. Conflicts and changes to existing records are
+ * skipped for individual review, never silently applied. The caller persists
+ * the returned store and linked queue records only after this plan succeeds.
+ * Selection is based on stable queue indexes, not the current filter order.
+ */
+export function planBulkTempAcceptance(queue,selectedIndexes,store,options={}){
+  if(!Array.isArray(queue)||!Array.isArray(selectedIndexes)||selectedIndexes.length>500)
+    throw Error('Invalid or oversized TEMP bulk selection');
+  const indexes=[...new Set(selectedIndexes)];
+  if(indexes.some(i=>!Number.isInteger(i)||i<0||i>=queue.length))
+    throw Error('TEMP selection has invalid queue indexes. Refresh the list and retry.');
+  let working=structuredClone(store&&typeof store==='object'?store:{});
+  const results=[],skipped=[];
+  const now=options.now||new Date().toISOString();
+  for(const index of indexes){
+    const candidate=queue[index];
+    try{
+      // Each candidate identifies its own set; a single manually chosen
+      // destination must never force unrelated sets together in bulk.
+      const result=planTempAcceptance(candidate,working,{
+        seedTags:options.seedTags,now
+      });
+      if(result.kind==='update-review-required'){
+        skipped.push({index,name:candidate.name||'(unnamed)',
+          reason:'Existing TEMP record differs; review this card individually before updating.',
+          changes:result.changes});
+        continue;
+      }
+      working=result.store;
+      results.push({index,name:candidate.name||'(unnamed)',id:result.record.id,
+        kind:result.kind,setCode:result.record.setCode});
+    }catch(error){
+      skipped.push({index,name:candidate?.name||'(unnamed)',
+        reason:error?.message||'Invalid TEMP candidate'});
+    }
+  }
+  return {store:working,accepted:results,skipped,requested:indexes.length};
+}
