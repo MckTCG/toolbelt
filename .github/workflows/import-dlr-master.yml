@@ -25,6 +25,8 @@ jobs:
           path: destination
           persist-credentials: true
       - name: Extract and stage full English DLR catalog
+        id: extraction
+        continue-on-error: true
         run: node scripts/import-dlr-master.mjs
       - name: Upload QA evidence
         if: always()
@@ -32,13 +34,20 @@ jobs:
         with:
           name: english-dlr-import-qa
           path: destination/docs/dlr-master-import-audit.json
-      - name: Commit staged catalog and artwork to review branch only
+      - name: Commit staged catalog, artwork, or blocking QA to review branch
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
           cd destination
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A public/card-db.html public/data/card-art-manifest.json public/assets/card-art/DLR docs/dlr-master-import-audit.json
-          test -s docs/dlr-master-import-audit.json
-          git diff --cached --quiet || (git commit -m "Import all 141 English Delta Reign printings" && git push origin HEAD:feature/dlr-master-ready)
+          if [ -s docs/dlr-master-import-audit.json ]; then
+            git add -A public/card-db.html public/data/card-art-manifest.json public/assets/card-art/DLR docs/dlr-master-import-audit.json
+            git diff --cached --quiet || (git commit -m "Stage English DLR extraction and QA outcome" && git push origin HEAD:feature/dlr-master-ready)
+          else
+            echo 'No extraction report was produced.'
+          fi
+      - name: Fail workflow when extraction failed
+        if: steps.extraction.outcome == 'failure'
+        run: exit 1
