@@ -7,6 +7,7 @@ on:
       - public/card-intake.html
       - scripts/publish-card-intake.mjs
       - scripts/test-card-intake*.mjs
+      - public/card-intake-loupe.mjs
       - .github/workflows/card-intake-qa.yml
   pull_request:
     paths:
@@ -15,6 +16,7 @@ on:
       - public/index.html
       - scripts/publish-card-intake.mjs
       - scripts/test-card-intake*.mjs
+      - public/card-intake-loupe.mjs
       - .github/workflows/card-intake-qa.yml
   workflow_dispatch:
 permissions:
@@ -27,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
-      - run: node --check public/card-intake-core.mjs && node --check public/card-intake.mjs && node --check scripts/publish-card-intake.mjs && node --check scripts/test-card-intake.mjs
+      - run: node --check public/card-intake-core.mjs && node --check public/card-intake.mjs && node --check public/card-intake-loupe.mjs && node --check scripts/publish-card-intake.mjs && node --check scripts/test-card-intake.mjs
       - run: node scripts/test-card-intake.mjs
       - run: node scripts/test-deck-builder.mjs
       - run: node scripts/test-tagger-master-access.mjs
@@ -41,3 +43,12 @@ jobs:
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
       - run: node scripts/test-card-intake-browser.mjs
+      - run: node scripts/test-card-intake-loupe-browser.mjs
+      - name: Capture desktop and mobile loupe previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: card-intake-loupe-previews
+          path: |
+            /tmp/card-loupe-desktop.png
+            /tmp/card-loupe-mobile.png
+          retention-days: 7

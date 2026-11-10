@@ -6,6 +6,35 @@
 <style>
 :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,sans-serif;--bg:#0c111c;--panel:#151f30;--line:#33445b;--text:#ebf2ff;--muted:#a1aec4;--blue:#76a9fc;--cyan:#70d9cd;--green:#70dfab;--amber:#facb84;--red:#f38e9b}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px}a{color:var(--blue)}.shell{max-width:1340px;margin:auto;padding:26px 24px 75px}header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-bottom:22px;border-bottom:1px solid var(--line)}h1{font-size:clamp(27px,3vw,38px);margin:22px 0 6px;letter-spacing:-.045em}h2{font-size:18px;margin:0 0 10px}h3{font-size:14px;margin:13px 0 8px;color:var(--cyan)}p{color:var(--muted);line-height:1.55}button,input,textarea,select{font:inherit;border-radius:8px;border:1px solid var(--line);background:#111b2c;color:var(--text);padding:9px;min-width:0}button{cursor:pointer;background:#203148;font-weight:600}button:hover{border-color:#7098c5}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:#3673cd;border-color:#4587e4;color:white}.danger{color:var(--red)}.back{color:#b4d3fb;text-decoration:none}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:17px 0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;min-width:0}.columns{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.5fr);gap:18px}.hint{font-size:12px;color:var(--muted)}.good{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.list{display:flex;flex-direction:column;gap:8px;max-height:72vh;overflow:auto}.candidate{padding:10px;border:1px solid var(--line);border-radius:9px;background:#111b2c;text-align:left;display:flex;align-items:center;gap:10px;width:100%}.candidate.active{border-color:var(--blue);background:#20334e}.candidate img{width:38px;height:54px;object-fit:contain;background:#273c52;border-radius:4px}.candidate span{display:block}.candidate small{display:block;color:var(--muted);font-weight:400;font-size:11px}.pill{font-size:11px;padding:4px 7px;background:#26384d;border:1px solid var(--line);border-radius:40px;white-space:nowrap}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}.fields input,.fields select,.fields textarea{width:100%}.fields .full{grid-column:1/-1}.fields .span2{grid-column:span 2}.checks{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0}.checks label{color:var(--text);font-size:12px;display:flex;gap:6px;align-items:center}.checks input{width:auto}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}#diagnostic{padding:11px;border-radius:8px;border:1px solid var(--line);background:#0f1928;color:var(--muted);margin:12px 0;min-height:42px;white-space:pre-wrap}#feedback{margin:7px 0 13px;min-height:20px}#queueCount{margin-left:auto}.muted{color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted)}code{color:var(--cyan)}.stats{font-size:12px;color:var(--muted)}.panel,.toolbar,.fields,.candidate,.hint,#diagnostic,#feedback{min-width:0;overflow-wrap:anywhere}.columns>section{min-width:0}.fields{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:950px){.columns{grid-template-columns:1fr}.list{max-height:220px}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:500px){.shell{padding:15px}.fields{grid-template-columns:minmax(0,1fr)}.fields .span2{grid-column:auto}.toolbar>*{flex:1}}
+
+/* Card inspection: same queue layout, magnifier over artwork, one accessible lightbox. */
+.candidate-wrap{position:relative;min-width:0}
+.candidate img{width:52px;height:73px;flex:none}
+.candidate-loupe-trigger{position:absolute;top:10px;left:10px;width:52px;height:73px;padding:0;border:0;background:transparent;border-radius:5px;z-index:1;color:white;cursor:zoom-in}
+.candidate-loupe-trigger::after{content:"⌕";position:absolute;right:3px;bottom:3px;display:grid;place-items:center;background:rgba(5,12,23,.9);border:1px solid #9fb3d2;border-radius:7px;width:27px;height:27px;font-size:24px;line-height:1}
+.candidate-loupe-trigger:hover::after,.candidate-loupe-trigger:focus-visible::after{background:#3673cd}
+.candidate-loupe-trigger:focus-visible{outline:3px solid #b8e6ff;outline-offset:2px}
+.review-titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.review-titlebar h2{margin:0}
+.card-loupe{width:min(95vw,980px);height:min(95dvh,980px);max-width:none;max-height:none;padding:0;border:1px solid #526787;border-radius:16px;background:#111b2c;color:var(--text);box-shadow:0 28px 90px #0009;overflow:hidden}
+.card-loupe::backdrop{background:rgba(2,6,14,.88);backdrop-filter:blur(4px)}
+.card-loupe-window{display:flex;flex-direction:column;width:100%;height:100%;min-height:0}
+.card-loupe-toolbar{display:flex;align-items:center;justify-content:space-between;gap:9px;padding:12px 15px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:#172339}
+.card-loupe-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0}
+#cardLoupeTitle{font-size:15px;overflow-wrap:anywhere}
+#cardLoupeZoom{color:var(--cyan);font-size:12px;font-variant-numeric:tabular-nums}
+.card-loupe-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.card-loupe-controls button{min-width:36px;min-height:36px}
+.card-loupe-controls a{color:var(--blue);font-size:12px}
+#cardLoupeClose{background:#354660;font-size:18px}
+.card-loupe-stage{flex:1;min-height:0;min-width:0;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;background:#080f1b;touch-action:none;cursor:zoom-in;user-select:none}
+.card-loupe-stage.can-pan{cursor:grab}
+.card-loupe-stage.can-pan:active{cursor:grabbing}
+#cardLoupeImage{display:block;max-width:calc(100% - 24px);max-height:calc(100% - 24px);width:auto;height:auto;object-fit:contain;transform-origin:center center;pointer-events:none;-webkit-user-drag:none;user-select:none;will-change:transform}
+#cardLoupeImage[hidden],#cardLoupeError[hidden],#previewSelected[hidden]{display:none!important}
+#cardLoupeError{color:var(--amber);padding:25px;text-align:center}
+.card-loupe-hint{padding:9px 15px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center;background:#131e30}
+@media(max-width:600px){.card-loupe{width:100vw;height:100dvh;border-radius:0;border:0}.card-loupe-toolbar{padding:9px}.card-loupe-controls{gap:4px}.card-loupe-controls button{min-width:38px;min-height:38px}.card-loupe-hint{font-size:11px;padding:7px}}
 </style>
 </head>
 <body>
@@ -33,7 +62,7 @@
 <p class="hint">Queue is saved only in this browser (<code>tcg-lab-card-intake-v1</code>). Export backups when switching devices. Discovery candidates are automatically collected by a separate, review-only GitHub feed. Your existing daily reminder remains unchanged.</p>
 </section>
 <section class="panel" aria-label="Selected card">
-<h2 id="formTitle">Select a candidate</h2>
+<div class="review-titlebar"><h2 id="formTitle">Select a candidate</h2><button id="previewSelected" type="button" hidden aria-label="Enlarge selected card image">⌕ Enlarge card</button></div>
 <p class="hint">URLs from Limitless English/Japanese card pages prefill set and number. Other reveal URLs are stored as references; automatic website scraping is a later release.</p>
 <form id="cardForm">
 <div class="fields">
@@ -76,5 +105,29 @@
 </div>
 <p class="hint">Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
 </main>
+
+<dialog id="cardLoupe" class="card-loupe" aria-modal="true" aria-labelledby="cardLoupeTitle">
+  <div class="card-loupe-window">
+    <div class="card-loupe-toolbar">
+      <div class="card-loupe-title">
+        <strong id="cardLoupeTitle">Card artwork</strong>
+        <span id="cardLoupeZoom" aria-live="polite">Fit</span>
+      </div>
+      <div class="card-loupe-controls">
+        <button id="cardLoupeOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+        <button id="cardLoupeIn" type="button" aria-label="Zoom in" title="Zoom in">＋</button>
+        <button id="cardLoupeFit" type="button" title="Reset to fit">Fit</button>
+        <a id="cardLoupeSource" href="#" target="_blank" rel="noopener noreferrer">Open original</a>
+        <button id="cardLoupeClose" type="button" aria-label="Close card viewer" title="Close (Esc)">×</button>
+      </div>
+    </div>
+    <div id="cardLoupeStage" class="card-loupe-stage" tabindex="0" aria-label="Zoom with mouse wheel or touch pinch; drag the card to pan">
+      <img id="cardLoupeImage" alt="" draggable="false">
+      <p id="cardLoupeError" hidden role="alert"></p>
+    </div>
+    <div class="card-loupe-hint">Wheel / pinch to zoom · Drag to pan · Esc to close · + / − to adjust</div>
+  </div>
+</dialog>
+
 <script type="module" src="./card-intake.mjs"></script>
 </body></html>
