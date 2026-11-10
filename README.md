@@ -8,6 +8,7 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [TCG Lab Simulator](https://prerelease-lab.pages.dev/simulator.html) — Quick Solo, Full Tabletop, Deck Stats, Deep Lab.
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
 - [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
+- **Proxy Workshop** (`public/proxy-workshop.html`) — offline-capable Quick Print sticker proxy builder. Paper selection: **Letter (8.5×11, 9 upright slots)** or **Tabloid (11×17, 18 sideways slots)**. Features click-to-upload/replace, bulk image import with per-import copy count, unlimited automatically paginated sheets, remove/reflow, **63×88 mm full-size or centered 62×87 mm adhesive overlays**, adjustable PROXY watermark, optional exterior crop marks and 50 mm calibration line, and a paper-specific browser Print / Save PDF reminder. Switching paper sizes reflows every queued card without losing images. This page has no card database connection in Phase 1 (planned later).
 
 The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. The [Card DB v0.1](https://mute-dust-0d50.forcoin99.workers.dev/card-db.html) is now linked and provides manual TEMP-set creation and card intake on a copy of the original Standard Explorer. Automatic reveal ingestion and full Deck Builder integration are not yet implemented. Additional launcher cards (full Deck Builder and Training Lab) remain roadmap placeholders.
 
@@ -73,3 +74,34 @@ The first GitHub-connected Cloudflare build is initiated by a new commit after l
 - Simulator transfer uses the existing `tcg-lab-deck-v1` UTF-8 URL-fragment contract, carrying stable card/printing IDs, image URLs, English text and Basic/evolution metadata. Quick Solo starts immediately; Full Tabletop opens configuration and can use the imported deck for either player.
 - Deck checks are a practice guide, not a live legality checker. Text exports cannot carry custom images or translation text; use JSON or Simulator transfer for proxies.
 - Run core checks: `node scripts/test-deck-builder.mjs /path/to/simulator.html`. The simulator argument is optional.
+
+
+## Proxy Workshop — Phase 1 (feature branch only)
+
+Source: `public/proxy-workshop.html`. Launcher: `public/index.html`, with a **Proxy Workshop** card linking to `./proxy-workshop.html` so preview deployments can use their own origin.
+
+This is the existing standalone Quick Print v1.1, not the planned Advanced Print workflow. Preserved functions:
+
+- Click any of the 18 slots to choose or replace a card image; or bulk-add images with a single copies-per-image setting.
+- Each card is physically 63 × 88 mm, rotated to fit three columns by six rows on an 11 × 17-inch sheet.
+- Apply the legible PROXY corner label; the white background opacity adjusts from 0% to 100% (default 55%), while lettering stays opaque.
+- Print / Save PDF through the browser print dialog with 11 × 17 paper, 100% scale, zero margins, and no header/footer.
+- Self-contained/offline HTML, no external image requests or server upload.
+
+**Not yet supported**: letter/A4 size selection, individual quantities per card, multiple pages, native PDF export, decklist import, card database search, Pokémon/Trainer/Energy filters, or reusable print queues. These are later phases, deliberately not introduced in Phase 1.
+
+### Testing and release
+
+The original standalone builder was smoke-tested locally with a sample image: 18 slots, bulk upload with three copies, per-slot replacement, background-opacity change, and one 792 × 1224 pt (11 × 17 in) PDF output. Test the feature branch's hosted path after a preview deployment; local tests do not constitute production deployment. The production Worker builds from `main`; nothing on this branch should publish until intentionally merged/deployed.
+
+For physical printing, confirm the shop's printable area and print at 100%/actual size. Print the first sheet and measure it with a ruler before committing to a batch.
+
+## Proxy Workshop — Phase 1 printing workflow
+
+1. Open `/proxy-workshop.html`, choose Letter (9 per page) or Tabloid (18 per page).
+2. Click a slot for a single image, or choose multiple images and a copy count; additional pages appear automatically.
+3. For sticker-on-existing-card proxies, optionally use the centered 62 × 87 mm adhesive overlay; enable crop marks for precise trimming. The 50 mm calibration line can verify scale after printing.
+4. Click **Print / Save PDF**. In Chrome select **Save as PDF**, matching **Letter** or **Tabloid** size, **1 page per sheet**, **no margins**, **100% scale**, **headers and footers off**, **background graphics on**. Check the preview page count and never use Fit to page.
+5. Print a test page and verify the 50 mm line with a ruler before printing many sheets. It is a practice-only proxy maker, not a sanctioned-tournament card-production tool.
+
+Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCG Lab Proxy Workshop — Quick Print</title>
+<style>
+  :root { --wm-bg-opacity: .55; color-scheme: light; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#e8edf1; color:#18232b; }
+  .controls {max-width:960px; margin:16px auto; background:white; border-radius:12px; padding:20px; box-shadow:0 2px 10px #0001;}
+  h1 {font-size:21px;margin:0 0 8px;}
+  p {font-size:13px; line-height:1.5; color:#536170; margin:8px 0}
+  .bar {display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:16px 0 10px;}
+  label {font-size:13px; display:grid;gap:5px;color:#30414f}
+  input[type="number"] {padding:7px; width:76px;}
+  select {padding:7px; border:1px solid #ccd5dc;border-radius:7px;background:white;color:#18232b;}
+  input[type="file"] {font-size:13px;}
+  input[type="range"] {width:175px;accent-color:#255d7e;cursor:pointer;}
+  .opacity-control {min-width:220px;}
+  .opacity-control .range-row {display:flex;align-items:center;gap:8px;}
+  output {min-width:40px;font-variant-numeric:tabular-nums;font-weight:650;}
+  button {border:1px solid #ccd5dc; background:#fff; padding:9px 14px; border-radius:7px; cursor:pointer;font-weight:600;}
+  button.primary {background:#255d7e; border-color:#255d7e; color:white;}
+  .note {background:#f4f8fb; border-radius:7px; padding:10px; margin:10px 0; font-size:12px; color:#485969}
+  .print-reminder {background:#fff9ea;border:1px solid #efdcb5;border-radius:8px;padding:11px 13px;margin:12px 0;font-size:12px;line-height:1.6;color:#513f21}
+  .print-reminder b {color:#32240e}
+  .print-reminder .caution {color:#79613a;margin-top:4px}
+  .small-setting {display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+  .small-setting input {accent-color:#255d7e}
+  .sheet-head {font-size:12px;color:#627184;text-align:right;padding:2px 3px 6px}
+  .slot-remove {position:absolute;z-index:15;top:2px;right:2px;background:#fffdf0;color:#4f1b17;border:1px solid #cf8c89;font-size:15px;line-height:18px;border-radius:5px;padding:0;min-width:23px;height:23px;display:none}
+  .slot:hover .slot-remove,.slot:focus-within .slot-remove {display:block}
+  .cut-layer {position:absolute;inset:0;pointer-events:none;z-index:10;}
+  .cut-segment {position:absolute;background:#60686f;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .calibration {position:absolute;top:2mm;left:11mm;width:50mm;height:2.5mm;border-top:.16mm solid #60686f;color:#60686f;font:2mm Arial,sans-serif;text-align:center;padding-top:.35mm;}
+  .sheet-wrap {break-inside:avoid}
+
+  .sheet-wrap {overflow:auto;max-width:calc(100vw - 24px); margin:14px auto 35px; padding:12px; width:max-content;}
+  .sheet {width:279.4mm;height:431.8mm;background:white; box-shadow:0 3px 16px #0003;position:relative;}
+  .grid {position:absolute;left:5.7mm;top:21.9mm;display:grid;grid-template-columns:repeat(3, 88mm);grid-template-rows:repeat(6,63mm);column-gap:2mm;row-gap:2mm;}
+  .slot {width:88mm;height:63mm;position:relative; overflow:hidden; outline:0.15mm solid #98a8b3; background:#f5f8fa;cursor:pointer;}
+  .portrait {position:absolute; width:var(--print-w,63mm); height:var(--print-h,88mm); top:var(--overlay-inset,0mm);left:var(--overlay-inset,0mm);transform-origin:top left;transform:translateX(var(--print-h,88mm)) rotate(90deg);background:#f5f8fa;}
+  .portrait img {position:absolute;width:100%;height:100%;object-fit:fill;left:0;top:0;}
+  /* Letter: 3 × 3 upright cards, true 63 × 88 mm. Layout centered on 215.9 × 279.4 mm. */
+  .format-letter .sheet {width:215.9mm;height:279.4mm;}
+  .format-letter .grid {left:11.45mm;top:5.7mm;grid-template-columns:repeat(3,63mm);grid-template-rows:repeat(3,88mm);column-gap:2mm;row-gap:2mm;}
+  .format-letter .slot {width:63mm;height:88mm;}
+  .format-letter .portrait {transform:none;}
+
+  .placeholder {position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#b7c3cb; gap:2mm;}
+  .placeholder b {font-size:12mm;}
+  .placeholder span {font-size:2.7mm;letter-spacing:.1mm}
+  .wm {position:absolute;right:2.5mm;bottom:3.5mm;background:rgba(255,255,255,var(--wm-bg-opacity));border:.16mm solid rgba(40,50,60,.55);border-radius:1mm;color:#202b33;font:bold 3.05mm/5.6mm Arial,sans-serif;letter-spacing:.27mm;text-align:center;height:6.2mm;width:21.5mm;}
+  .slot:hover:not(:has(img)) {outline:0.35mm solid #255d7e;}
+  .counter {text-align:right;font-size:12px;color:#536170;}
+
+  @media print {
+    body {margin:0;background:white;}
+    .controls {display:none!important;}
+    .sheet-wrap {margin:0;padding:0;max-width:none;width:auto;overflow:visible;break-inside:avoid;page-break-inside:avoid;break-after:page;page-break-after:always;}
+    .sheet-wrap:last-child {break-after:auto;page-break-after:auto;}
+    .sheet-head {display:none!important;}
+    .slot-remove {display:none!important;}
+    .sheet {box-shadow:none;}
+    .slot {outline:.12mm solid #b1b9bf;}
+    .placeholder {display:none!important;}
+    .slot:not(:has(img)) {outline:0; background:white;}
+    .slot:not(:has(img)) .wm {display:none;}
+    .portrait:not(:has(img)) {background:white;}
+    .wm {print-color-adjust:exact; -webkit-print-color-adjust:exact;}
+  }
+</style>
+<style id="activePageSize">@page {size:11in 17in;margin:0}</style>
+</head>
+<body>
+<div class="controls">
+<h1>TCG Lab · Proxy Workshop</h1>
+<p id="paperIntro">18 card slots on 11×17 Tabloid, each <b>63 × 88 mm</b> (rotated to fit). A small <b>PROXY</b> watermark is overlaid automatically on every image. Everything runs locally in your browser; images are not uploaded.</p>
+<div class="bar">
+  <label>Paper size <select id="paperSize" aria-label="Choose printing paper size"><option value="tabloid">11×17 · Tabloid (18)</option><option value="letter">8.5×11 · Letter (9)</option></select></label>
+  <label>Choose card images <input id="files" type="file" accept="image/*" multiple></label>
+  <label>Copies of each image <input id="copies" type="number" min="1" max="999" value="1"></label>
+  <label>Sticker dimensions <select id="overlaySize" aria-label="Choose physical print dimensions"><option value="full">63 × 88 mm · Full size</option><option value="overlay">62 × 87 mm · Adhesive overlay</option></select></label>
+  <label class="small-setting"><input id="cutGuides" type="checkbox"> Cutting guides + 50 mm test line</label>
+  <button id="add" class="primary">Add to sheet</button>
+  <label class="opacity-control" for="wmOpacity">Watermark background opacity <span class="range-row"><input id="wmOpacity" type="range" min="0" max="100" step="5" value="55"><output id="wmOpacityValue" for="wmOpacity">55%</output></span></label>
+  <button id="clear">Clear all</button>
+  <button id="print" class="primary">Print / Save PDF</button>
+</div>
+<div class="print-reminder" id="printReminder" role="note" aria-live="polite"></div>
+<p>The white background starts at 55% opacity (45% transparent). The PROXY lettering stays fully opaque. Slide to 0% for no white background, or 100% for solid white.</p>
+<div class="counter" id="count">0 / 18 slots filled</div>
+<div class="note" id="printHelp">You can click any card slot to add or replace its image. Print at <strong>100% / Actual size</strong>, select <strong>11×17 (Tabloid)</strong>, choose <strong>margins none</strong>, and disable headers/footers. Do not use “Fit to page.” Images should ideally be 744×1039 pixels or larger for 300 dpi. Changing paper formats preserves your existing images; Letter displays and prints only slots 1–9.</div>
+</div>
+<div id="pages"></div>
+<input id="replace" type="file" accept="image/*" style="display:none"/>
+<script>
+(()=>{'use strict';
+const pages=document.getElementById('pages');
+const paperSize=document.getElementById('paperSize');
+const overlaySize=document.getElementById('overlaySize');
+const cutGuides=document.getElementById('cutGuides');
+const wmOpacity=document.getElementById('wmOpacity');
+const wmOpacityValue=document.getElementById('wmOpacityValue');
+// A flat, indexed queue: changing the paper size repaginates rather than hiding cards.
+const slots=[];
+const capacity=()=>paperSize.value==='letter'?9:18;
+const printWidth=()=>overlaySize.value==='overlay'?62:63;
+const printHeight=()=>overlaySize.value==='overlay'?87:88;
+const offset=()=>overlaySize.value==='overlay'?0.5:0;
+let replacingIndex=-1;
+function numPages(){return Math.max(1,Math.ceil(slots.length/capacity()));}
+function placeImage(url){
+ const empty=slots.indexOf(null);
+ if(empty>=0)slots[empty]=url;else slots.push(url);
+}
+function clearUnusedObjectUrl(url){
+ if(url && !slots.includes(url) && url.startsWith('blob:'))URL.revokeObjectURL(url);
+}
+function setAppearance(){
+ const letter=paperSize.value==='letter';
+ const paperName=letter?'Letter (8.5×11)':'Tabloid (11×17)';
+ const count=capacity();
+ document.body.classList.toggle('format-letter',letter);
+ document.getElementById('activePageSize').textContent=letter?'@page {size:8.5in 11in;margin:0}':'@page {size:11in 17in;margin:0}';
+ document.body.style.setProperty('--print-w',printWidth()+'mm');
+ document.body.style.setProperty('--print-h',printHeight()+'mm');
+ document.body.style.setProperty('--overlay-inset',offset()+'mm');
+ document.getElementById('paperIntro').innerHTML=(letter?'9 upright slots (3×3) on <b>Letter (8.5×11)</b>':'18 sideways slots (3×6) on <b>Tabloid (11×17)</b>')+', each for a 63 × 88 mm backing card. Uploaded images never leave your browser.';
+ document.getElementById('printHelp').innerHTML='Click a slot to upload or replace its image; add multiple files to fill the next empty slots. In <b>adhesive overlay</b> mode, art is 62 × 87 mm with 0.5 mm clearance on each side. A new page is created automatically when needed. The PROXY label remains visible.';
+ document.getElementById('printReminder').innerHTML='<b>Before saving as PDF · '+paperName+'</b><div>Destination: <b>Save as PDF</b> · Paper: <b>'+(letter?'Letter':'Tabloid')+'</b> · Pages per sheet: <b>1</b> · Margins: <b>None</b> · Scale: <b>100%</b> · Headers/footers: <b>Off</b> · Background graphics: <b>On</b></div><div class="caution">Check that there are '+count+' or fewer cards per physical page; choose the same paper size as the Workshop, not A4 or “Fit to page.”</div>';
+ render();
+}
+function makeSlot(index){
+ const slot=document.createElement('div');
+ slot.className='slot';
+ slot.setAttribute('aria-label','Card position '+(index+1)+'; click to add or replace image');
+ slot.tabIndex=0;
+ slot.title='Click to add or replace card '+(index+1);
+ const portrait=document.createElement('div');portrait.className='portrait';
+ const url=slots[index];
+ if(url){
+  const img=document.createElement('img');img.src=url;img.alt='Proxy card '+(index+1);
+  portrait.append(img);
+ }else{
+  const p=document.createElement('div');p.className='placeholder';
+  const b=document.createElement('b');b.textContent=String(index+1).padStart(2,'0');
+  const span=document.createElement('span');span.textContent='CLICK TO ADD IMAGE';
+  p.append(b,span);portrait.append(p);
+ }
+ const wm=document.createElement('div');wm.className='wm';wm.textContent='PROXY';portrait.append(wm);slot.append(portrait);
+ function replace(){replacingIndex=index;document.getElementById('replace').click();}
+ slot.addEventListener('click',replace);
+ slot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();replace();}});
+ if(url){
+  const remove=document.createElement('button');remove.className='slot-remove';remove.type='button';remove.title='Remove this card and close the gap';remove.textContent='×';
+  remove.addEventListener('click',e=>{e.stopPropagation();const deleted=slots.splice(index,1)[0];clearUnusedObjectUrl(deleted);render();});
+  slot.append(remove);
+ }
+ return slot;
+}
+function makeCutLayer(pageIndex,start,n){
+ const layer=document.createElement('div');layer.className='cut-layer';
+ if(!cutGuides.checked)return layer;
+ const letter=paperSize.value==='letter';
+ const cols=3;
+ const cellW=letter?63:88,cellH=letter?88:63;
+ const inset=offset();
+ // Physical card art is rotated on Tabloid: swapped width and height.
+ const artW=letter?printWidth():printHeight(),artH=letter?printHeight():printWidth();
+ const left=letter?11.45:5.7,top=letter?5.7:21.9;
+ const tick=.65,space=.2,stroke=.12;
+ function segment(x,y,w,h){
+  const el=document.createElement('span');el.className='cut-segment';
+  el.style.left=x+'mm';el.style.top=y+'mm';el.style.width=w+'mm';el.style.height=h+'mm';
+  layer.append(el);
+ }
+ for(let i=0;i<n;i++){
+  if(!slots[start+i])continue;
+  const x=left+(i%cols)*(cellW+2)+inset;
+  const y=top+Math.floor(i/cols)*(cellH+2)+inset;
+  for(const sx of [x,x+artW])for(const sy of [y,y+artH]){
+   const leftSide=sx===x,topSide=sy===y;
+   // Short strokes extend *outward* from the sticker, never across its artwork.
+   segment(sx+(leftSide?-space-tick:space),sy-stroke/2,tick,stroke);
+   segment(sx-stroke/2,sy+(topSide?-space-tick:space),stroke,tick);
+  }
+ }
+ const cal=document.createElement('div');cal.className='calibration';cal.textContent='50 mm · verify after printing';layer.append(cal);
+ return layer;
+}
+function render(){
+ const n=capacity(),count=numPages();
+ pages.replaceChildren();
+ for(let page=0;page<count;page++){
+  const wrap=document.createElement('div');wrap.className='sheet-wrap';
+  const head=document.createElement('div');head.className='sheet-head';head.textContent='Sheet '+(page+1)+' of '+count;
+  const sheet=document.createElement('div');sheet.className='sheet';
+  const grid=document.createElement('div');grid.className='grid';
+  const start=page*n;
+  for(let i=0;i<n;i++)grid.append(makeSlot(start+i));
+  sheet.append(grid,makeCutLayer(page,start,n));wrap.append(head,sheet);pages.append(wrap);
+ }
+ const total=slots.filter(Boolean).length;
+ document.getElementById('count').textContent=total+' cards · '+count+' '+(count===1?'sheet':'sheets')+' · '+n+' slots per sheet';
+}
+wmOpacity.addEventListener('input',()=>{
+ const opacity=Number(wmOpacity.value);
+ document.documentElement.style.setProperty('--wm-bg-opacity',String(opacity/100));
+ wmOpacityValue.value=opacity+'%';
+});
+paperSize.addEventListener('change',setAppearance);
+overlaySize.addEventListener('change',setAppearance);
+cutGuides.addEventListener('change',render);
+document.getElementById('replace').addEventListener('change',e=>{
+ const file=e.target.files&&e.target.files[0];
+ if(file && replacingIndex>=0){
+  const url=URL.createObjectURL(file),old=slots[replacingIndex];
+  slots[replacingIndex]=url;clearUnusedObjectUrl(old);render();
+ }
+ e.target.value='';replacingIndex=-1;
+});
+document.getElementById('add').addEventListener('click',()=>{
+ const files=Array.from(document.getElementById('files').files||[]);
+ if(!files.length){alert('Choose one or more card images first.');return;}
+ const copies=Math.min(999,Math.max(1,parseInt(document.getElementById('copies').value,10)||1));
+ for(const file of files){
+  const url=URL.createObjectURL(file);
+  for(let i=0;i<copies;i++)placeImage(url);
+ }
+ document.getElementById('files').value='';
+ render();
+});
+document.getElementById('clear').addEventListener('click',()=>{
+ if(!confirm('Clear all sheets?'))return;
+ const urls=[...new Set(slots.filter(Boolean))];slots.length=0;urls.forEach(u=>{if(u.startsWith('blob:'))URL.revokeObjectURL(u)});render();
+});
+document.getElementById('print').addEventListener('click',()=>window.print());
+setAppearance();
+// Exposed only to facilitate offline regression testing; no network calls.
+window.__proxyDiagnostics=()=>({cards:slots.filter(Boolean).length,pages:numPages(),capacity:capacity(),format:paperSize.value,overlay:overlaySize.value,cutGuides:cutGuides.checked});
+})();
+</script>
+</body></html>
