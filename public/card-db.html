@@ -126,11 +126,13 @@ function tempEntity(row){
   printings:[p]};
 }
 function registerTempSet(row){
+ if(row.code==='TMPDELTAREIGN')return; // archived Japanese M6, kept in local backups
  if(SETMAP.has(row.code))return;
  const st={set_code:row.code,name:tempSetDisplay(row),first_release_date:'',imported_printings:0,scope_note:'User-managed temporary Japanese reveal collection',temp:true};
  CATALOG.sets.push(st);SETMAP.set(row.code,st);
 }
 function registerTempCard(row){
+ if(row.setCode==='TMPDELTAREIGN')return;
  const c=tempEntity(row),existing=BYID.get(row.id);
  if(existing){
   const old=existing.printings[0];
@@ -146,6 +148,7 @@ function registerTempCard(row){
 }
 function syncTempFilters(){
  for(const row of store.tempSets){
+  if(row.code==='TMPDELTAREIGN')continue;
   for(const id of ['setFilter','queueSet']){
    const sel=$('#'+id);
    if(!sel||[...sel.options].some(x=>x.value===row.code))continue;
@@ -157,6 +160,7 @@ function syncTempFilters(){
  if(picker){
   const was=picker.value;picker.replaceChildren();
   for(const row of store.tempSets){
+   if(row.code==='TMPDELTAREIGN')continue;
    const opt=document.createElement('option');opt.value=row.code;opt.textContent=tempSetDisplay(row);picker.append(opt);
   }
   if(store.tempSets.some(x=>x.code===was))picker.value=was;
