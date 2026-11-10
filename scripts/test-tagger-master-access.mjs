@@ -30,5 +30,6 @@ for (const p of dlr) {
   await access('public/'+entry.path.replace(/^\.\//,''));
 }
 const headerFile = await readFile('public/_headers','utf8');
-assert(/\/card-db\.html\s*\n\s+Access-Control-Allow-Origin:\s*\*/.test(headerFile), 'CORS header rule must cover card-db.html');
+assert(headerFile.includes('/card-db.html\\n  Access-Control-Allow-Origin: *'.replace('\\n','\n')), 'CORS missing on /card-db.html');
+assert(headerFile.includes('/card-db\\n  Access-Control-Allow-Origin: *'.replace('\\n','\n')), 'CORS missing on clean URL /card-db');
 console.log('PASS: Master DB has '+entityIds.size+' gameplay records, '+printingIds.size+' unique printings, all 141 numbered DLR printings, 141 locally verified artworks, and read-only CORS access.');

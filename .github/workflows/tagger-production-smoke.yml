@@ -1,0 +1,22 @@
+name: Tagger Live Master DB CORS Smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - public/_headers
+      - scripts/check-tagger-production.mjs
+      - .github/workflows/tagger-production-smoke.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cross-origin-response:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/check-tagger-production.mjs
+      - run: node scripts/check-tagger-production.mjs

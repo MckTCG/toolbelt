@@ -1,7 +1,12 @@
-# Read-only public Master Card DB for standalone Tagger V1.
-# The Tagger lives at taggerv1.pages.dev and fetches this HTML's catalog JSON.
-# Assets are public; no credentials, cookies, or user-specific data are shared.
+# Public read-only Master Card DB: /card-db.html redirects to /card-db
+# Cloudflare applies _headers rules per response, including clean HTML URLs.
+# The final 200 response must carry CORS, not just the 307 redirect.
 /card-db.html
+  Access-Control-Allow-Origin: *
+  Access-Control-Expose-Headers: ETag
+  Cache-Control: public, max-age=0, must-revalidate
+
+/card-db
   Access-Control-Allow-Origin: *
   Access-Control-Expose-Headers: ETag
   Cache-Control: public, max-age=0, must-revalidate
