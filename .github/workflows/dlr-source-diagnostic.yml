@@ -1,0 +1,37 @@
+name: Diagnose English DLR source for master import
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/dlr-source-diagnostic.mjs
+      - .github/workflows/dlr-source-diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/dlr-source-diagnostic.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dlr-source-diagnostic
+          path: artifacts/dlr-diagnostic/
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/dlr-english-master-import
+          path: destination
+          persist-credentials: true
+      - name: Publish diagnostic to development branch
+        run: |
+          cp -R artifacts/dlr-diagnostic destination/
+          cd destination
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/dlr-diagnostic
+          git diff --cached --quiet || (git commit -m "Stage Limitless DLR source inspection" && git push origin HEAD:feature/dlr-english-master-import)
