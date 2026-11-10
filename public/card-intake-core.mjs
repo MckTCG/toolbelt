@@ -30,6 +30,11 @@ export function normalizeCandidate(input={}) {
   const record={
     source_url,
     source_kind: str(input.source_kind||hint.source_kind,40),
+    discovery_id: str(input.discovery_id,64),
+    source_published_at: str(input.source_published_at,60),
+    extraction_method: str(input.extraction_method,80),
+    extraction_confidence: str(input.extraction_confidence,24),
+
     language: str(input.language||hint.language||'unknown',12).toLowerCase(),
     set_code: str(input.set_code||input.setCode||hint.set_code,12).toUpperCase(),
     set_name: str(input.set_name||input.setName,140),
@@ -66,6 +71,7 @@ export function normalizeCandidate(input={}) {
     rules:list(input.rules,30),
     discovered_at:str(input.discovered_at||input.discoveredAt,35)||new Date().toISOString()
   };
+  if(record.discovery_id && !/^[a-f0-9]{22}$/.test(record.discovery_id)) throw Error('Invalid discovery identifier.');
   if(record.source_url && hint.source_kind==='limitless-card') {
     if(record.set_code && record.set_code!==hint.set_code) throw Error('Set code differs from source URL.');
     if(record.card_number && Number(record.card_number)!==Number(hint.card_number)) throw Error('Card number differs from source URL.');
@@ -161,4 +167,33 @@ export function readCSV(src) {
   if(!header.includes('name')&&!header.includes('source_url'))throw Error('CSV requires name or source_url column.');
   if(rows.length>MAX_INTAKE_CARDS)throw Error('Too many CSV rows.');
   return rows.map((r,i)=>{if(r.length!==header.length)throw Error('CSV column count mismatch on row '+(i+2));return normalizeCandidate(Object.fromEntries(header.map((h,j)=>[h,r[j]])))});
+}
+
+/**
+ * A PokéBeach article can contain several independent cards sharing one source
+ * URL. Discovery ID identifies each card; fallback keys preserve old v1 behavior.
+ */
+export function intakeIdentity(record) {
+  const card=normalizeCandidate(record);
+  if(card.discovery_id) return 'discovery:'+card.discovery_id;
+  if(card.set_code && card.card_number) return 'printing:'+keyFor(card);
+  if(card.source_url && card.name) return 'article-card:'+card.source_url+'|'+comparable(card.name)+'|'+comparable(card.category);
+  if(card.source_url) return 'source:'+card.source_url;
+  return 'draft:'+comparable(card.name)+'|'+comparable(card.category);
+}
+export const DISCOVERY_FEED_SCHEMA = 'tcg-lab-card-discovery-feed-v1';
+export function importDiscoveryFeed(payload) {
+  if(!payload || payload.schema!==DISCOVERY_FEED_SCHEMA || !Array.isArray(payload.candidates) ||
+     payload.candidates.length>MAX_INTAKE_CARDS) throw Error('Invalid or oversized discovery feed.');
+  const seen=new Set(),results=[];
+  for(const raw of payload.candidates) {
+    // The discovery feed is untrusted. The public feed NEVER supplies approvals.
+    const candidate=normalizeCandidate({...raw,status:raw?.language==='en'?'discovered':'provisional',
+      source_verified:false,artwork_verified:false,reviewed_distinct_gameplay:false,existing_entity_id:''});
+    if(!candidate.source_url || !candidate.discovery_id) continue;
+    const id=intakeIdentity(candidate);
+    if(seen.has(id)) continue;
+    seen.add(id);results.push(candidate);
+  }
+  return results;
 }
