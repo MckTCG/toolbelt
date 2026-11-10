@@ -1,0 +1,76 @@
+name: Card Discovery Phase 2 QA
+on:
+  push:
+    branches: [feature/card-db-discovery-phase2-20261110]
+    paths:
+      - scripts/discover-card-reveals.py
+      - scripts/test-card-discovery.py
+      - public/card-intake*.mjs
+      - public/card-intake.html
+      - .github/workflows/card-discovery-qa.yml
+      - .github/workflows/card-discovery-daily.yml
+  pull_request:
+    paths:
+      - scripts/discover-card-reveals.py
+      - scripts/test-card-discovery.py
+      - public/card-intake*.mjs
+      - public/card-intake.html
+      - .github/workflows/card-discovery-qa.yml
+      - .github/workflows/card-discovery-daily.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parser-and-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: python3 -m py_compile scripts/discover-card-reveals.py scripts/test-card-discovery.py
+      - run: python3 scripts/test-card-discovery.py
+      - run: node --check public/card-intake-core.mjs && node --check public/card-intake.mjs && node --check scripts/verify-card-discovery-feed.mjs
+      - run: node scripts/test-card-intake.mjs
+      - run: node scripts/test-deck-builder.mjs
+      - run: node scripts/test-tagger-master-access.mjs
+  live-adapter-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 scripts/discover-card-reveals.py --max-articles 5 --max-proxies 20 --card-url https://limitlesstcg.com/cards/en/DLR/84 --out /tmp/discovery-live.json
+          node scripts/verify-card-discovery-feed.mjs /tmp/discovery-live.json
+          python3 - <<'PY'
+          import json
+          obj=json.load(open('/tmp/discovery-live.json'))
+          stats=obj['stats']
+          print('LIVE DISCOVERY STATS:',stats)
+          for card in obj['candidates']:
+            if card.get('name') in ('Meowth','Persian','Vulpix','Ninetales','Quagsire','Pawmi'):
+              print('CARD SPOT CHECK:',{k:card.get(k) for k in ('name','source_kind','set_name','card_number','hp','stage','pokemon_types','attacks','abilities','weakness','resistance','retreat_cost')})
+          print('SOURCE ERRORS:',obj['errors'])
+          assert obj['schema']=='tcg-lab-card-discovery-feed-v1'
+          assert stats.get('pokebeach_cards',0)>=2,'Failed to extract two cards from structured news'
+          assert stats.get('pokemonproxies_artworks',0)>=1,'Failed to extract provisional proxy artworks'
+          assert len(obj['candidates'])>=2
+          assert all(not x['source_verified'] and not x['artwork_verified'] and x['status']!='approved' for x in obj['candidates'])
+          print('PASS: Live article/news/proxy extraction staged unverified records; no database writes.')
+          PY
+      - name: Retain live preview JSON for source-record QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-pilot-preview
+          path: /tmp/discovery-live.json
+          retention-days: 7
+  browser-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/test-card-discovery-browser.mjs

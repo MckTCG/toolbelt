@@ -17,9 +17,11 @@
 <h1>New Cards · Intake & Review</h1>
 <p>Collect reveals, compare them with the authoritative Master Card DB, review information, and export an approved batch for a controlled GitHub publication. Nothing on this page publishes automatically or modifies your Card DB tags.</p>
 <div id="catalogStatus" class="stats" role="status">Loading the Master Card DB…</div>
+<div id="discoveryStatus" class="stats" role="status">Review queue is local. The separate discovery feed may be refreshed on demand.</div>
 <div class="toolbar">
 <input id="sourceInput" type="url" style="flex:2;min-width:230px" placeholder="Paste card/reveal URL (HTTPS)">
 <button id="addSource" class="primary">＋ Add source</button>
+<button id="loadDiscoveries" class="primary" type="button">↻ Check new reveals</button>
 <button id="importFile">Import JSON / CSV</button><input type="file" id="filePicker" hidden accept=".json,.csv,application/json,text/csv">
 <button id="exportQueue">Back up queue</button><button id="exportApproved" class="primary">Export approved</button>
 </div>
@@ -28,7 +30,7 @@
 <div class="toolbar"><h2>Review queue</h2><span id="queueCount" class="pill">0</span></div>
 <div class="toolbar"><input id="filter" type="search" placeholder="Search names and sources" style="flex:1"><select id="statusFilter" aria-label="Review status"><option value="">All statuses</option><option>discovered</option><option>provisional</option><option>ready</option><option>approved</option><option>rejected</option></select></div>
 <div id="queueList" class="list"></div>
-<p class="hint">Queue is saved only in this browser (<code>tcg-lab-card-intake-v1</code>). Export backups when switching devices. The daily reveal reminder is not yet connected to this queue.</p>
+<p class="hint">Queue is saved only in this browser (<code>tcg-lab-card-intake-v1</code>). Export backups when switching devices. Discovery candidates are automatically collected by a separate, review-only GitHub feed. Your existing daily reminder remains unchanged.</p>
 </section>
 <section class="panel" aria-label="Selected card">
 <h2 id="formTitle">Select a candidate</h2>

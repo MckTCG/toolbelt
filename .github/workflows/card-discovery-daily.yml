@@ -1,0 +1,62 @@
+name: Daily Card Reveal Discovery (staging only)
+on:
+  # 08:15 UTC = 04:15 Santo Domingo; existing 03:55 reminder remains independent
+  schedule:
+    - cron: '15 8 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: card-discovery-staging
+  cancel-in-progress: false
+jobs:
+  discover-and-stage:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - name: Checkout authoritative code (main)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Load prior unverified discovery feed, if available
+        run: |
+          git fetch origin 'refs/heads/automation/card-discovery-feed:refs/remotes/origin/automation/card-discovery-feed' || true
+          git show origin/automation/card-discovery-feed:public/data/card-discoveries-v1.json > /tmp/card-discoveries-prior.json || true
+      - name: Discover new cards (no gameplay DB modifications)
+        run: |
+          python3 scripts/discover-card-reveals.py --max-articles 12 --max-proxies 50 \
+            --prior /tmp/card-discoveries-prior.json --out /tmp/card-discoveries-v1.json
+      - name: Enforce unverified staging and deduplication
+        run: node scripts/verify-card-discovery-feed.mjs /tmp/card-discoveries-v1.json
+      - name: Retain evidence even if isolated-branch push is blocked
+        uses: actions/upload-artifact@v4
+        with:
+          name: card-discovery-staging-json
+          path: /tmp/card-discoveries-v1.json
+          retention-days: 14
+      - name: Publish staging feed ONLY to isolated automation branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "TCG Lab Discovery Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git show-ref --verify --quiet refs/remotes/origin/automation/card-discovery-feed; then
+            git switch -C automation/card-discovery-feed origin/automation/card-discovery-feed
+          else
+            git switch -c automation/card-discovery-feed
+          fi
+          mkdir -p public/data
+          cp /tmp/card-discoveries-v1.json public/data/card-discoveries-v1.json
+          git add -- public/data/card-discoveries-v1.json
+          if git diff --cached --quiet; then
+            echo "No discovery changes to stage."
+          else
+            git commit -m "Stage unverified Pokémon card discovery candidates"
+            git push origin HEAD:refs/heads/automation/card-discovery-feed
+          fi
+          echo "Only the automation/card-discovery-feed ref may be updated by this job."

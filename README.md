@@ -134,7 +134,7 @@ Proxy Workshop extends existing Quick Print without changing the primary workflo
 See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
 
 
-## Card DB Intake v1 — reviewed reveal queue (feature branch)
+## Card DB Intake v1 — reviewed reveal queue (merged in PR #21)
 
 - **Workspace:** \`public/card-intake.html\` (Toolbelt → **New Cards · Review Intake**). It reads the same Master Card DB catalogue as Card Explorer, Deck Builder and Proxy Workshop; no second authoritative database.
 - Stage HTTPS reveal URLs, import JSON/CSV batches, fill/verify card details, detect existing printings and ambiguous gameplay identities, approve individual English cards, and export an approved JSON batch. The draft queue stays in browser \`localStorage\` under \`tcg-lab-card-intake-v1\`, isolated from all existing tag and deck storage.
@@ -144,3 +144,16 @@ See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
 - Regression: \`node scripts/test-card-intake.mjs\`; browser QA: \`node scripts/test-card-intake-browser.mjs\` (requires Playwright). See \`docs/card-db-intake-v1.md\`.
 
 **Do not confuse review approval with publication.** Publication requires a reviewed GitHub PR and deployed-app verification. Assisted Play and Proxy Workshop are unchanged.
+
+
+## Card DB Discovery Phase 2 — daily staged reveals (proposed)
+
+- **Existing intake UI:** \`public/card-intake.html\` adds one **Check new reveals** button. It reads the separate, public, unverified staging feed and lets you review multiple cards from a single article without overwriting existing tags or decisions.
+- **Sources:** PokéBeach news via a third-party RSS relay plus its original structured card blocks; Pokémon Proxies hashed image references (unofficial translation/artwork only); individual Limitless EN/JP card pages when supplied. No source automatically certifies exact English text or legality.
+- **Extraction:** \`python3 scripts/discover-card-reveals.py --out /tmp/card-discovery.json\`; the conservative HTTP/HTML/XML parsers use only the Python standard library, do not execute source JS, and include allowlisted hosts, size caps and timeouts.
+- **Review boundary:** \`node scripts/verify-card-discovery-feed.mjs /tmp/card-discovery.json\` prevents approved flags, duplicate IDs, known Master DB printings, and untrusted source hosts from being staged.
+- **Staging architecture:** After user-approved merge, a new GitHub Actions workflow runs at 04:15 Santo Domingo, separate from the user's original 03:55 card watch. It publishes **only** \`public/data/card-discoveries-v1.json\` to \`automation/card-discovery-feed\` (never \`main\` or the authoritative Card DB). If GitHub push permission is unavailable, an Actions artifact is kept for manual import.
+- **No automatic artwork storage:** third-party images are references pending exact-printing and permission verification. Existing locally stored Delta Reign artwork is untouched.
+- **QA:** \`python3 scripts/test-card-discovery.py\`, \`node scripts/test-card-discovery-browser.mjs\` (requires Playwright), full live-adapter smoke tests, and existing database regressions. See \`docs/card-db-discovery-phase2.md\`.
+
+Assisted Play and Proxy Workshop are outside Phase 2. No automatic card approval, database modifications, reminder changes, or merge/deployment are authorized by the discovery pipeline itself.
