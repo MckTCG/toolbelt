@@ -1,0 +1,72 @@
+name: Verify Card Intake Loupe Production Once
+on:
+  push:
+    branches: [qa/card-intake-loupe-live-20261110]
+    paths:
+      - .github/workflows/card-loupe-production-once.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Confirm Cloudflare deployment of loupe assets
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const root='https://mute-dust-0d50.forcoin99.workers.dev';
+          let html='',ready=false;
+          for(let i=0;i<15;i++){
+            const r=await fetch(root+'/card-intake.html',{cache:'no-store',signal:AbortSignal.timeout(20000)});
+            html=await r.text();
+            const has=html.includes('id="cardLoupe"')&&html.includes('id="previewSelected"');
+            console.log('Attempt',i+1,'HTTP',r.status,'loupe=',has,'final=',r.url);
+            if(r.ok&&has){ready=true;break;}
+            await new Promise(resolve=>setTimeout(resolve,8000));
+          }
+          assert(ready,'Live Card Intake page has not deployed the loupe within this verification window');
+          const js=await fetch(root+'/card-intake.mjs',{cache:'no-store'}).then(r=>r.text());
+          assert(js.includes("setupCardLoupe"),'Live intake script does not import loupe');
+          const mod=await fetch(root+'/card-intake-loupe.mjs',{cache:'no-store'});
+          const source=await mod.text();
+          assert(mod.ok && source.includes('export function setupCardLoupe'), 'Live loupe JS missing');
+          const db=await fetch(root+'/card-db.html',{cache:'no-store'}).then(r=>r.text());
+          assert(db.includes('id="catalog"'),'Master DB not accessible');
+          console.log('PASS: live Cloudflare page, intake JS, loupe module, and Master DB available.');
+          JS
+      - name: Chromium live usability smoke
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const page=await browser.newPage({viewport:{width:1280,height:900}});
+          const errors=[];
+          page.on('pageerror',e=>errors.push(e.message));
+          try{
+            await page.goto('https://mute-dust-0d50.forcoin99.workers.dev/card-intake.html',{waitUntil:'domcontentloaded',timeout:30000});
+            await page.waitForFunction(()=>document.querySelector('#catalogStatus')?.textContent.includes('gameplay records'),{timeout:30000});
+            await page.evaluate(()=>localStorage.setItem('tcg-lab-card-db-v0.1','DO_NOT_TOUCH'));
+            await page.locator('#loadDiscoveries').click();
+            await page.waitForFunction(()=>document.querySelector('#discoveryStatus')?.textContent.includes('newly staged'),{timeout:30000});
+            const cards=await page.locator('.candidate-loupe-trigger').count();
+            console.log('Discovered image loupe triggers:',cards);
+            assert(cards>=10,'New reveals are not showing image magnifiers');
+            await page.locator('.candidate-loupe-trigger').first().click();
+            assert(await page.locator('#cardLoupe').evaluate(x=>x.open),'Magnifier dialog did not open');
+            assert(await page.locator('#cardLoupeTitle').textContent());
+            await page.locator('#cardLoupeIn').click();
+            assert.equal(await page.locator('#cardLoupeZoom').textContent(),'150%');
+            await page.keyboard.press('Escape');
+            assert(!(await page.locator('#cardLoupe').evaluate(x=>x.open)),'Escape failed to close');
+            assert.equal(await page.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')),'DO_NOT_TOUCH');
+            assert.deepEqual(errors,[],'Live browser exceptions');
+            console.log('PASS: live browser can load discoveries, open magnifier, zoom, close, and preserve existing tags.');
+          }finally{await browser.close()}
+          JS
