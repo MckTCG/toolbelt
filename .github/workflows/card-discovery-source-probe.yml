@@ -1,0 +1,36 @@
+name: Card Discovery Source Probe
+on:
+  push:
+    branches: [feature/card-db-discovery-phase2-20261110]
+    paths: [.github/workflows/card-discovery-source-probe.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'PY'
+          import urllib.request, re
+          urls={
+            'live-card-intake':'https://mute-dust-0d50.forcoin99.workers.dev/card-intake.html',
+            'rss':'https://kaprestridge.github.io/pokebeach-news-feed/feed.xml',
+            'pokemonproxies':'https://www.pokemonproxies.com/',
+            'pokebeach':'https://www.pokebeach.com/2026/11/meowth-and-persian-revealed-from-aura-seeker',
+            'limitless':'https://limitlesstcg.com/cards/en/DLR/84',
+            'limitless-jp':'https://limitlesstcg.com/cards/jp/M6/58'
+          }
+          for label,url in urls.items():
+            try:
+              req=urllib.request.Request(url,headers={'User-Agent':'TCGLabCardDiscovery/0.1 (personal-card-review; contact via GitHub MckTCG/toolbelt)','Accept':'text/html,application/xml,text/xml,*/*'})
+              with urllib.request.urlopen(req,timeout=20) as resp:
+                body=resp.read(1_500_000).decode('utf-8','replace')
+                print('SOURCE',label,'status',resp.status,'final',resp.url,'bytes',len(body),'type',resp.headers.get('content-type'))
+                print('SNIPPET',re.sub(r'\s+',' ',body[:500])[:500])
+                print('META',re.findall(r'<script[^>]*src=["\'][^"\']+',body[:10000])[:3])
+                print('COUNTS', 'entry=',body.count('<entry'), 'item=',body.count('<item'), 'card=',body.count('DLR-'))
+            except Exception as exc: print('SOURCE',label,'ERROR',type(exc).__name__,str(exc)[:220])
+          PY
