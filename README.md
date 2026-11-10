@@ -157,3 +157,12 @@ See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
 - **QA:** \`python3 scripts/test-card-discovery.py\`, \`node scripts/test-card-discovery-browser.mjs\` (requires Playwright), full live-adapter smoke tests, and existing database regressions. See \`docs/card-db-discovery-phase2.md\`.
 
 Assisted Play and Proxy Workshop are outside Phase 2. No automatic card approval, database modifications, reminder changes, or merge/deployment are authorized by the discovery pipeline itself.
+
+
+## Card DB Phase 3 — JP-first TEMP acceptance and rapid rechecks (PR #25, not merged)
+
+Card Intake adds **Accept to TEMP** independently from the English verified Master DB approval pathway. Japanese-only cards (name, category; artwork for proxies) can enter the existing same-origin Card Explorer TEMP store, then be searched in Deck Builder and Proxy Workshop. Deck Builder transfers them to the Manual Simulator, including their original JP artwork even without English gameplay text. Existing tools are not redesigned.
+
+Revisions to unofficial/official translations are reviewed and stored with provenance; no automatic overwrites or record identity changes. The GitHub discovery staging workflow checks recent source updates every **four hours**, with deeper daily rechecks of older and release-near articles. The user's existing daily card reminder remains unchanged.
+
+This release is **not merged or deployed** until approved. More details and limitations: \`docs/card-db-temp-phase3.md\`.
