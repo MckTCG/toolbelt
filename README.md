@@ -8,7 +8,7 @@ Launcher for the Pokémon TCG Toolbelt. **Source of truth:** `public/index.html`
 - [TCG Lab Simulator](https://prerelease-lab.pages.dev/simulator.html) — Quick Solo, Full Tabletop, Deck Stats, Deep Lab.
 - [Card Explorer + Tagger](https://taggerv1.pages.dev/) — card browser and tagging.
 - [Match Clock (Web)](https://mute-dust-0d50.forcoin99.workers.dev/clock.html) — browser clock with regulation and overtime countdowns, two player clocks, pause, pass and undo.
-- **Proxy Workshop** (`public/proxy-workshop.html`, on the `feature/proxy-workshop` branch) — standalone Quick Print builder with a paper-size selector: **8.5×11 Letter (9 upright slots, 3×3)** or **11×17 Tabloid (18 sideways slots, 3×6)**. All cards stay at 63×88 mm. Supports click-to-upload/replace, bulk images, copies, watermark background-opacity slider, and print-to-PDF at actual size. Switching format retains slots 10–18 but Letter prints only slots 1–9. **Not yet deployed on `main`.**
+- **Proxy Workshop** (`public/proxy-workshop.html`) — offline-capable Quick Print sticker proxy builder. Paper selection: **Letter (8.5×11, 9 upright slots)** or **Tabloid (11×17, 18 sideways slots)**. Features click-to-upload/replace, bulk image import with per-import copy count, unlimited automatically paginated sheets, remove/reflow, **63×88 mm full-size or centered 62×87 mm adhesive overlays**, adjustable PROXY watermark, optional exterior crop marks and 50 mm calibration line, and a paper-specific browser Print / Save PDF reminder. Switching paper sizes reflows every queued card without losing images. This page has no card database connection in Phase 1 (planned later).
 
 The standalone native Match Clock with Bo1/Bo3 and history is a separate workstream; the browser clock linked here is the simpler existing v3 web edition. The [Card DB v0.1](https://mute-dust-0d50.forcoin99.workers.dev/card-db.html) is now linked and provides manual TEMP-set creation and card intake on a copy of the original Standard Explorer. Automatic reveal ingestion and full Deck Builder integration are not yet implemented. Additional launcher cards (full Deck Builder and Training Lab) remain roadmap placeholders.
 
@@ -95,3 +95,13 @@ This is the existing standalone Quick Print v1.1, not the planned Advanced Print
 The original standalone builder was smoke-tested locally with a sample image: 18 slots, bulk upload with three copies, per-slot replacement, background-opacity change, and one 792 × 1224 pt (11 × 17 in) PDF output. Test the feature branch's hosted path after a preview deployment; local tests do not constitute production deployment. The production Worker builds from `main`; nothing on this branch should publish until intentionally merged/deployed.
 
 For physical printing, confirm the shop's printable area and print at 100%/actual size. Print the first sheet and measure it with a ruler before committing to a batch.
+
+## Proxy Workshop — Phase 1 printing workflow
+
+1. Open `/proxy-workshop.html`, choose Letter (9 per page) or Tabloid (18 per page).
+2. Click a slot for a single image, or choose multiple images and a copy count; additional pages appear automatically.
+3. For sticker-on-existing-card proxies, optionally use the centered 62 × 87 mm adhesive overlay; enable crop marks for precise trimming. The 50 mm calibration line can verify scale after printing.
+4. Click **Print / Save PDF**. In Chrome select **Save as PDF**, matching **Letter** or **Tabloid** size, **1 page per sheet**, **no margins**, **100% scale**, **headers and footers off**, **background graphics on**. Check the preview page count and never use Fit to page.
+5. Print a test page and verify the 50 mm line with a ruler before printing many sheets. It is a practice-only proxy maker, not a sanctioned-tournament card-production tool.
+
+Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
