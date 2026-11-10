@@ -77,12 +77,34 @@ try {
   assert.equal(updated.entities.filter(e=>e.name==='Intake Test Item').length,1,'alternate printing duplicated gameplay');
   assert.equal(updated.entities.find(e=>e.name==='Intake Test Item').printings.length,2);
   assert.equal(updated.sets.find(s=>s.set_code==='TST').imported_printings,2);
+  const poke = normalizeCandidate({
+    source_url:'https://www.pokebeach.com/2026/11/test-pokemon',
+    language:'en',set_code:'TST',set_name:'Test Set',card_number:'3',
+    name:'Test Caterpie',category:'Pokémon',stage:'Basic',pokemon_types:'Grass',hp:'60',
+    weakness:'Fire ×2',resistance:'none',retreat_cost:'1',
+    attacks:[{name:'Bug Bite',cost:['Grass'],damage:'20',text:''}],
+    combined_text:'Attack — Bug Bite [Grass] 20',
+    regulation_mark:'J',rarity:'Common',release_date:'2026/11/10',
+    image_url:'https://example.org/test-pokemon.png',
+    source_verified:true,artwork_verified:true,status:'approved'
+  });
+  const altPoke = {...poke,card_number:'4',source_url:'https://www.pokebeach.com/2026/11/test-pokemon-alt'};
+  command=await run([poke,altPoke],true);
+  assert.equal(command.status,0,'Two printings of the same new Pokémon should group: '+command.stderr);
+  updated=JSON.parse((await fs.readFile(dbFile,'utf8')).match(/<script id="catalog" type="application\/json">([\s\S]*?)<\/script>/)[1]);
+  const newPokemon=updated.entities.filter(e=>e.name==='Test Caterpie');
+  assert.equal(newPokemon.length,1,'Two Pokémon printings created duplicate gameplay identities');
+  assert.equal(newPokemon[0].printings.length,2);
+  assert.deepEqual(newPokemon[0].weaknesses,[{type:'Fire',value:'×2'}]);
+  assert.equal(newPokemon[0].resistances.length,0);
+  assert.equal(newPokemon[0].attacks[0].converted_energy_cost,1);
+  assert.equal(updated.sets.find(s=>s.set_code==='TST').imported_printings,4);
   command=await run([testCard],true);
   assert.notEqual(command.status,0,'duplicate printing was allowed to re-import');
   command=await run([testCard,{...newPrint,card_number:'3',source_verified:false}],true);
   assert.notEqual(command.status,0,'partial batch was allowed to publish');
   updated=JSON.parse((await fs.readFile(dbFile,'utf8')).match(/<script id="catalog" type="application\/json">([\s\S]*?)<\/script>/)[1]);
-  assert.equal(updated.sets.find(s=>s.set_code==='TST').imported_printings,2,'partial failure mutated database');
+  assert.equal(updated.sets.find(s=>s.set_code==='TST').imported_printings,4,'partial failure mutated database');
   assert.equal(mechanicsSignature(entity),mechanicsSignature(updated.entities.find(e=>e.name==='Intake Test Item')));
 } finally {await fs.rm(base,{recursive:true,force:true})}
 console.log('PASS Card Intake: source validation, exact printing dedupe, ambiguous identity gate, CSV/JSON, dry-run safety, approved publication, alternate printing grouping, full batch atomicity.');
