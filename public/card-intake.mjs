@@ -3,7 +3,7 @@ import {
   classifyCandidate,completeness,importBatch,exportBatch,readCSV,intakeIdentity,importDiscoveryFeed
 } from './card-intake-core.mjs';
 import {setupCardLoupe} from './card-intake-loupe.mjs';
-import {TEMP_DB_KEY,planTempAcceptance,tempCandidateUpdates,tempReady} from './temp-intake-core.mjs';
+import {TEMP_DB_KEY,planTempAcceptance,planBulkTempAcceptance,tempCandidateUpdates,tempReady} from './temp-intake-core.mjs';
 import {loadCentralTemp,mergeTempStores,createTempProposal} from './temp-central-core.mjs';
 
 const STORAGE_KEY='tcg-lab-card-intake-v1';
@@ -14,6 +14,8 @@ $('previewSelected').addEventListener('click',()=>{
   openLoupeFor({name:getElement('name').value,image_url:getElement('image_url').value},selected);
 });
 let queue=[],selected=-1,catalog=null;
+const bulkSelected=new Set(); // transient queue indices, never saved or uploaded
+
 let pendingTempUpdates=[];
 let centralTemp=null;
 function readTempStore(){try{return JSON.parse(localStorage.getItem(TEMP_DB_KEY)||'null')||{}}catch{throw Error('Existing Card DB TEMP storage cannot be read. Export a backup before continuing.')}}
@@ -161,6 +163,16 @@ function openLoupeFor(record,queueIndex){
   }
   return loupe.open(record,{items:entries,index:position});
 }
+function updateBulkControls(){
+  const count=bulkSelected.size;
+  const visible=visibleQueueEntries();
+  const selectedVisible=visible.filter(c=>bulkSelected.has(c._index)).length;
+  $('bulkSelectionStatus').textContent=count+' selected'+
+    (visible.length && selectedVisible!==count?' ('+selectedVisible+' visible)':'');
+  $('bulkAcceptTemp').disabled=count===0;
+  $('bulkClear').disabled=count===0;
+  $('bulkSelectVisible').disabled=!visible.length || selectedVisible===visible.length;
+}
 function renderQueue(){
   const box=$('queueList');box.replaceChildren();
   const candidates=visibleQueueEntries();
@@ -174,7 +186,21 @@ function renderQueue(){
     btn.addEventListener('click',()=>{selected=c._index;fill(queue[selected]);renderQueue()});
     const wrap=document.createElement('div');
     wrap.className='candidate-wrap';
-    wrap.append(btn);
+    const pickLabel=document.createElement('label');
+    pickLabel.className='candidate-pick';
+    pickLabel.title='Select this card for bulk TEMP acceptance';
+    const pick=document.createElement('input');
+    pick.type='checkbox';
+    pick.className='candidate-bulk-check';
+    pick.checked=bulkSelected.has(c._index);
+    pick.setAttribute('aria-label','Select '+(c.name||'unnamed card')+' for bulk TEMP acceptance');
+    pick.addEventListener('change',()=>{
+      if(pick.checked)bulkSelected.add(c._index);
+      else bulkSelected.delete(c._index);
+      updateBulkControls();
+    });
+    pickLabel.append(pick);
+    wrap.append(pickLabel,btn);
     if(safeHTTPS(c.image_url)){
       const magnify=document.createElement('button');
       magnify.type='button';magnify.className='candidate-loupe-trigger';
@@ -187,6 +213,7 @@ function renderQueue(){
   }
   if(!candidates.length){const empty=document.createElement('p');empty.className='empty';empty.textContent=queue.length?'No matches for this filter.':'No cards staged yet. Add a reveal URL to begin.';box.appendChild(empty)}
   $('queueCount').textContent=queue.length+' staged · '+queue.filter(x=>x.status==='approved').length+' approved';
+  updateBulkControls();
 }
 function showSelected(){if(selected>=queue.length)selected=queue.length-1;fill(queue[selected]||null);renderQueue()}
 function mergeImported(cards){
@@ -256,6 +283,69 @@ form.addEventListener('submit',e=>{
     }
     queue[selected]=c;saveLocal();showSelected();notice('Draft saved locally. No Master DB changes made.','good');
   }catch(error){notice(error.message,'bad')}
+});
+$('bulkSelectVisible').addEventListener('click',()=>{
+  for(const c of visibleQueueEntries())bulkSelected.add(c._index);
+  renderQueue();
+});
+$('bulkClear').addEventListener('click',()=>{
+  bulkSelected.clear();$('bulkTempReport').textContent='';renderQueue();
+});
+$('bulkAcceptTemp').addEventListener('click',()=>{
+  if(!bulkSelected.size)return;
+  try{
+    const indexes=[...bulkSelected].sort((a,b)=>a-b);
+    const oldStoreRaw=localStorage.getItem(TEMP_DB_KEY);
+    const oldQueueRaw=localStorage.getItem(STORAGE_KEY);
+    const local=readTempStore();
+    const base=structuredClone(local);
+    base.tempSets=Array.isArray(base.tempSets)?base.tempSets:[];
+    for(const set of centralTemp?.sets||[]){
+      if(!base.tempSets.some(x=>x.code===set.code))base.tempSets.push(set);
+    }
+    // Only the saved queue is processed: unsaved edits in the single-card
+    // form must be saved first. Existing record conflicts are skipped.
+    const result=planBulkTempAcceptance(queue,indexes,base,{
+      seedTags:catalog?.reviewed_seed,now:new Date().toISOString(),
+      centralCards:centralTemp?.cards||[]
+    });
+    if(!result.accepted.length){
+      $('bulkTempReport').textContent='No cards accepted. '+
+        result.skipped.slice(0,12).map(x=>x.name+': '+x.reason).join('\n');
+      notice(result.skipped.length+' selected card(s) need individual review or missing details. Nothing changed.','warn');
+      return;
+    }
+    const nextQueue=queue.map(x=>({...x}));
+    const acceptedAt=new Date().toISOString();
+    for(const row of result.accepted){
+      nextQueue[row.index].temp_entity_id=row.id;
+      nextQueue[row.index].temp_accepted_at=acceptedAt;
+    }
+    const encodedTemp=JSON.stringify(result.store);
+    const encodedQueue=JSON.stringify(exportBatch(nextQueue));
+    try {
+      localStorage.setItem(TEMP_DB_KEY,encodedTemp);
+      localStorage.setItem(STORAGE_KEY,encodedQueue);
+    }catch(error){
+      // Best effort rollback if the second storage write failed.
+      try{
+        if(oldStoreRaw===null)localStorage.removeItem(TEMP_DB_KEY);
+        else localStorage.setItem(TEMP_DB_KEY,oldStoreRaw);
+        if(oldQueueRaw===null)localStorage.removeItem(STORAGE_KEY);
+        else localStorage.setItem(STORAGE_KEY,oldQueueRaw);
+      }catch{}
+      throw Error('Bulk save failed; please back up your cards before retrying: '+error.message);
+    }
+    queue=nextQueue;
+    for(const row of result.accepted)bulkSelected.delete(row.index);
+    showSelected();
+    $('bulkTempReport').textContent='Accepted '+result.accepted.length+' TEMP draft(s), '+
+      result.skipped.length+' skipped. '+
+      (result.skipped.length?'Review individually:\n'+result.skipped.slice(0,20)
+        .map(x=>x.name+': '+x.reason).join('\n'):'All selected cards were processed.');
+    notice('Accepted '+result.accepted.length+' card(s) into local TEMP. '+
+      result.skipped.length+' need review. Use Export central TEMP proposal for reviewed GitHub publication.','good');
+  }catch(error){notice('Bulk TEMP acceptance failed: '+error.message,'bad')}
 });
 $('acceptTemp').addEventListener('click',()=>{
   if(selected<0)return;
@@ -330,7 +420,15 @@ $('approveCard').addEventListener('click',()=>{
   }catch(error){notice(error.message,'bad')}
 });
 $('rejectCard').addEventListener('click',()=>{if(selected<0)return;try{const c=collect();c.status='rejected';queue[selected]=c;saveLocal();showSelected();notice('Candidate rejected; preserved in your intake history.','warn')}catch(e){notice(e.message,'bad')}});
-$('deleteCard').addEventListener('click',()=>{if(selected<0||!confirm('Remove this candidate from local intake?'))return;queue.splice(selected,1);saveLocal();showSelected();notice('Candidate removed.','good')});
+$('deleteCard').addEventListener('click',()=>{
+  if(selected<0||!confirm('Remove this candidate from local intake?'))return;
+  const removed=selected;
+  queue.splice(removed,1);
+  const retained=[...bulkSelected].filter(i=>i!==removed).map(i=>i>removed?i-1:i);
+  bulkSelected.clear();
+  for(const index of retained)bulkSelected.add(index);
+  saveLocal();showSelected();notice('Candidate removed.','good');
+});
 $('importFile').addEventListener('click',()=>$('filePicker').click());
 $('filePicker').addEventListener('change',async e=>{
   const file=e.target.files?.[0];if(!file)return;
