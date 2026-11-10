@@ -107,7 +107,7 @@ const card=integrated.cards.find(x=>x.entity_id===first.record.id);
 assert(card&&card.temp&&card.printings[0].image_url===base.image_url);
 const row={...card,qty:1,printing_id:card.printings[0].printing_id,
   set_code:card.printings[0].set_code,card_number:card.printings[0].card_number,
-  image:card.printings[0].image_url,combined_text:card.combined_text||''};
+  image:card.printings[0].image_url,combined_text:applied.record.textEN};
 const payload=makePayload({id:'jp-test',name:'JP-only practice',size:60,mode:'practice'},
   [row],'https://example.org/deck-builder.html','quick');
 assert.equal(payload.cards[0].image,base.image_url);
