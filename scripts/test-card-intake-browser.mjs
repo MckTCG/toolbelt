@@ -68,8 +68,13 @@ try{
   await page.locator('#approveCard').click();
   assert((await page.locator('#feedback').textContent()).includes('Cannot approve'),'Duplicate DLR approval was allowed');
   await page.setViewportSize({width:390,height:844});
-  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+3);
-  assert(!overflow,'Card Intake has excessive horizontal overflow on mobile');
+  const overflowInfo=await page.evaluate(()=>({
+    width:window.innerWidth,scroll:document.documentElement.scrollWidth,
+    offenders:[...document.querySelectorAll('*')].map(el=>({tag:el.tagName,id:el.id,cls:String(el.className||'').slice(0,70),right:Math.round(el.getBoundingClientRect().right),width:Math.round(el.getBoundingClientRect().width)}))
+      .filter(x=>x.right>window.innerWidth+3).slice(0,24)
+  }));
+  console.log('Mobile layout diagnostics:',JSON.stringify(overflowInfo));
+  assert(overflowInfo.scroll<=overflowInfo.width+3,'Card Intake has excessive horizontal overflow on mobile');
   assert.deepEqual(errors,[],'Browser script exception: '+errors.join(' | '));
   console.log('PASS Card Intake Chromium: live Master DB parsing, reveal capture, reviewed approval, JSON export, queue persistence, no tag mutation, DLR dedupe, mobile layout.');
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
