@@ -48,7 +48,7 @@ try{
  assert.equal(await page.locator('input[name=release_date]').inputValue(),'');
  assert((await page.locator('#diagnostic').textContent()).includes('Publication blockers'));
  await page.locator('#acceptTemp').click();
- await page.waitForFunction(()=>document.querySelector('#tempStatus').textContent.includes('TEMP saved:'),{timeout:10000});
+ await page.waitForFunction(()=>document.querySelector('#tempStatus').textContent.includes('TEMP draft saved locally'),{timeout:10000});
  const store=JSON.parse(await page.evaluate(()=>localStorage.getItem('tcg-lab-card-db-v0.1')));
  assert(store.tags&&store.rejected&&store.tempSets.length===1);
  assert.equal(store.tempCards.length,1);
