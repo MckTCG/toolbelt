@@ -79,6 +79,10 @@ The publisher is **atomic at batch level**: if any approved candidate is rejecte
 - Only verified English records may pass the publication gate. Provisional Japanese records remain in the intake queue or existing TEMP system.
 - This is local-first, with no cross-device/private queue sync; back up the intake JSON.
 
+## Baseline audit finding (pre-existing; deliberately not modified)
+
+The November 10 Master DB contains **one set-number collision** despite having 3,486 distinct printing IDs: **BLK #60** is assigned to both **Antique Cover Fossil** (\`zsv10pt5-80\`) and **Escavalier** (\`zsv10pt5-60\`). The intake publisher reports the inherited duplicate count and strictly prevents *new* collisions, rather than rejecting every update or silently rewriting original card metadata. This discrepancy requires a separate evidence-backed card-by-card correction before it should be changed.
+
 ## Regression gates
 - \`node scripts/test-card-intake.mjs\` tests URL handling, CSV, classification, duplicate DLR printings, metadata verification, dry runs, atomic publication, and new-vs-printing grouping on an isolated copy of the Master DB.
 - \`node scripts/test-card-intake-browser.mjs\` runs headless Chromium to test review UI, approval, download, page reload, DLR duplicate prevention and preservation of existing Card DB storage.
