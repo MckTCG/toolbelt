@@ -443,5 +443,10 @@
         "140"
       ]
     }
-  ]
+  ],
+  "finalized": {
+    "evolutionLinksNormalized": 32,
+    "cardDBPrintingsClonePatched": true,
+    "deckBuilderLocalArtEnabled": true
+  }
 }
