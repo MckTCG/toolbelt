@@ -1,7 +1,7 @@
 name: Master Card DB Intake v1 QA
 on:
   push:
-    branches: [feature/card-db-intake-v1]
+    branches: [feature/card-db-intake-v1, feature/card-intake-bulk-temp-20261110]
     paths:
       - public/card-intake*.mjs
       - public/card-intake.html
@@ -50,6 +50,7 @@ jobs:
       - run: node --check public/card-intake-core.mjs && node --check public/card-intake.mjs && node --check public/card-intake-loupe.mjs && node --check public/temp-intake-core.mjs && node --check public/temp-central-core.mjs && node --check scripts/publish-central-temp.mjs && node --check scripts/publish-card-intake.mjs && node --check scripts/test-card-intake.mjs
       - run: node scripts/test-card-intake.mjs
       - run: node scripts/test-temp-intake.mjs
+      - run: node scripts/test-temp-intake-bulk.mjs
       - run: node scripts/test-central-temp.mjs
       - run: node scripts/test-deck-builder.mjs
       - run: node scripts/test-tagger-master-access.mjs
@@ -65,6 +66,7 @@ jobs:
       - run: node scripts/test-card-intake-browser.mjs
       - run: node scripts/test-card-intake-loupe-browser.mjs
       - run: node scripts/test-temp-intake-browser.mjs
+      - run: node scripts/test-temp-intake-bulk-browser.mjs
       - run: node scripts/test-central-temp-browser.mjs
       - name: Capture desktop and mobile loupe previews
         uses: actions/upload-artifact@v4
