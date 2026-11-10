@@ -244,7 +244,7 @@ form.addEventListener('submit',e=>{
 $('acceptTemp').addEventListener('click',()=>{
   if(selected<0)return;
   try{
-    const c=collect(),now=new Date().toISOString(),opts={setCode:$('tempDestination').value,now};
+    const c=collect(),now=new Date().toISOString(),opts={setCode:$('tempDestination').value,now,seedTags:catalog?.reviewed_seed};
     let result=planTempAcceptance(c,readTempStore(),opts);
     if(result.kind==='update-review-required'){
       const summary=result.changes.map(d=>d.label+': '+(d.before||'(empty)')+' → '+(d.after||'(empty)')).join('\n');
