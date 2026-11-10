@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c111c"><title>TCG Lab — Card DB Intake</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,sans-serif;--bg:#0c111c;--panel:#151f30;--line:#33445b;--text:#ebf2ff;--muted:#a1aec4;--blue:#76a9fc;--cyan:#70d9cd;--green:#70dfab;--amber:#facb84;--red:#f38e9b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px}a{color:var(--blue)}.shell{max-width:1340px;margin:auto;padding:26px 24px 75px}header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-bottom:22px;border-bottom:1px solid var(--line)}h1{font-size:clamp(27px,3vw,38px);margin:22px 0 6px;letter-spacing:-.045em}h2{font-size:18px;margin:0 0 10px}h3{font-size:14px;margin:13px 0 8px;color:var(--cyan)}p{color:var(--muted);line-height:1.55}button,input,textarea,select{font:inherit;border-radius:8px;border:1px solid var(--line);background:#111b2c;color:var(--text);padding:9px;min-width:0}button{cursor:pointer;background:#203148;font-weight:600}button:hover{border-color:#7098c5}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:#3673cd;border-color:#4587e4;color:white}.danger{color:var(--red)}.back{color:#b4d3fb;text-decoration:none}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:17px 0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;min-width:0}.columns{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.5fr);gap:18px}.hint{font-size:12px;color:var(--muted)}.good{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.list{display:flex;flex-direction:column;gap:8px;max-height:72vh;overflow:auto}.candidate{padding:10px;border:1px solid var(--line);border-radius:9px;background:#111b2c;text-align:left;display:flex;align-items:center;gap:10px;width:100%}.candidate.active{border-color:var(--blue);background:#20334e}.candidate img{width:38px;height:54px;object-fit:contain;background:#273c52;border-radius:4px}.candidate span{display:block}.candidate small{display:block;color:var(--muted);font-weight:400;font-size:11px}.pill{font-size:11px;padding:4px 7px;background:#26384d;border:1px solid var(--line);border-radius:40px;white-space:nowrap}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}.fields input,.fields select,.fields textarea{width:100%}.fields .full{grid-column:1/-1}.fields .span2{grid-column:span 2}.checks{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0}.checks label{color:var(--text);font-size:12px;display:flex;gap:6px;align-items:center}.checks input{width:auto}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}#diagnostic{padding:11px;border-radius:8px;border:1px solid var(--line);background:#0f1928;color:var(--muted);margin:12px 0;min-height:42px;white-space:pre-wrap}#feedback{margin:7px 0 13px;min-height:20px}#queueCount{margin-left:auto}.muted{color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted)}code{color:var(--cyan)}.stats{font-size:12px;color:var(--muted)}.panel,.toolbar,.fields,.candidate,.hint,#diagnostic,#feedback{min-width:0;overflow-wrap:anywhere}.columns>section{min-width:0}.fields{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:950px){.columns{grid-template-columns:1fr}.list{max-height:220px}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:500px){.shell{padding:15px}.fields{grid-template-columns:minmax(0,1fr)}.fields .span2{grid-column:auto}.toolbar>*{flex:1}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header>
+<div><strong>◆ TCG LAB</strong> <span class="muted">/ Master Card DB / New Cards</span></div>
+<nav><a class="back" href="./card-db.html">← Card Explorer</a>　 <a class="back" href="./">Toolbelt</a></nav>
+</header>
+<h1>New Cards · Intake & Review</h1>
+<p>Collect reveals, compare them with the authoritative Master Card DB, review information, and export an approved batch for a controlled GitHub publication. Nothing on this page publishes automatically or modifies your Card DB tags.</p>
+<div id="catalogStatus" class="stats" role="status">Loading the Master Card DB…</div>
+<div class="toolbar">
+<input id="sourceInput" type="url" style="flex:2;min-width:230px" placeholder="Paste card/reveal URL (HTTPS)">
+<button id="addSource" class="primary">＋ Add source</button>
+<button id="importFile">Import JSON / CSV</button><input type="file" id="filePicker" hidden accept=".json,.csv,application/json,text/csv">
+<button id="exportQueue">Back up queue</button><button id="exportApproved" class="primary">Export approved</button>
+</div>
+<div class="columns">
+<section class="panel" aria-label="Intake queue">
+<div class="toolbar"><h2>Review queue</h2><span id="queueCount" class="pill">0</span></div>
+<div class="toolbar"><input id="filter" type="search" placeholder="Search names and sources" style="flex:1"><select id="statusFilter" aria-label="Review status"><option value="">All statuses</option><option>discovered</option><option>provisional</option><option>ready</option><option>approved</option><option>rejected</option></select></div>
+<div id="queueList" class="list"></div>
+<p class="hint">Queue is saved only in this browser (<code>tcg-lab-card-intake-v1</code>). Export backups when switching devices. The daily reveal reminder is not yet connected to this queue.</p>
+</section>
+<section class="panel" aria-label="Selected card">
+<h2 id="formTitle">Select a candidate</h2>
+<p class="hint">URLs from Limitless English/Japanese card pages prefill set and number. Other reveal URLs are stored as references; automatic website scraping is a later release.</p>
+<form id="cardForm">
+<div class="fields">
+<label class="full">Source URL<input name="source_url" type="url" placeholder="https://…" required></label>
+<label>Card name<input name="name" maxlength="140" placeholder="Printed card name"></label>
+<label>Category<select name="category"><option value="">Select category</option><option>Pokémon</option><option>Trainer</option><option>Energy</option></select></label>
+<label>Language<select name="language"><option value="unknown">Unknown</option><option value="en">English (verified)</option><option value="jp">Japanese</option><option value="other">Other</option></select></label>
+<label>Set code<input name="set_code" maxlength="12" placeholder="e.g. DLR"></label>
+<label>Set name<input name="set_name" maxlength="140" placeholder="Expansion name"></label>
+<label>Card number<input name="card_number" maxlength="25" placeholder="e.g. 138"></label>
+<label>Card subtype / stage<input name="stage" placeholder="Basic, Stage 1, Supporter…"></label>
+<label>Pokémon type<input name="pokemon_types" placeholder="Grass, Fire…"></label>
+<label>HP<input name="hp" placeholder="e.g. 130"></label>
+<label>Evolves from<input name="evolves_from"></label>
+<label>Weakness<input name="weakness" placeholder="Fire ×2"></label>
+<label>Resistance<input name="resistance" placeholder="Fighting -30"></label>
+<label>Retreat cost<input name="retreat_cost" placeholder="0, 1, 2…"></label>
+<label>Regulation mark<input name="regulation_mark" maxlength="4" placeholder="J"></label>
+<label>Release date<input name="release_date" placeholder="YYYY/MM/DD"></label>
+<label>Rarity<input name="rarity" placeholder="e.g. Rare"></label>
+<label class="full">Artwork URL (exact printing)<input type="url" name="image_url" placeholder="https://…"></label>
+<label class="full">Complete functional card text<textarea name="combined_text" rows="5" placeholder="Preserve the complete published effects, costs and wording."></textarea></label>
+<label class="full">Trainer/Energy rules text<textarea name="rules_text" rows="3"></textarea></label>
+<label class="span2">Structured Pokémon attacks (JSON array)<textarea name="attacks_json" rows="4" placeholder='[{"name":"Tackle","cost":["Colorless"],"damage":"20","text":""}]'></textarea></label>
+<label>Structured Abilities (JSON array)<textarea name="abilities_json" rows="4" placeholder='[{"name":"Ability","text":"…"}]'></textarea></label>
+<label class="span2">Link to existing gameplay ID (if reviewed)<input name="existing_entity_id" placeholder="ce_… / ce_dlr_…"></label>
+<label>Review status<select name="status"><option>discovered</option><option>provisional</option><option>ready</option><option>approved</option><option>rejected</option></select></label>
+<label class="full">Review notes<textarea name="review_note" rows="2" placeholder="Evidence, errata notes, translation uncertainty…"></textarea></label>
+</div>
+<div class="checks">
+<label><input type="checkbox" name="source_verified"> Source and text verified</label>
+<label><input type="checkbox" name="artwork_verified"> Exact printing artwork verified</label>
+<label><input type="checkbox" name="reviewed_distinct_gameplay"> Reviewed as distinct gameplay identity</label>
+</div>
+<div id="diagnostic" role="status">No candidate selected.</div>
+<div class="actions"><button type="submit" class="primary" id="saveCard">Save draft</button><button type="button" id="approveCard">Approve for export</button><button type="button" id="rejectCard">Reject</button><button type="button" class="danger" id="deleteCard">Remove candidate</button></div>
+</form>
+<div id="feedback" role="status"></div>
+</section>
+</div>
+<p class="hint">Publishing gate: approved JSON is reviewed with <code>scripts/publish-card-intake.mjs</code> on a GitHub branch. This version intentionally does not post data to GitHub or automatically treat new regulation marks as Standard-legal.</p>
+</main>
+<script type="module" src="./card-intake.mjs"></script>
+</body></html>
