@@ -1,65 +1,72 @@
-# TCG Lab Toolbelt — Card DB Phase 3: JP-first TEMP and rapid rechecks
+# TCG Lab Toolbelt — Phase 3: JP-only TEMP + central catalogue
 
-**Work in progress / code review:** \`feature/card-intake-temp-bridge-20261110\` / PR #25. Do **not** merge before the user approves. Assisted Play remains frozen. Proxy Workshop and Manual Simulator source code are unchanged.
+**Branch / pull request:** \`feature/card-intake-temp-bridge-20261110\` / PR #25. **Review before merge.** The existing English Master DB, Tagger, Assisted Play automation, and original Proxy Workshop UI remain separate.
 
-## Design decision
+## Architecture decision: centrally published TEMP, local drafts
 
-A Japanese-only card can be accepted to TEMP and used immediately for **manual** play. English card text, an official English set code, and any release date are not prerequisites.
+The shared TEMP catalogue is now **\`public/data/temp-catalog-v1.json\`** with schema \`tcg-lab-central-temp-v1\`. It is a versioned, public repository file deployed as part of Toolbelt. It stores only reviewed provisional card/set details, including original Japanese names and artwork references, optional unofficial translations, provenance, and revision history.
 
-TEMP means *research/playtest record*, not tournament legality or official English verification.
+The browser-local \`tcg-lab-card-db-v0.1\` store remains for **playtest drafts, personal tags, private notes, old TEMP cards, and offline working copies**. It is NOT the authority for centrally shared TEMP cards. No existing local data is deleted or silently uploaded.
 
-### One card, three separate questions
-- **Can it be represented on a manual tabletop?** Yes if a recognizable name and valid card category exist. The card image and its original JP text can be used; the simulator does not need executable effects or English wording.
-- **Can a proxy be printed?** Yes if the original card image has a usable HTTPS URL. This is a *source reference*, not a claim the artwork is locally stored or high-resolution enough for good printing.
-- **Can it be published to the verified English Master DB?** Only after existing Phase 1 approval gates: confirmed English gameplay information, set/printing, exact artwork, release date and human review.
+**Important limitation:** Toolbelt currently runs as static Cloudflare assets, without an authenticated server-side write API. Therefore clicking **Accept TEMP draft** creates a playable local draft immediately; it **does not upload** the card centrally. To share a card across devices, the user exports a central TEMP proposal, runs a reviewed GitHub publication, and merges/deploys that PR. Calling the local action “centrally published” would be misleading. Fully authenticated one-click publication would require a separately reviewed backend/Auth implementation later.
 
-## User-facing workflow
+## JP-only playability and three independent gates
 
-1. Open \`/card-intake.html\`, fetch recent reveals, and select an individual card.
-2. Fill in **name (Japanese allowed)** and **category**. Enter or preserve the original Japanese artwork URL when available.
-3. Optionally add a Japanese name, a provisional translation and its source, Japanese/English release dates, or choose an existing TEMP set. No source URL/translation/release metadata is invented.
-4. Click **Accept to TEMP**. The browser writes the record to \`tcg-lab-card-db-v0.1\` (the *existing* Card Explorer TEMP overlay), and keeps its linked \`temp_entity_id\` on the intake record.
-5. Click **Add to Deck Builder** to add the exact TEMP printing to your current draft, then build a valid 40/60-card practice deck and transfer it to the **Manual Simulator**. The simulator accepts image-only JP cards in its existing deck handoff; its automation and rules remain untouched.
-6. Or click **Open Proxy Workshop**, choose **Import cards/decks**, and search for the accepted TEMP record. This workflow only depends on the source image.
-7. **Approve for export** remains the independent path to the reviewed English Master DB, not a prerequisite for TEMP use.
+- **Manual Simulator:** a valid TEMP name and category are sufficient to represent a card manually, even when every rule is in Japanese. The Deck Builder can transfer the card's image and a 40/60-card practice deck into the unchanged standalone Manual Simulator. Assisted Play is not involved.
+- **Proxy Workshop:** a name and HTTPS source artwork allow selection and print-queue integration. The existing printing interface is untouched; image quality and rights are not certified by TEMP acceptance.
+- **English verified Master DB:** publishing requires the existing stricter English, source, printing, and approval checks. TEMP never confers tournament legality.
 
-The TEMP overlay, intake queue, draft decks and personal tags are **browser-local under this Worker origin**. Export JSON backups before switching browsers/devices. A standalone app on a different origin does not automatically share these local keys; use the Deck Builder handoff and exported decks to move cards into other tools.
+## Browser workflow
 
-### Duplicate and historical record safety
+1. Open Card Intake, click **Check new reveals** and select a card. Enter a name (Japanese is fine) and category; keep its original artwork if available.
+2. Click **Accept TEMP draft**. The record enters the existing local TEMP overlay and can immediately be selected in the Deck Builder, Manual Simulator handoff, and Proxy Workshop *in this browser*. The UI explicitly labels it “not yet published.”
+3. Once reviewed for shared use, click **Export central TEMP proposal**. This creates \`TCG_Lab_Central_TEMP_Proposal.json\` containing accepted TEMP metadata and revision history, **not personal tags, rejected-tag decisions, personal notes, or deck drafts**.
+4. In a Git checkout of \`MckTCG/toolbelt\`, create a new branch and run:
 
-- Records preserve their original stable \`temp:\` gameplay ID, card tags, reviewer notes and research status.
-- Sources with several cards remain separate: source URL alone never establishes identity.
-- Matches are made against explicit discovery ID, or existing TEMP set plus collector number, with a same-set name check. The existing **Aura Seeker / Flowing Fists** alias is retained to avoid duplicating the seeded M7 TEMP set.
-- An existing record is **not overwritten** when a discovery suggests new text/artwork/HP. Card Intake first presents field-by-field changes and requires explicit confirmation before updating.
-- Changes are saved in \`revisionHistory\`; translation changes are separately preserved in \`translationHistory\` with the source link. Existing personal tags and rejected-tag decisions remain untouched.
-- If legacy browser TEMP JSON is corrupt, ordinary intake and discovery still work; TEMP acceptance refuses to overwrite unreadable data.
-- The default Card DB tag seeds are retained on first-run initialization. No Master catalogue records are modified.
+   \`\`\`bash
+   node scripts/publish-central-temp.mjs --proposal TCG_Lab_Central_TEMP_Proposal.json
+   # inspect dry-run changes and rejected conflicts
+   node scripts/publish-central-temp.mjs --proposal TCG_Lab_Central_TEMP_Proposal.json --apply
+   git diff -- public/data/temp-catalog-v1.json
+   \`\`\`
 
-## Translation lifecycle
+5. Open a GitHub PR and merge after explicit user approval. Once Cloudflare deploys the file, the same centrally published TEMP card becomes available across devices and tools.
 
-\`jp-only\` → \`unofficial\` → \`official\` is **translation metadata**, not a mandatory order or evidence of release. The user controls those labels; discovery never marks source or artwork verified. A corrected unofficial translation creates a new revision rather than changing gameplay identity.
+To publish corrections to an **existing** central TEMP ID, the CLI must be given \`--allow-updates\` after human review. Without it, conflicting updates are rejected and nothing is written.
 
-The browser's **Check new reveals** button now compares incoming discovery candidates to accepted TEMP records and indicates possible changes. **Review latest suggested fields** loads the new values into the unsaved intake form, preserving the stored TEMP version until the user accepts the update.
+## Tools that read the central file
 
-### Faster rechecks
+- **Card Explorer:** reads the central catalogue after initial load, registers published TEMP cards into its in-memory explorer, and leaves browser \`localStorage\` untouched.
+- **Deck Builder:** merges the central published collection with personal local draft cards, using central identities as authoritative. The Manual Simulator deck payload keeps original image and stable TEMP identity; no English wording is required.
+- **Proxy Workshop:** the existing importer reads the same shared and local records without changing the print layout or controls.
+- **Card Intake:** distinguishes “Shared TEMP published” from “TEMP draft saved locally,” and lets the user review incoming source revisions before accepting anything.
 
-The independent GitHub staging workflow now runs **at 00:15, 04:15, 08:15, 12:15, 16:15 and 20:15 UTC** (every four hours), i.e. **20:15, 00:15, 04:15, 08:15, 12:15 and 16:15 Santo Domingo**. Your existing 03:55 daily ChatGPT reminder is **not modified**.
+If the central file cannot be fetched, existing local drafts and manual functionality remain accessible where possible; the UI should not suggest central publication succeeded.
 
-On each run, the bot checks recent card news and revisits previously discovered PokéBeach articles published within the last 72 hours. The 08:15 UTC pass additionally revisits older articles for the first month, articles near a **known** release date (within ±30 days), and a limited weekly sample of older articles. The requests are capped (8 newest RSS articles, up to 8 rechecks, 30 image references, polite spacing), and only the isolated \`automation/card-discovery-feed\` branch receives candidate JSON.
+## Data and safety boundaries
 
-**Important limitations:** the server does not see private browser-local TEMP records. It can only recheck discoveries represented in the published feed. If you manually create a TEMP card whose source was never staged, it will not be rechecked automatically until a matching discovery enters the feed. This is not a browser notification service, nor is it a guarantee that translations appear within hours; it is a polling/review pipeline subject to provider publication, availability and GitHub schedule delays. No automatic text replacements or Master DB merges take place.
+- The public central catalogue contains **no authentication token, browser-local tags, private notes or personal deck data**.
+- A proposal cannot be published from an unauthenticated browser action; a reviewed GitHub PR is the publication gate. The publisher uses **dry-run by default**, validates schema, set references, unique stable IDs, duplicate printings, and HTTPS sources, and applies a proposal **atomically** only if all records pass.
+- Language status is separate from official legality. \`jp-only\`, \`unofficial\`, and \`official\` indicate translation provenance, not eligibility.
+- Existing TMP M6 archive is explicitly excluded. Existing locally managed M7/Aura Seeker records are **not silently imported centrally**. They can be migrated through reviewed proposals while preserving stable IDs, with set-code collision review.
+- A card's first local acceptance may happen within minutes of a reveal, but **cross-device sharing begins only after the reviewed publication deploys**.
+- Controlled *local artwork storage* is a future step. The currently stored HTTPS artwork references are not guaranteed printable and do not imply permission to republish.
 
-## Automated QA
+## Source rechecking
 
-- \`node scripts/test-temp-intake.mjs\` — JP-only acceptance, stable identity, non-overwriting updates, Aura alias, no English gating, first-run tag seeds, downstream native TEMP/Deck Builder payload compatibility.
-- \`node scripts/test-temp-intake-browser.mjs\` — real Card Intake → same-origin Deck Builder handoff; release/date/text not required for TEMP; Master publication blocked; explicit translation review and persistent history.
-- \`python3 scripts/test-card-discovery.py\` — new 72-hour and near-release recheck coverage, unchanged article parsing fixtures.
-- Existing Card Intake Chromium, Proxy Workshop, Tagger and discovery tests remain regression gates. Production deployment and user playtesting are separate and require merge approval.
+The source-discovery GitHub Actions workflow is proposed to run **six times daily, every four hours**, with deeper passes once daily. It follows recent (first 72 hours) PokéBeach sources and revisits older articles with upcoming releases when known. The workflow also reads **centrally published TEMP sources** from the repository to refresh its watchlist.
 
-## Release caveats
+Updates are staged as unverified discoveries, never applied automatically to central TEMP or English Master records. The browser's Card Intake detects potential differences and requires the user to confirm them. Local-only drafts not represented in the discovery feed still cannot be monitored by a server with no access to private browser data.
 
-1. The first online accepted TEMP card still relies on the selected source artwork URL. Local artwork download/verification remains an independent project.
-2. Manual Simulator transfer requires a practice deck that satisfies the Deck Builder's deck-size constraints. This release does not create a one-card automated battle.
-3. No edits to \`MckTCG/sim\`, the experimental Assisted Play branch, or \`public/proxy-workshop.html\`.
-4. Daily GitHub Actions frequency increases from one to six runs; review Actions usage if minutes/credits matter.
-5. Phase 3 does **not** automatically promote TEMP records into the official English catalogue. Promotion still uses a reviewed pull request, with canonical identity reconciliation.
+The existing 3:55 AM ChatGPT Pokémon TCG reveal reminder is unchanged.
+
+## QA and release gates
+
+- \`node scripts/test-temp-intake.mjs\` — local JP-only acceptance and existing handoffs.
+- \`node scripts/test-central-temp.mjs\` — safe public proposals, no private data, dry-run and reviewed update publisher, duplicate rejection.
+- \`node scripts/test-central-temp-browser.mjs\` — shared JP-only card visible on a fresh browser across Card Explorer, Deck Builder, Proxy importer and Card Intake, without altering private storage.
+- \`node scripts/test-temp-intake-browser.mjs\` — local draft accepted/updated with explicit translation approval.
+- \`python3 scripts/test-card-discovery.py\` — article parsing and follow-up schedule regression.
+- Existing Card DB, Tagger, Proxy Workshop and Discovery CI remain required.
+
+**Do not merge PR #25 until all checks pass and the user approves.** After merge, verify the actual Cloudflare central JSON deployment; a CI success alone does not prove a record was published.
