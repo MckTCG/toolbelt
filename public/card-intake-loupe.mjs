@@ -7,6 +7,15 @@ export function setupCardLoupe() {
         error=$('cardLoupeError');
   if(!dialog||!stage||!image)throw Error('Card loupe markup missing');
   let zoom=1,panX=0,panY=0,active=false,loadToken=0,pinch=null;
+  let browsing=[],position=0;
+  const previous=$('cardLoupePrevious'),next=$('cardLoupeNext'),
+        positionLabel=$('cardLoupePosition');
+  if(!previous||!next||!positionLabel)throw Error('Card loupe navigation controls missing');
+  function updateNavigation(){
+    positionLabel.textContent=browsing.length?(position+1)+' / '+browsing.length:'0 / 0';
+    previous.disabled=position<=0;
+    next.disabled=position>=browsing.length-1;
+  }
   const pointers=new Map();
   const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
   function clampPan(){
@@ -35,7 +44,7 @@ export function setupCardLoupe() {
     paint();
   }
   function fit(){zoom=1;panX=0;panY=0;paint()}
-  function open(record){
+  function showRecord(record,keepView=false){
     const url=safeHTTPS(record?.image_url);
     if(!url)return false;
     loadToken+=1;const token=loadToken;
@@ -44,16 +53,47 @@ export function setupCardLoupe() {
     image.hidden=false;
     image.alt='Enlarged artwork: '+String(record.name||'Card');
     error.hidden=true;error.textContent='';
-    image.onload=()=>{if(token!==loadToken)return;image.hidden=false;error.hidden=true;fit()};
+    // Retain zoom and pan while comparing the same area of successive cards.
+    // Every image still clamps the view to its own fit dimensions on load.
+    if(!keepView){zoom=1;panX=0;panY=0}
+    image.onload=()=>{
+      if(token!==loadToken)return;
+      image.hidden=false;error.hidden=true;paint();
+    };
     image.onerror=()=>{
       if(token!==loadToken)return;
       image.hidden=true;
       error.textContent='Artwork could not be loaded. Try Open original or verify the source link.';
-      error.hidden=false;fit();
+      error.hidden=false;paint();
     };
     image.src=url;
-    pointers.clear();pinch=null;active=true;fit();
+    pointers.clear();pinch=null;active=true;
+    paint();updateNavigation();
+    return true;
+  }
+  function navigate(offset){
+    if(!active||!dialog.open)return;
+    const target=position+offset;
+    if(target<0||target>=browsing.length)return;
+    position=target;
+    showRecord(browsing[position],true);
+  }
+  function open(record,options={}){
+    const url=safeHTTPS(record?.image_url);
+    if(!url)return false;
+    const supplied=Array.isArray(options.items)?options.items:[];
+    const visible=supplied.filter(item=>safeHTTPS(item?.image_url));
+    // Caller supplies the exact position within visible image-bearing entries.
+    // Fall back to a standalone viewer when opened without a review list.
+    const requested=Number.isInteger(options.index)?options.index:0;
+    if(visible.length && requested>=0 && requested<visible.length){
+      browsing=visible;
+      position=requested;
+    }else{
+      browsing=[record];position=0;
+    }
     if(!dialog.open)dialog.showModal();
+    showRecord(record,false);
     $('cardLoupeClose').focus();
     return true;
   }
@@ -62,9 +102,12 @@ export function setupCardLoupe() {
     active=false;loadToken+=1;image.onload=null;image.onerror=null;
     image.removeAttribute('src');
     pointers.clear();pinch=null;zoom=1;panX=panY=0;
+    browsing=[];position=0;updateNavigation();
   });
   dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
   $('cardLoupeClose').addEventListener('click',close);
+  previous.addEventListener('click',()=>navigate(-1));
+  next.addEventListener('click',()=>navigate(1));
   $('cardLoupeIn').addEventListener('click',()=>{
     const r=stage.getBoundingClientRect();zoomAt(zoom+0.5,r.left+r.width/2,r.top+r.height/2);
   });
@@ -118,10 +161,13 @@ export function setupCardLoupe() {
   dialog.addEventListener('keydown',e=>{
     if(e.target?.tagName==='A')return;
     const r=stage.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-    if(e.key==='+'||e.key==='='){e.preventDefault();zoomAt(zoom+0.5,cx,cy)}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();navigate(-1)}
+    else if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();navigate(1)}
+    else if(e.key==='+'||e.key==='='){e.preventDefault();zoomAt(zoom+0.5,cx,cy)}
     else if(e.key==='-'){e.preventDefault();zoomAt(zoom-0.5,cx,cy)}
     else if(e.key==='0'){e.preventDefault();fit()}
   });
   window.addEventListener('resize',()=>{if(active)paint()});
+  updateNavigation();
   return {open,close};
 }
