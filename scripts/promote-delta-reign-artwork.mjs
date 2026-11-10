@@ -52,4 +52,30 @@ if(approved!==107||missing!==6||manifest.entries.filter(e=>e.status==='verified'
 manifest.promotion={approved,missing,method:'set-number matching, image integrity and dimension checks; Japanese printings only',sourceReportGeneratedAt:report.generatedAt};
 await fs.writeFile(manifestPath,JSON.stringify(manifest,null,2)+'\n');
 await fs.writeFile(path.join(destDir,'VERIFICATION.json'),JSON.stringify({schema:'tcg-lab-M6-local-art-verification-v1',verifiedAssets,missingNumbers:['071/076','072/076','073/076','074/076','075/076','076/076']},null,2)+'\n');
+
+// Card DB is a large single-file catalogue. Patch on the Actions runner to
+// keep its embedded Standard JSON unchanged and avoid connector payload limits.
+const cardDBPath=path.join(target,'card-db.html');
+let cardDB=await fs.readFile(cardDBPath,'utf8');
+if(!cardDB.includes('const verifiedLocalArt=new Map();')){
+ const key="const KEY='tcg-lab-card-db-v0.1';";
+ const library=String.raw`const KEY='tcg-lab-card-db-v0.1';
+// Same-origin preview overrides: never overwrite browser TEMP records.
+const verifiedLocalArt=new Map();
+fetch('./data/card-art-manifest.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(manifest=>{
+ if(manifest?.schema!=='tcg-lab-card-art-manifest-v1'||!Array.isArray(manifest.entries))return;
+ for(const e of manifest.entries){
+  if(e.status==='verified'&&e.printingId&&e.sha256&&/^\.\/assets\/card-art\/[a-z0-9/_-]+\.(png|jpe?g|webp)$/i.test(e.path||'')){
+   verifiedLocalArt.set(e.printingId,new URL(e.path,document.baseURI).href);
+  }
+ }
+ if(verifiedLocalArt.size)render();
+}).catch(()=>{});`;
+ const before="card_number:row.number||'?',image_url:row.image||'',rarity:'Provisional'";
+ const after="card_number:row.number||'?',image_url:verifiedLocalArt.get(row.id+':printing')||row.image||'',rarity:'Provisional'";
+ if(cardDB.split(key).length!==2||cardDB.split(before).length!==2)throw Error('Card DB integration anchors not unique');
+ cardDB=cardDB.replace(key,library).replace(before,after);
+ await fs.writeFile(cardDBPath,cardDB);
+}
+
 console.log('Local artwork promotion validated: '+approved+' files; '+missing+' paired Stadium images missing. Ready for PR review.');
