@@ -4,6 +4,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {fileURLToPath} from 'node:url';
 import {chromium} from 'playwright';
+import {PDFDocument} from 'pdf-lib';
 
 const root=path.resolve(fileURLToPath(new URL('../public/',import.meta.url)));
 const mime={'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.json':'application/json','.css':'text/css','.png':'image/png','.jpg':'image/jpeg'};
@@ -35,7 +36,11 @@ try{
  assert.equal((await page.evaluate(()=>window.__proxyDiagnostics())).pages,1);
  await page.locator('#openImporter').click();
  await page.waitForFunction(()=>document.querySelector('#piResultCount').textContent.includes('gameplay cards'),{timeout:30000});
- await page.locator('#piSearch').fill('Rayquaza');
+ await page.locator('#piSearch').fill('Buddy-Buddy Poffin');
+ await page.selectOption('#piCategory','Trainer');await page.selectOption('#piSubtype','Item');
+ await page.waitForFunction(()=>document.querySelector('#piResults').textContent.includes('Buddy-Buddy Poffin'));
+ assert(await page.locator('.pi-card').filter({hasText:'Buddy-Buddy Poffin'}).count()>0);
+ await page.selectOption('#piCategory','');await page.locator('#piSearch').fill('Rayquaza');
  await page.waitForFunction(()=>document.querySelectorAll('.pi-card').length>=2);
  const ray=page.locator('.pi-card').filter({hasText:'Mega Rayquaza ex'}).first();
  const ids=await ray.locator('select option').evaluateAll(nodes=>nodes.map(n=>n.value));
@@ -62,5 +67,28 @@ try{
  const buffer=await page.pdf({printBackground:true,preferCSSPageSize:true});
  assert(buffer.length>6000,'Rendered PDF too small');
  assert(buffer.subarray(0,4).toString()==='%PDF');
- console.log('PASS: Chromium manual upload; 10 copies; Letter/Tabloid reflow; overlay/guides; Rayquaza 84/138/141 picker; local DLR 138 artwork; unified queue edits; JSON deck import; multi-page PDF generation.');
+ const letterDoc=await PDFDocument.load(buffer);
+ assert.equal(letterDoc.getPageCount(),2,'15 cards should use exactly two Letter pages, no extra blank pages');
+ for(const p of letterDoc.getPages()){assert(Math.abs(p.getWidth()-612)<1);assert(Math.abs(p.getHeight()-792)<1)}
+ await page.selectOption('#paperSize','tabloid');
+ const tabloidPdf=await PDFDocument.load(await page.pdf({printBackground:true,preferCSSPageSize:true}));
+ assert.equal(tabloidPdf.getPageCount(),1,'15 cards should fit one Tabloid sheet');
+ assert(Math.abs(tabloidPdf.getPages()[0].getWidth()-792)<1);
+ assert(Math.abs(tabloidPdf.getPages()[0].getHeight()-1224)<1);
+ // A complete saved Deck Builder entry is read without writing back to its source.
+ await page.evaluate(()=>{
+  const saved={id:'proxy-qa',name:'Saved QA 60',size:60,mode:'practice',updatedAt:'2026-11-10T00:00:00Z',rows:[
+   {entityId:'ce_dlr_084',printingId:'DLR-084',qty:4},
+   {entityId:'ce_dlr_090',printingId:'DLR-090',qty:56}
+  ]};
+  const key='tcg-lab-decks-v1';localStorage.setItem(key,JSON.stringify({format:'tcg-lab-deck-library-v1',decks:[saved]}));
+  window.dispatchEvent(new StorageEvent('storage',{key}));
+ });
+ await page.locator('#openImporter').click();await page.locator('[data-tab="decks"]').click();
+ await page.selectOption('#piSaved','0');await page.locator('#piLoadSaved').click();
+ await page.waitForFunction(()=>document.querySelectorAll('[data-deck-row]').length===2);
+ await page.selectOption('#piScope','pokemon');await page.locator('#piAddDeck').click();
+ await page.waitForFunction(()=>window.__proxyDiagnostics().cards===19,{timeout:20000});
+ assert.equal((await page.evaluate(()=>JSON.parse(localStorage.getItem('tcg-lab-decks-v1')).decks[0].rows[0].qty)),4,'Saved deck must not be mutated');
+ console.log('PASS: Chromium manual upload; Letter/Tabloid reflow; overlay/guides; Buddy-Buddy Poffin and Trainer filter; Rayquaza 84/138/141 printing picker; unified queue; JSON and saved deck import; Letter 2-page PDF (612×792 pt) and Tabloid 1-page PDF (792×1224 pt), no blank pages.');
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
