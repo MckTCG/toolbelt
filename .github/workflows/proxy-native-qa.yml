@@ -1,0 +1,35 @@
+name: Proxy Workshop Phase 2 QA
+on:
+  push:
+    branches:
+      - feature/proxy-native-import-phase2
+  pull_request:
+    paths:
+      - 'public/proxy-workshop.html'
+      - 'public/proxy-import.mjs'
+      - 'public/proxy-import-core.mjs'
+      - 'public/proxy-import.css'
+      - 'scripts/test-proxy-*.mjs'
+      - '.github/workflows/proxy-native-qa.yml'
+  workflow_dispatch:
+jobs:
+  node-regressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check public/proxy-import.mjs && node --check public/proxy-import-core.mjs && node --check scripts/test-proxy-native.mjs
+      - run: node scripts/test-proxy-native.mjs
+      - run: node scripts/test-deck-builder.mjs
+  chromium-print:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/test-proxy-browser.mjs
