@@ -1,0 +1,55 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {combineCatalog,matchCard,subtypeOf,imageCandidates,rowsFromDeck,loadDeckDocument,chooseRows} from '../public/proxy-import-core.mjs';
+const root=new URL('../public/',import.meta.url);
+const read=p=>fs.readFileSync(new URL(p,root),'utf8');
+const html=read('card-db.html'),match=html.match(/<script[^>]*application\/json[^>]*>([\s\S]*?)<\/script>/);
+assert(match,'Card DB must expose its catalogue in application/json, as required by Deck Builder');
+const catalogue=JSON.parse(match[1]),manifest=JSON.parse(read('data/card-art-manifest.json'));
+const combined=combineCatalog(catalogue,{tempSets:[{code:'TMPTEST',name:'Test'},{code:'TMPDELTAREIGN',name:'Retired M6'}],tempCards:[
+ {id:'temp:test',name:'Test Temp',setCode:'TMPTEST',category:'Pokémon',stage:'Basic',image:'https://example.com/test.png'},
+ {id:'temp:old',name:'Old M6',setCode:'TMPDELTAREIGN',category:'Pokémon'}]});
+assert(combined.cards.some(c=>c.entity_id==='temp:test'));
+assert(!combined.cards.some(c=>c.entity_id==='temp:old'));
+assert(combined.sets.some(s=>s.code==='DLR'));
+assert(!combined.sets.some(s=>s.code==='TMPDELTAREIGN'));
+const ray=combined.cards.find(c=>c.name==='Mega Rayquaza ex'&&c.printings.some(p=>p.set_code==='DLR'&&String(p.card_number)==='84'));
+assert(ray,'DLR Mega Rayquaza ex must exist');
+const rayPrint=ray.printings.filter(p=>p.set_code==='DLR').map(p=>String(p.card_number));
+for(const number of ['84','138','141'])assert(rayPrint.includes(number),'Missing Rayquaza printing '+number);
+assert.equal(new Set(ray.printings.filter(p=>p.set_code==='DLR').map(p=>p.printing_id)).size,3);
+const dlr=combined.cards.flatMap(c=>c.printings.filter(p=>p.set_code==='DLR'));
+assert.equal(dlr.length,141,'Expected all 141 DLR numbered printings');
+assert.equal(manifest.entries.filter(e=>e.setCode==='DLR').length,141,'Expected 141 hosted artwork records');
+const local=new Map([['DLR-138','https://example.com/assets/card-art/DLR/138.png']]);
+assert.equal(imageCandidates(ray.printings.find(p=>String(p.card_number)==='138'),local)[0],local.get('DLR-138'));
+assert(matchCard(ray,{query:'rayquaza'}));
+assert(matchCard(ray,{query:'DLR 138'}));
+assert(matchCard(ray,{category:'Pokémon',subtype:'Pokémon ex'}));
+assert(!matchCard(ray,{category:'Trainer'}));
+const poffin=combined.cards.find(c=>c.name==='Buddy-Buddy Poffin');
+assert(poffin,'Expected Buddy-Buddy Poffin in master Card DB');
+assert(matchCard(poffin,{query:'buddy-buddy'}));
+const tool=combined.cards.find(c=>c.card_type==='Trainer'&&/Pok[eé]mon Tool/i.test(c.stage||''));
+if(tool)assert.equal(subtypeOf(tool),'Pokémon Tool');
+const energy=combined.cards.find(c=>c.card_type==='Energy'&&c.basic_energy_type);
+if(energy)assert.equal(subtypeOf(energy),'Basic');
+const r138=ray.printings.find(p=>String(p.card_number)==='138');
+const saved={id:'saved',name:'Test 60',size:60,rows:[{entityId:ray.entity_id,printingId:r138.printing_id,qty:4}]};
+const resolved=rowsFromDeck(saved,combined.cards);
+assert.equal(resolved[0].qty,4);assert.equal(resolved[0].printing.printing_id,r138.printing_id);
+assert.equal(chooseRows(resolved,'pokemon').length,1);
+assert.equal(chooseRows(resolved,'trainer').length,0);
+assert.equal(chooseRows(resolved,'selected',new Set()).length,0);
+const payload={format:'tcg-lab-deck-v1',name:'Ray Test',deckSize:60,cards:[{
+ entity_id:ray.entity_id,printing_id:r138.printing_id,name:ray.name,qty:4,type:'Pokémon',stage:ray.stage,setCode:r138.set_code,number:r138.card_number,image:r138.image_url
+}]};
+assert.equal(loadDeckDocument(JSON.stringify(payload),combined.cards)[0].qty,4);
+const backup={format:'tcg-lab-deck-library-v1',decks:[{id:'saved',payload}]};
+assert.equal(loadDeckDocument(backup,combined.cards).decks.length,1);
+assert.equal(loadDeckDocument('4 '+ray.name+' DLR 138',combined.cards)[0].qty,4);
+assert.throws(()=>loadDeckDocument('nonsense',combined.cards));
+const workshop=read('proxy-workshop.html'),importer=read('proxy-import.mjs');
+for(const marker of ['id="paperSize"','id="overlaySize"','id="wmOpacity"','id="cutGuides"','id="replace"','id="files"','id="print"','window.__proxyQueue','proxy-import.mjs'])assert(workshop.includes(marker),'Missing Quick Print hook '+marker);
+for(const marker of ['piSearch','piSaved','piDeckFile','piScope','piQueueRows','piAddDeck','piCategory','piSubtype','piSet','piType'])assert(importer.includes(marker),'Missing import UI '+marker);
+console.log('PASS: master DLR 141 / Rayquaza 84,138,141; local scan manifest; search/filter; exact printing; TEMP archival; Buddy-Buddy Poffin; saved deck, JSON, backup, text and subset imports; Quick Print hooks preserved.');
