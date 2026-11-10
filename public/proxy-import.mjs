@@ -110,8 +110,8 @@ function activateRows(rows,name){
  report('Preview loaded. Choose quantities and printings; your original deck remains unchanged.');
 }
 $('piLoadSaved').onclick=()=>{
- getSavedDecks();
- const i=Number($('piSaved').value),item=[...savedDecks,...externalDecks][i];
+ const selected=$('piSaved').value;
+ const i=selected===''?-1:Number(selected),item=[...savedDecks,...externalDecks][i];
  if(!item){report('Choose a saved deck first.',true);return}
  try{activateRows(item.rows||rowsFromDeck(item.deck,allCards),item.name)}catch(err){report(err.message,true)}
 };
@@ -153,8 +153,8 @@ $('piAddDeck').onclick=async()=>{
  if(!rows.length){report('No cards selected for printing.',true);return}
  loading=true;report('Checking '+rows.length+' card artworks. This may require fetching older remote images…');
  try{
-  const entries=[],missing=[];
-  for(const r of rows){try{entries.push(await entryFor(r.card,r.printing,r.qty))}catch(err){missing.push(err.message)}}
+  const settled=await Promise.allSettled(rows.map(r=>entryFor(r.card,r.printing,r.qty)));
+  const entries=settled.filter(x=>x.status==='fulfilled').map(x=>x.value),missing=settled.filter(x=>x.status==='rejected').map(x=>x.reason.message);
   if(missing.length){report('No cards were queued. Resolve these images first:\n'+missing.slice(0,7).join('\n'),true);return}
   queue.addEntries(entries);updateTabs();show('queue');report('Added '+entries.reduce((n,r)=>n+r.qty,0)+' cards to the print queue.');
  }catch(err){report(err.message,true)}finally{loading=false}
