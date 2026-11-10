@@ -159,10 +159,14 @@ See [Phase 2 design and release checks](docs/proxy-native-phase2.md).
 Assisted Play and Proxy Workshop are outside Phase 2. No automatic card approval, database modifications, reminder changes, or merge/deployment are authorized by the discovery pipeline itself.
 
 
-## Card DB Phase 3 — JP-first TEMP acceptance and rapid rechecks (PR #25, not merged)
+## Card DB Phase 3 — JP-first TEMP, central publishing and rapid rechecks (PR #25, not merged)
 
-Card Intake adds **Accept to TEMP** independently from the English verified Master DB approval pathway. Japanese-only cards (name, category; artwork for proxies) can enter the existing same-origin Card Explorer TEMP store, then be searched in Deck Builder and Proxy Workshop. Deck Builder transfers them to the Manual Simulator, including their original JP artwork even without English gameplay text. Existing tools are not redesigned.
+The new **Accept TEMP draft** action lets Japanese-only cards (name and category; artwork for proxy printing) become playable immediately in the same browser. No official English text, English set, or release date is required.
 
-Revisions to unofficial/official translations are reviewed and stored with provenance; no automatic overwrites or record identity changes. The GitHub discovery staging workflow checks recent source updates every **four hours**, with deeper daily rechecks of older and release-near articles. The user's existing daily card reminder remains unchanged.
+**The shared source of truth is \`public/data/temp-catalog-v1.json\`, not browser storage.** Browser-local \`tcg-lab-card-db-v0.1\` retains personal tags, drafts, research notes and offline working copies. The existing Card Explorer, Deck Builder and Proxy importer now load reviewed **centrally published TEMP** cards from the same deployed catalogue; cards remain provisional and are transferred to the Manual Simulator through Deck Builder.
 
-This release is **not merged or deployed** until approved. More details and limitations: \`docs/card-db-temp-phase3.md\`.
+Because the Cloudflare deployment is static and there is no authenticated write API, a new draft becomes shared **only after exporting a central TEMP proposal, validating it with \`scripts/publish-central-temp.mjs\`, and merging a reviewed GitHub PR**. No unauthenticated browser can publish central records. Exported proposals explicitly omit personal tags and notes.
+
+Provisional translation updates preserve stable IDs and revision history, and require approval. GitHub discovery checks run every **four hours** with follow-ups for recent and release-near articles, including URLs listed in the central TEMP catalogue. The user's original 3:55 AM reminder remains unchanged.
+
+This release is **not merged or deployed** until user approval. Complete safeguards, publishing commands, migration guidance and QA: \`docs/card-db-temp-phase3.md\`.
