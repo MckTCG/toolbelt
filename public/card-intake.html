@@ -25,6 +25,11 @@
 #cardLoupeZoom{color:var(--cyan);font-size:12px;font-variant-numeric:tabular-nums}
 .card-loupe-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .card-loupe-controls button{min-width:36px;min-height:36px}
+.card-loupe-nav{display:flex;align-items:center;gap:6px;margin-right:6px;padding-right:11px;border-right:1px solid var(--line)}
+.card-loupe-nav button{font-size:26px;line-height:1;min-width:41px;min-height:38px;padding:4px 9px}
+#cardLoupePosition{font-size:12px;min-width:45px;text-align:center;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
+.card-loupe-nav button:disabled{opacity:.3}
+
 .card-loupe-controls a{color:var(--blue);font-size:12px}
 #cardLoupeClose{background:#354660;font-size:18px}
 .card-loupe-stage{flex:1;min-height:0;min-width:0;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;background:#080f1b;touch-action:none;cursor:zoom-in;user-select:none}
@@ -114,6 +119,11 @@
         <span id="cardLoupeZoom" aria-live="polite">Fit</span>
       </div>
       <div class="card-loupe-controls">
+        <div class="card-loupe-nav" role="group" aria-label="Browse cards in review queue">
+          <button id="cardLoupePrevious" type="button" aria-label="Previous card" title="Previous card (← / ↑)">‹</button>
+          <span id="cardLoupePosition" aria-live="polite">1 / 1</span>
+          <button id="cardLoupeNext" type="button" aria-label="Next card" title="Next card (→ / ↓)">›</button>
+        </div>
         <button id="cardLoupeOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
         <button id="cardLoupeIn" type="button" aria-label="Zoom in" title="Zoom in">＋</button>
         <button id="cardLoupeFit" type="button" title="Reset to fit">Fit</button>
@@ -125,7 +135,7 @@
       <img id="cardLoupeImage" alt="" draggable="false">
       <p id="cardLoupeError" hidden role="alert"></p>
     </div>
-    <div class="card-loupe-hint">Wheel / pinch to zoom · Drag to pan · Esc to close · + / − to adjust</div>
+    <div class="card-loupe-hint">‹ / › or arrow keys: browse images · Wheel / pinch: zoom · Drag: pan · Esc: close</div>
   </div>
 </dialog>
 

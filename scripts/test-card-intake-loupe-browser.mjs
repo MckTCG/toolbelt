@@ -22,11 +22,15 @@ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const base='http://127.0.0.1:'+server.address().port;
 const imageUrl='https://example.org/card-art/quagsire-review.png';
 const brokenUrl='https://example.org/card-art/unavailable.png';
+const buizelUrl='https://example.org/card-art/buizel-review.png';
 const svg='<svg xmlns="http://www.w3.org/2000/svg" width="460" height="640" viewBox="0 0 460 640"><rect width="460" height="640" rx="18" fill="#badcf0"/><rect x="20" y="25" width="420" height="590" rx="16" fill="#f3fbff" stroke="#45769e" stroke-width="6"/><text x="36" y="75" fill="#102740" font-size="38" font-family="sans-serif">Quagsire</text><rect x="34" y="100" width="392" height="320" fill="#77adcf"/><text x="50" y="460" fill="#122942" font-size="22" font-family="sans-serif">Hot-Blooded Head</text><text x="50" y="492" fill="#122942" font-size="20" font-family="sans-serif">20+ damage</text><text x="50" y="565" fill="#122942" font-size="16" font-family="sans-serif">READABLE CARD TEST</text></svg>';
 const cards=[
   {discovery_id:'a'.repeat(22),source_url:'https://www.pokebeach.com/2026/11/quagsire-test',
    name:'Quagsire',set_name:'Aura Seeker',card_number:'18',language:'unknown',category:'Pokémon',
    image_url:imageUrl,status:'provisional',source_verified:false,artwork_verified:false},
+  {discovery_id:'d'.repeat(22),source_url:'https://www.pokebeach.com/2026/11/buizel-test',
+    name:'Buizel',set_name:'Aura Seeker',card_number:'19',language:'unknown',category:'Pokémon',
+    image_url:buizelUrl,status:'provisional',source_verified:false,artwork_verified:false},
   {discovery_id:'b'.repeat(22),source_url:'https://www.pokebeach.com/2026/11/source-only-test',
    name:'',status:'provisional'},
   {discovery_id:'c'.repeat(22),source_url:'https://www.pokebeach.com/2026/11/broken-art-test',
@@ -37,8 +41,9 @@ const page=await browser.newPage({viewport:{width:1280,height:900},acceptDownloa
 const errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 await page.route('https://example.org/card-art/**',route=>{
-  if(route.request().url()===imageUrl)
-    return route.fulfill({status:200,contentType:'image/svg+xml',body:svg,
+  if(route.request().url()===imageUrl || route.request().url()===buizelUrl)
+    return route.fulfill({status:200,contentType:'image/svg+xml',body:
+      route.request().url()===buizelUrl?svg.replaceAll('Quagsire','Buizel'):svg,
       headers:{'access-control-allow-origin':'*','cache-control':'no-store'}});
   return route.fulfill({status:404,contentType:'text/plain',body:'No image'});
 });
@@ -57,13 +62,39 @@ try{
   },cards);
   await page.reload({waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.querySelector('#catalogStatus').textContent.includes('gameplay records'),{timeout:30000});
-  assert.equal(await page.locator('.candidate').count(),3);
-  assert.equal(await page.locator('.candidate-loupe-trigger').count(),2,'Magnifier should only appear with image URLs');
+  assert.equal(await page.locator('.candidate').count(),4);
+  assert.equal(await page.locator('.candidate-loupe-trigger').count(),3,'Magnifier should only appear with image URLs');
   const savedBefore=await page.evaluate(()=>localStorage.getItem('tcg-lab-card-intake-v1'));
 
   await page.getByRole('button',{name:'Enlarge Quagsire artwork'}).click();
   await checkOpened();
   assert.equal(await page.locator('#formTitle').textContent(),'Select a candidate','Magnifier unexpectedly changed selected card');
+  assert.equal(await page.locator('#cardLoupePosition').textContent(),'1 / 3','Image-less records must be skipped');
+  assert(await page.locator('#cardLoupePrevious').isDisabled(),'First card previous should be disabled');
+  await page.locator('#cardLoupeNext').click();
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Buizel'));
+  await page.waitForFunction(()=>document.querySelector('#cardLoupeImage').naturalWidth===460);
+  assert.equal(await page.locator('#cardLoupePosition').textContent(),'2 / 3');
+  assert.equal(await page.locator('#cardLoupeSource').getAttribute('href'),buizelUrl);
+  await page.locator('#cardLoupeIn').click();
+  assert.equal(await page.locator('#cardLoupeZoom').textContent(),'150%');
+  await page.keyboard.press('ArrowLeft');
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Quagsire'));
+  assert.equal(await page.locator('#cardLoupeZoom').textContent(),'150%','Arrow navigation should retain zoom');
+  await page.keyboard.press('ArrowRight');
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Buizel'));
+  await page.keyboard.press('ArrowDown');
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Broken image'));
+  await page.waitForFunction(()=>!document.querySelector('#cardLoupeError').hidden,{timeout:10000});
+  assert.equal(await page.locator('#cardLoupePosition').textContent(),'3 / 3');
+  assert(await page.locator('#cardLoupeNext').isDisabled(),'Last card next should be disabled');
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await page.locator('#cardLoupePosition').textContent(),'3 / 3','Navigation must stop at end');
+  await page.keyboard.press('ArrowUp');
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Buizel'));
+  await page.keyboard.press('ArrowUp');
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Quagsire'));
+  await page.locator('#cardLoupeFit').click();
   await page.locator('#cardLoupeIn').click();
   assert.equal(await page.locator('#cardLoupeZoom').textContent(),'150%');
   await page.locator('#cardLoupeFit').click();
@@ -106,8 +137,21 @@ try{
   await page.locator('.candidate').filter({hasText:'Unidentified reveal'}).click();
   assert(!(await page.locator('#previewSelected').isVisible()),'Image-less reveal should not display loupe action');
 
+  // Navigation must respect the visible queue filter, without changing drafts.
+  await page.locator('#filter').fill('Buizel');
+  assert.equal(await page.locator('.candidate').count(),1);
+  await page.getByRole('button',{name:'Enlarge Buizel artwork'}).click();
+  assert.equal(await page.locator('#cardLoupePosition').textContent(),'1 / 1');
+  assert(await page.locator('#cardLoupePrevious').isDisabled());
+  assert(await page.locator('#cardLoupeNext').isDisabled());
+  await page.locator('#cardLoupeClose').click();
+  await page.locator('#filter').fill('');
   await page.setViewportSize({width:390,height:844});
   await page.getByRole('button',{name:'Enlarge Quagsire artwork'}).click();
+  await checkOpened();
+  await page.locator('#cardLoupeNext').click();
+  assert((await page.locator('#cardLoupeTitle').textContent()).includes('Buizel'),'Mobile next arrow failed');
+  await page.locator('#cardLoupePrevious').click();
   await checkOpened();
   const dimensions=await page.evaluate(()=>{
     const rect=document.querySelector('#cardLoupe').getBoundingClientRect();
@@ -123,5 +167,5 @@ try{
   assert.equal(await page.evaluate(()=>localStorage.getItem('tcg-lab-card-intake-v1')),savedBefore,
     'Loupe unexpectedly modified candidate records');
   assert.deepEqual(errors,[],'Browser JS errors: '+errors.join(' | '));
-  console.log('PASS Card Loupe: thumbnail and selected preview, image load, +/−/Fit, wheel, drag, Escape, broken-image fallback, image-less records, mobile, storage integrity.');
+  console.log('PASS Card Loupe navigation: previous/next buttons, keyboard arrows, visible filters, disabled endpoints, preserved zoom, broken artwork, mobile, storage integrity.');
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
