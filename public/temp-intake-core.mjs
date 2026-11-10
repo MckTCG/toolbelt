@@ -12,7 +12,7 @@ const str=(x,n=10000)=>String(x??'').trim().slice(0,n);
 const number=x=>str(x,32).replace(/^0+(?=\d)/,'');
 const CATS=new Set(['Pokémon','Trainer','Energy']);
 export const COMPARE_FIELDS=[
-  ['name','Name'],['nameJP','Japanese name'],['category','Category'],['stage','Stage'],
+  ['name','Name'],['nameJP','Japanese name'],['number','Card number'],['category','Category'],['stage','Stage'],
   ['pokemonType','Pokémon type'],['hp','HP'],['evolvesFrom','Evolves from'],
   ['image','Artwork URL'],['textEN','Translation / gameplay text'],
   ['weakness','Weakness'],['resistance','Resistance'],['retreatCost','Retreat cost'],
@@ -99,7 +99,12 @@ export function planTempAcceptance(rawCandidate,rawStore,options={}){
   if(store.rejected!==undefined && (!store.rejected||typeof store.rejected!=='object'||Array.isArray(store.rejected)))
     throw Error('Card DB rejection history is invalid. Export a backup first.');
   store.schema=store.schema||'tcg-lab-backup-v1';
-  store.tags=store.tags||{};store.rejected=store.rejected||{};
+  // Card Explorer's first-run store is seeded with reviewed tags from the
+  // embedded Master catalogue; avoid replacing them with an empty store.
+  const seeds=options.seedTags&&typeof options.seedTags==='object'&&!Array.isArray(options.seedTags)?
+    structuredClone(options.seedTags):null;
+  if(!store.tags&&!seeds)throw Error('Load the Master DB once before initializing TEMP so existing seed tags are preserved.');
+  store.tags=store.tags||seeds;store.rejected=store.rejected||{};
   store.tempSets=Array.isArray(store.tempSets)?store.tempSets:[];
   store.tempCards=Array.isArray(store.tempCards)?store.tempCards:[];
   const {set,newSet}=tempDestination(candidate,store,options.setCode||'');
