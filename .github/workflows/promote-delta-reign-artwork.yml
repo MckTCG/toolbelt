@@ -1,0 +1,50 @@
+name: Promote source-matched Delta Reign artwork to review branch
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/promote-delta-reign-artwork.mjs
+      - .github/workflows/promote-delta-reign-artwork.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out Toolbelt script
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Load staged artwork binaries
+        uses: actions/checkout@v4
+        with:
+          ref: staging/delta-reign-artwork-candidates
+          path: candidate-repository
+      - name: Check out isolated promotion target
+        uses: actions/checkout@v4
+        with:
+          ref: feature/promote-delta-reign-artwork-107
+          path: promotion-repository
+          persist-credentials: true
+      - name: Validate image identities, hashes and dimensions
+        run: |
+          node --check scripts/promote-delta-reign-artwork.mjs
+          node scripts/promote-delta-reign-artwork.mjs
+      - name: Commit verified artwork to review branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd promotion-repository
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A public/assets/card-art public/data/card-art-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No artwork changes.'
+          else
+            git commit -m "Add 107 source-matched local Delta Reign printing images"
+            git push origin HEAD:feature/promote-delta-reign-artwork-107
+          fi
