@@ -62,6 +62,7 @@ class DiscoveryTest(unittest.TestCase):
   self.assertEqual(persian["stage"],"Stage 1")
   self.assertEqual(persian["evolves_from"],"Meowth")
   self.assertEqual(persian["abilities"][0]["name"],"Large Coin")
+  self.assertIn("multiple Ability descriptions",persian["review_note"])
   self.assertNotEqual(meowth["discovery_id"],persian["discovery_id"])
   self.assertTrue(all(not c["source_verified"] and not c["artwork_verified"] for c in cards))
  def test_limitless_card_and_jp_provisional(self):
@@ -94,6 +95,12 @@ class DiscoveryTest(unittest.TestCase):
   again=m.build_feed(cards,{("DLR","84")},feed)
   self.assertEqual(again["new_count"],0)
   self.assertEqual(len(again["candidates"]),2)
+  proxy=m.candidate(source_url="https://www.pokemonproxies.com/",source_kind="pokemonproxies-artwork",
+    discovery_id="c"*22,name="Meowth",card_number="69")
+  flagged=m.build_feed([cards[0],proxy],set())
+  self.assertEqual(len(flagged["candidates"]),2)
+  self.assertTrue(all("Possible cross-source overlap" in c.get("review_note","") for c in flagged["candidates"]))
+
  def test_untrusted_url_rejection(self):
   for url in ["http://www.pokebeach.com/","https://www.pokebeach.com@127.0.0.1/","https://127.0.0.1/","https://www.pokebeach.com.evil.org/"]:
    with self.assertRaises(ValueError):m.safe_url(url,{"www.pokebeach.com"})
