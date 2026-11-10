@@ -43,6 +43,16 @@ function checks(candidate, classification) {
  candidateKeys.add(key);
  if(candidate.category==='Pokémon' && !candidate.existing_entity_id && classification.kind!=='new-printing' &&
     !candidate.attacks.length && !candidate.abilities.length)problems.push('Structured Pokémon attacks/Abilities');
+ if(candidate.category==='Pokémon' && !candidate.existing_entity_id && classification.kind!=='new-printing') {
+   if(!/^\d{2,3}$/.test(candidate.hp)||Number(candidate.hp)<10)problems.push('Valid Pokémon HP');
+   if(!/^[0-9]$/.test(candidate.retreat_cost))problems.push('Numeric retreat cost (0–9)');
+   if(!candidate.weakness||!candidate.resistance)problems.push('Explicit weakness and resistance (use none when absent)');
+   if(/^Stage [12]/i.test(candidate.stage)&&!candidate.evolves_from)problems.push('Evolves-from identity');
+   for(const a of candidate.attacks)if(!a.name || !Array.isArray(a.cost)||a.cost.some(x=>!x))
+     problems.push('Every structured attack needs a name and Energy-cost array');
+   for(const a of candidate.abilities)if(!a.name || !a.text)problems.push('Every structured Ability needs name and text');
+ }
+ if(candidate.regulation_mark && !/^[A-Z]$/.test(candidate.regulation_mark))problems.push('Regulation mark must be one letter');
  if(candidate.category==='Trainer' && !candidate.existing_entity_id && classification.kind!=='new-printing' &&
     !candidate.rules_text && !candidate.rules.length)problems.push('Structured Trainer rules text');
  if(candidate.category==='Energy' && !candidate.existing_entity_id && classification.kind!=='new-printing' &&
@@ -71,7 +81,15 @@ function checks(candidate, classification) {
  return [...new Set(problems)];
 }
 function createEntity(c) {
- const attacks=nonempty(c.attacks),abilities=nonempty(c.abilities),rules=nonempty(c.rules.length?c.rules:(c.rules_text?[c.rules_text]:[]));
+ const attacks=nonempty(c.attacks).map(a=>({...a,converted_energy_cost:Number(a.converted_energy_cost??a.cost?.length??0)}));
+ const abilities=nonempty(c.abilities),rules=nonempty(c.rules.length?c.rules:(c.rules_text?[c.rules_text]:[]));
+ const parseMatch=(text,kind)=>{
+   if(!text||/^(none|n\/a)$/i.test(text))return [];
+   const match=String(text).match(/^([A-Za-z]+)\s+(×\s*\d+|[−-]\s*\d+)$/);
+   if(!match)throw Error('Cannot structure '+kind+' of '+c.name+': '+text);
+   return [{type:match[1],value:match[2].replace(/\s+/g,'').replace('-','−')}];
+ };
+ const weakness=parseMatch(c.weakness,'weakness'),resistance=parseMatch(c.resistance,'resistance');
  const value={
    name:c.name,supertype:c.category+(c.stage?' – '+c.stage:''),card_type:c.category,stage:c.stage,
    pokemon_types:c.pokemon_types,hp:c.hp,evolves_from:c.evolves_from,
@@ -79,10 +97,13 @@ function createEntity(c) {
    attack_names:join(attacks.map(a=>a.name)),attack_costs:join(attacks.map(a=>a.cost?.join?.(' ')||'')),
    attack_damage:join(attacks.map(a=>a.damage)),attack_effects:join(attacks.map(a=>a.text)),
    rules_text:rules.join('\n')||null,combined_text:c.combined_text,
-   weakness:c.weakness||null,resistance:c.resistance||null,retreat_cost:c.retreat_cost||null,
-   printings:[],subtypes:c.stage?[c.stage]:[],types:c.pokemon_types?[c.pokemon_types]:[],
-   abilities,attacks,rules,weaknesses:[],resistances:[],retreat_energy_cost:Array.from({length:Number(c.retreat_cost)||0},()=> 'Colorless'),
-   basic_energy_type:null,extraction:{status:'reviewed-source-import',date:new Date().toISOString().slice(0,10),source_url:c.source_url,notes:[c.review_note].filter(Boolean)}
+   weakness:weakness.length?c.weakness:null,resistance:resistance.length?c.resistance:null,
+   retreat_cost:c.category==='Pokémon'?c.retreat_cost:null,
+   printings:[],subtypes:c.stage?[c.stage]:[],types:c.pokemon_types?c.pokemon_types.split(/[|,]/).map(x=>x.trim()).filter(Boolean):[],
+   abilities,attacks,rules,weaknesses:weakness,resistances:resistance,
+   retreat_energy_cost:Array.from({length:c.category==='Pokémon'?Number(c.retreat_cost)||0:0},()=> 'Colorless'),
+   basic_energy_type:c.category==='Energy'?(/^(?:Basic\s+)?(Grass|Fire|Water|Lightning|Psychic|Fighting|Darkness|Metal)\s+Energy$/i.exec(c.name)||[])[1]||null:null,
+   extraction:{status:'reviewed-source-import',date:new Date().toISOString().slice(0,10),source_url:c.source_url,notes:[c.review_note].filter(Boolean)}
  };
  let eid='ce_intake_'+hash(mechanicsSignature({...c,...value}));
  let suffix=1;while(idSet.has(eid))eid='ce_intake_'+hash(mechanicsSignature({...c,...value})+'-'+suffix++);
