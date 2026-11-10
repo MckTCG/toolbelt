@@ -1,10 +1,12 @@
 {
   "schema": "tcg-lab-card-art-staging-v1",
-  "generatedAt": "2026-11-10T03:03:05.282Z",
+  "generatedAt": "2026-11-10T03:08:27.488Z",
   "setCode": "TMPDELTAREIGN",
+  "discoveredOfficial": 104,
+  "discoveryErrors": [],
   "verifiedCount": 0,
-  "stagedCount": 33,
-  "missingCount": 80,
+  "stagedCount": 107,
+  "missingCount": 6,
   "rows": [
     {
       "entityId": "temp:deltareignm6001",
@@ -12,18 +14,21 @@
       "name": "Heracross",
       "setCode": "TMPDELTAREIGN",
       "number": "001/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/001.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050339_P_HERAKUROSU.jpg",
+        "sha256": "bd588f787ad5816ca61eb049a350c7679e84729950dfc0126aea30d2661e1a12",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 273485
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-001-Heracross-CcwEgyja.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/001.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050339_P_HERAKUROSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -45,11 +50,6 @@
         "bytes": 295230
       },
       "attempts": [
-        {
-          "url": "https://www.pokemonproxies.com/assets/6a-002-Surskit-BJX2cQvW.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
         {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050340_P_AMETAMA.jpg",
           "status": "staged"
@@ -75,11 +75,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-003-Masquerain-hHhgGS-Z.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050341_P_AMEMOSU.jpg",
           "status": "staged"
         }
@@ -91,18 +86,21 @@
       "name": "Cacnea",
       "setCode": "TMPDELTAREIGN",
       "number": "004/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/004.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050342_P_SABONEA.jpg",
+        "sha256": "5376a2cb8c12440d5f3ee27e1e2c1e2e03ac916ce4798b36235b077c77263df5",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 243343
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-004-Cacnea-CvEagX3L.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/004.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050342_P_SABONEA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -112,18 +110,21 @@
       "name": "Cacturne",
       "setCode": "TMPDELTAREIGN",
       "number": "005/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/005.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050343_P_NOKUTASU.jpg",
+        "sha256": "0733788f89e3e33d77074151ddb40ec5646dc7c4d81c9899437437f33227b5ff",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 243695
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-005-Cacturne-B07R3Frl.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/005.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050343_P_NOKUTASU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -146,11 +147,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-006-Combee-DTyOeN6M.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050344_P_MITSUHANI.jpg",
           "status": "staged"
         }
@@ -162,18 +158,21 @@
       "name": "Vespiquen",
       "setCode": "TMPDELTAREIGN",
       "number": "007/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/007.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050345_P_BIKUIN.jpg",
+        "sha256": "307d386422b94dcbad4ec477be428c80944aec26dc03beb0c0983c51bae8880a",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 324676
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-007-Vespiquen-DyLWeqK9.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/007.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050345_P_BIKUIN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -183,18 +182,21 @@
       "name": "Wimpod",
       "setCode": "TMPDELTAREIGN",
       "number": "008/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/008.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050346_P_KOSOKUMUSHI.jpg",
+        "sha256": "f7d542c15174fa6271584acc4b9c40d11391bb7527a98dbac8da933d02ccb893",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 282251
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-008-Wimpod-C38Tlwc-.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/008.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050346_P_KOSOKUMUSHI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -204,18 +206,21 @@
       "name": "Mega Golisopod ex",
       "setCode": "TMPDELTAREIGN",
       "number": "009/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/009.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050347_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
+        "sha256": "41515abc178941217ce14b533f3e3ecf809c91b524429eac1dd2ab229dfebcb5",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 537986
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-009-Mega_Golisopod_ex-qFR_MvOo.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/009.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050347_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -225,18 +230,21 @@
       "name": "Growlithe",
       "setCode": "TMPDELTAREIGN",
       "number": "010/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/010.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050348_P_GADEI.jpg",
+        "sha256": "d240be10231b2448f7cb1174ef3ca75ea500236fe74ea70403e98da696e0ac5d",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 277053
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-010-Growlithe-ClM0EFae.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/010.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050348_P_GADEI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -246,18 +254,21 @@
       "name": "Arcanine",
       "setCode": "TMPDELTAREIGN",
       "number": "011/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/011.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050349_P_UINDEI.jpg",
+        "sha256": "d7b4a4f96998418da820a3af1364337812feb3707aa624a50cf5eaa913d1f3b9",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 309723
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-011-Arcanine-0R6zF26c.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/011.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050349_P_UINDEI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -279,11 +290,6 @@
         "bytes": 312296
       },
       "attempts": [
-        {
-          "url": "https://www.pokemonproxies.com/assets/6a-012-Magmar-nMlezOoR.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
         {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050350_P_BUBA.jpg",
           "status": "staged"
@@ -309,11 +315,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-013-Magmortar-D27QUXFl.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050351_P_BUBAN.jpg",
           "status": "staged"
         }
@@ -325,18 +326,21 @@
       "name": "Torkoal",
       "setCode": "TMPDELTAREIGN",
       "number": "014/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/014.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050352_P_KOTASU.jpg",
+        "sha256": "67b90308a99481b9b56a57e5e54ec10df8c85b5e3f7badd93bffaf130d18f535",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 297323
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-014-Torkoal-ChYoBckD.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/014.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050352_P_KOTASU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -346,18 +350,21 @@
       "name": "Heat Rotom ex",
       "setCode": "TMPDELTAREIGN",
       "number": "015/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/015.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050353_P_HITOROTOMUIEKKUSU.jpg",
+        "sha256": "9f35b44e8c8d2e06addd096479c78aaa34076053edf0786d3161d38c05d9cce5",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 308856
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-015-Heat_Rotom_ex-Dd2GAxjQ.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/015.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050353_P_HITOROTOMUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -367,18 +374,21 @@
       "name": "Heatmor",
       "setCode": "TMPDELTAREIGN",
       "number": "016/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/016.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050354_P_KUITARAN.jpg",
+        "sha256": "5422fdb016b83ec5f267c0b06e55e846d4012ad8f07eb7b69b5cb5b62dd32c1c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 258329
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-016-Heatmor-BL8fZtHX.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/016.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050354_P_KUITARAN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -388,18 +398,21 @@
       "name": "Mantine",
       "setCode": "TMPDELTAREIGN",
       "number": "017/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/017.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050355_P_MANTAIN.jpg",
+        "sha256": "e1d5e01eb562812e00910482fc9f6ca38e53530eb45d7c5548b9a30d2d7e476c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 300929
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-017-Mantine-ClX1JMt5.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/017.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050355_P_MANTAIN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -409,18 +422,21 @@
       "name": "Kyogre",
       "setCode": "TMPDELTAREIGN",
       "number": "018/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/018.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050356_P_KAIOGA.jpg",
+        "sha256": "c7c6eb0bbf57acee8a686a8b3d65fc7d6d206eb8ba3f09ad62f70bac1497483e",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 356255
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-018-Kyogre-Bx9_XA8v.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/018.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050356_P_KAIOGA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -430,18 +446,21 @@
       "name": "Frillish",
       "setCode": "TMPDELTAREIGN",
       "number": "019/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/019.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050357_P_PURURIRU.jpg",
+        "sha256": "f7b1af6ece592d92d17c9ceeacd711a596d0d48bcf2edc5f5e87e60df7df5509",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 269431
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-019-Frillish-BI1K-01P.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/019.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050357_P_PURURIRU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -451,18 +470,21 @@
       "name": "Jellicent",
       "setCode": "TMPDELTAREIGN",
       "number": "020/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/020.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050358_P_BURUNGERU.jpg",
+        "sha256": "74bb5d52bce27a24d040af87844596542d1b17132130b222d483da1f380c4d8c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 303129
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-020-Jellicent-BPWjFm9f.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/020.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050358_P_BURUNGERU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -472,18 +494,21 @@
       "name": "Wishiwashi ex",
       "setCode": "TMPDELTAREIGN",
       "number": "021/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/021.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050359_P_YOWASHIIEKKUSU.jpg",
+        "sha256": "751861605e282888a4eeea754dc0897dbcf29778983877616e393b6e687b7616",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 290875
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-021-Wishiwashi_ex-B8ybU4C-.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/021.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050359_P_YOWASHIIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -505,11 +530,6 @@
         "bytes": 265257
       },
       "attempts": [
-        {
-          "url": "https://www.pokemonproxies.com/assets/6a-022-Electabuzz-bgYoEYSB.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
         {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050360_P_EREBU.jpg",
           "status": "staged"
@@ -535,11 +555,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-023-Electivire-C1xTweN3.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050361_P_EREKIBURU.jpg",
           "status": "staged"
         }
@@ -551,18 +566,21 @@
       "name": "Raikou ex",
       "setCode": "TMPDELTAREIGN",
       "number": "024/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/024.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050362_P_RAIKOUIEKKUSU.jpg",
+        "sha256": "2f3f97502a57abbb2886fb627d9896191082f1562ac5fce370a98165f1e6ae9e",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 317195
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-024-Raikou_ex-DgjY5GcF.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/024.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050362_P_RAIKOUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -585,11 +603,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-025-Thundurus-CaoN5oYV.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050363_P_BORUTOROSU.jpg",
           "status": "staged"
         }
@@ -601,18 +614,21 @@
       "name": "Pincurchin",
       "setCode": "TMPDELTAREIGN",
       "number": "026/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/026.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050364_P_BACHINUNI.jpg",
+        "sha256": "030a4b784ee9ef2a2c7fbf44c97073b169980cbbcdcfdfd27bfe2eb1861f235d",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 255527
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-026-Pincurchin-OffaMrrg.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/026.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050364_P_BACHINUNI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -622,18 +638,21 @@
       "name": "Wattrel",
       "setCode": "TMPDELTAREIGN",
       "number": "027/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/027.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050365_P_KAIDEN.jpg",
+        "sha256": "f679d5fcff7b0cece7264e127a5a7fbbde34d578be43a572fff9e4030bb4c532",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 248852
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-027-Wattrel-Dg7s3K1D.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/027.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050365_P_KAIDEN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -645,18 +664,18 @@
       "number": "028/076",
       "status": "needs-visual-review",
       "asset": {
-        "path": "images/028.png",
-        "source": "https://www.pokemonproxies.com/assets/6a-028-Kilowattrel-U9IjF-Lb.png",
-        "sha256": "c4bdbf097fafdb04f5987e93fafa5a8e317a460b1b87c64568750cc041e6e469",
-        "mime": "image/png",
-        "ext": "png",
-        "width": 733,
-        "height": 1024,
-        "bytes": 243124
+        "path": "images/028.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050366_P_TAIKAIDEN.jpg",
+        "sha256": "55c47a3652080f97747bd536c14a151fc724144255d7b1ed750fa31c9d7d9f4f",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 265195
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-028-Kilowattrel-U9IjF-Lb.png",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050366_P_TAIKAIDEN.jpg",
           "status": "staged"
         }
       ]
@@ -667,18 +686,21 @@
       "name": "Drowzee",
       "setCode": "TMPDELTAREIGN",
       "number": "029/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/029.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050367_P_SURIPU.jpg",
+        "sha256": "576e102cc20e90f2847157a4758a5cffb6d33d0f31b5e2d6339e7cdab1f9f23e",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 235094
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-029-Drowzee-Fm2fh2OR.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/029.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050367_P_SURIPU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -688,18 +710,21 @@
       "name": "Hypno",
       "setCode": "TMPDELTAREIGN",
       "number": "030/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/030.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050368_P_SURIPA.jpg",
+        "sha256": "30a269fcfafa40764241160617ccb74248d68bc18e1f1206e05c5fff1b281a04",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 270562
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-030-Hypno-DNT6mUrn.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/030.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050368_P_SURIPA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -709,18 +734,21 @@
       "name": "Giratina",
       "setCode": "TMPDELTAREIGN",
       "number": "031/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/031.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050369_P_GIRATEINA.jpg",
+        "sha256": "5a8d0507ba5e8bcf80c4c5f6f73ed29092c70fcb60fa6b08ac835cfa0d46fe56",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 295745
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-031-Giratina-B1MRjwVH.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/031.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050369_P_GIRATEINA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -730,18 +758,21 @@
       "name": "Golett",
       "setCode": "TMPDELTAREIGN",
       "number": "032/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/032.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050370_P_GOBITTO.jpg",
+        "sha256": "56c70bd4855a19e609f1e83a322457b65ff904501ba4355afa55aeabf6482cfd",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 249151
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-032-Golett-2d1qM9Us.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/032.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050370_P_GOBITTO.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -751,18 +782,21 @@
       "name": "Mega Golurk ex",
       "setCode": "TMPDELTAREIGN",
       "number": "033/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/033.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050371_P_MGORUGUIEKKUSU.jpg",
+        "sha256": "a1dac93c39fbf5e7cf9bd120feb54a347f969f05f3036b33311cfb7e950d2bfb",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 530110
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-033-Mega_Golurk_ex-B5e5_xwd.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/033.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050371_P_MGORUGUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -785,11 +819,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-034-Enamorus-DpkNv_N9.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050372_P_RABUTOROSU.jpg",
           "status": "staged"
         }
@@ -801,18 +830,21 @@
       "name": "Sandshrew",
       "setCode": "TMPDELTAREIGN",
       "number": "035/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/035.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050373_P_SANDO.jpg",
+        "sha256": "8a980b76c9f6498da33bb55bb5f7986531488797ed6844ea1c968ec1a6fe3c92",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 283202
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-035-Sandshrew-B3xRDnmz.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/035.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050373_P_SANDO.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -822,18 +854,21 @@
       "name": "Sandslash",
       "setCode": "TMPDELTAREIGN",
       "number": "036/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/036.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050374_P_SANDOPAN.jpg",
+        "sha256": "fadd6b64a8a749ab211c519f758ae0d6d882ae8d0b2d13aba821ece14b191708",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 344412
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-036-Sandslash-pItI-Fkh.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/036.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050374_P_SANDOPAN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -843,18 +878,21 @@
       "name": "Onix",
       "setCode": "TMPDELTAREIGN",
       "number": "037/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/037.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050375_P_IWAKU.jpg",
+        "sha256": "efabf1f5bb6b54d4b4a35a18f5729d9a4c455f08d9a5535a178189e8f64f9baf",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 316815
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-037-Onix-BbtTuNpd.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/037.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050375_P_IWAKU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -864,18 +902,21 @@
       "name": "Steelix",
       "setCode": "TMPDELTAREIGN",
       "number": "038/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/038.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050376_P_HAGANERU.jpg",
+        "sha256": "d706cb1fb2d70caefc7ad1ae2c61113e34c50915ca653018e937688896d2ba09",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 320509
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-038-Steelix-DHSft-Az.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/038.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050376_P_HAGANERU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -885,18 +926,21 @@
       "name": "Groudon",
       "setCode": "TMPDELTAREIGN",
       "number": "039/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/039.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050377_P_GURADON.jpg",
+        "sha256": "66c39ce4d9657a0ed6627023cfd3264459479c20382800406b83e4c2e12a191a",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 356727
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-039-Groudon-CpZqlEEt.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/039.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050377_P_GURADON.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -919,11 +963,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-040-Landorus-ZaTIn5xj.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050378_P_RANDOROSU.jpg",
           "status": "staged"
         }
@@ -935,18 +974,21 @@
       "name": "Nidoran♀",
       "setCode": "TMPDELTAREIGN",
       "number": "041/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/041.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050379_P_NIDORAN.jpg",
+        "sha256": "a7086990b1eebc1980e1dfd58f5befd249b0550c2361cc503fe1334f34bc410c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 376303
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-041-Nidoran_F-Deiyz34c.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/041.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050379_P_NIDORAN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -956,18 +998,21 @@
       "name": "Nidorina",
       "setCode": "TMPDELTAREIGN",
       "number": "042/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/042.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050380_P_NIDORINA.jpg",
+        "sha256": "cfe49cd9bd782dc2d7c7d43b377acb19dccb7a571b6147971a0cb4c233027b45",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 289038
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-042-Nidorina-I38-gGjz.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/042.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050380_P_NIDORINA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -977,18 +1022,21 @@
       "name": "Nidoqueen",
       "setCode": "TMPDELTAREIGN",
       "number": "043/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/043.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050381_P_NIDOKUIN.jpg",
+        "sha256": "5526077120c9bfa5326db67ea4365cf09b3ecd4c5391fd9dfd496e45203daf36",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 288822
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-043-Nidoqueen--Rv3j0tY.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/043.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050381_P_NIDOKUIN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1000,18 +1048,18 @@
       "number": "044/076",
       "status": "needs-visual-review",
       "asset": {
-        "path": "images/044.png",
-        "source": "https://www.pokemonproxies.com/assets/6a-044-Spinarak-ChoeunrM.png",
-        "sha256": "b28bde8b82562fbdb9da6a4f59fd042742dded75f1fb45219ab2caad45cfc0d4",
-        "mime": "image/png",
-        "ext": "png",
-        "width": 733,
-        "height": 1024,
-        "bytes": 251087
+        "path": "images/044.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050382_P_ITOMARU.jpg",
+        "sha256": "30632b055d8be23f19d629744d121eaf86eb3d7037a20bd3821f1a33a37e2ba3",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 292577
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-044-Spinarak-ChoeunrM.png",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050382_P_ITOMARU.jpg",
           "status": "staged"
         }
       ]
@@ -1022,18 +1070,21 @@
       "name": "Ariados",
       "setCode": "TMPDELTAREIGN",
       "number": "045/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/045.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050383_P_ARIADOSU.jpg",
+        "sha256": "20384d3107cdba153d9529e1ce8f4ab8ec7e2f6ec74b848106511f0f77e507bf",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 323539
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-045-Ariados-BkxTJ5fI.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/045.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050383_P_ARIADOSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1043,18 +1094,21 @@
       "name": "Sableye",
       "setCode": "TMPDELTAREIGN",
       "number": "046/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/046.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050384_P_YAMIRAMI.jpg",
+        "sha256": "8906e573ab57c2c3b264877c13dc8b928d16bb1a1ca6dac52cfbcb1e94a8df1d",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 394849
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-046-Sableye-unIxezxA.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/046.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050384_P_YAMIRAMI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1064,18 +1118,21 @@
       "name": "Inkay",
       "setCode": "TMPDELTAREIGN",
       "number": "047/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/047.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050385_P_MAIKA.jpg",
+        "sha256": "c436bbf27d4f116549500ab9241e4f0a1d62b982e7808bf102cb60fd60972ddb",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 265178
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-047-Inkay-lGd8YYqX.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/047.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050385_P_MAIKA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1085,18 +1142,21 @@
       "name": "Mega Malamar ex",
       "setCode": "TMPDELTAREIGN",
       "number": "048/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/048.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050386_P_MKARAMANEROIEKKUSU.jpg",
+        "sha256": "f914da3db90e18906b140f5867770d90ca79b75ddc6af8b6652f8e3706beb61c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 552205
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-048-Mega_Malamar_ex-9DXphJZJ.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/048.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050386_P_MKARAMANEROIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1118,11 +1178,6 @@
         "bytes": 305552
       },
       "attempts": [
-        {
-          "url": "https://www.pokemonproxies.com/assets/6a-049-Druddigon-BBAjOMbN.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
         {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050387_P_KURIMUGAN.jpg",
           "status": "staged"
@@ -1148,11 +1203,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-050-Jangmo_o-CuKPHEGM.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050388_P_JIXYARAKO.jpg",
           "status": "staged"
         }
@@ -1176,11 +1226,6 @@
         "bytes": 262526
       },
       "attempts": [
-        {
-          "url": "https://www.pokemonproxies.com/assets/6a-051-Hakamo_o-BOcp0Yhn.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
         {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050389_P_JIXYARANGO.jpg",
           "status": "staged"
@@ -1206,11 +1251,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-052-Kommo_o-CkasogQ5.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050390_P_JIXYARARANGA.jpg",
           "status": "staged"
         }
@@ -1222,18 +1262,21 @@
       "name": "Cyclizar",
       "setCode": "TMPDELTAREIGN",
       "number": "053/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/053.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050391_P_MOTOTOKAGE.jpg",
+        "sha256": "feb62c20a7404b24db6cc54e57d38f014f8fa8a2bcf461dd94ef770ff6672d30",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 267318
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-053-Cyclizar-D61ecCEM.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/053.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050391_P_MOTOTOKAGE.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1243,18 +1286,21 @@
       "name": "Azurill",
       "setCode": "TMPDELTAREIGN",
       "number": "054/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/054.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050392_P_RURIRI.jpg",
+        "sha256": "2243dc7e32e4de215002f0caa518f31942ecf0a8fab02f7e45c21c584954f002",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 219235
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-054-Azurill-UCZWEBGk.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/054.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050392_P_RURIRI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1264,18 +1310,21 @@
       "name": "Swablu",
       "setCode": "TMPDELTAREIGN",
       "number": "055/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/055.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050393_P_CHIRUTTO.jpg",
+        "sha256": "4757eebf0aeeea6ed5a0890d110ba93b1b908f75c687f9deaf0a76701319a4c6",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 207453
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-055-Swablu-FieyMxL1.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/055.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050393_P_CHIRUTTO.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1285,18 +1334,21 @@
       "name": "Altaria",
       "setCode": "TMPDELTAREIGN",
       "number": "056/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/056.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050394_P_CHIRUTARISU.jpg",
+        "sha256": "3edd77b4ba5d67503f8ef322a3b1bbc0842ef42347b538f764efecf7e07abb8c",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 210907
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-056-Altaria-ms6cy_rz.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/056.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050394_P_CHIRUTARISU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1306,18 +1358,21 @@
       "name": "Kecleon",
       "setCode": "TMPDELTAREIGN",
       "number": "057/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/057.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050395_P_KAKUREON.jpg",
+        "sha256": "9e5a39a86a012edd5be4f7eba76f90ab446147cf809eff4c1c4543f552e7a7ed",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 246182
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-057-Kecleon-eQrVwcrL.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/057.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050395_P_KAKUREON.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1329,18 +1384,18 @@
       "number": "058/076",
       "status": "needs-visual-review",
       "asset": {
-        "path": "images/058.png",
-        "source": "https://efour.b-cdn.net/uploads/default/original/4X/2/4/c/24ca88f8e92a35cd985b3ed5eff8c471b494a50e.png",
-        "sha256": "606c8c05d6cddb14c12a5e00e0e2b51951b99b077f7e3518a8b9efd4122e29cd",
-        "mime": "image/png",
-        "ext": "png",
-        "width": 660,
-        "height": 920,
-        "bytes": 1056177
+        "path": "images/058.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050396_P_MREKKUUZAIEKKUSU.jpg",
+        "sha256": "9e9432d1ca4f602ae234fd7beb7f80b9b6b6f70886bb64c534b469259fb74ce9",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 537849
       },
       "attempts": [
         {
-          "url": "https://efour.b-cdn.net/uploads/default/original/4X/2/4/c/24ca88f8e92a35cd985b3ed5eff8c471b494a50e.png",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050396_P_MREKKUUZAIEKKUSU.jpg",
           "status": "staged"
         }
       ]
@@ -1364,11 +1419,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-059-Tornadus-Bll5Zm9I.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050397_P_TORUNEROSU.jpg",
           "status": "staged"
         }
@@ -1380,18 +1430,21 @@
       "name": "Fletchling",
       "setCode": "TMPDELTAREIGN",
       "number": "060/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/060.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050398_P_YAYAKOMA.jpg",
+        "sha256": "0a758c07d8c802d88ee2516cc824b403f2bcb3c639769da1420800f742b0d57b",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 252786
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-060-Fletchling-BQobEOl1.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/060.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050398_P_YAYAKOMA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1401,18 +1454,21 @@
       "name": "Fletchinder",
       "setCode": "TMPDELTAREIGN",
       "number": "061/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/061.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050399_P_HINOYAKOMA.jpg",
+        "sha256": "380983ab541ebf4ef9103dae2726fab323797b77fce7e9a513e7695eabc4e59f",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 218932
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-061-Fletchinder-DYS6h8Bg.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/061.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050399_P_HINOYAKOMA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1422,18 +1478,21 @@
       "name": "Talonflame ex",
       "setCode": "TMPDELTAREIGN",
       "number": "062/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/062.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050400_P_FUAIAROIEKKUSU.jpg",
+        "sha256": "243a2ece2de81ef5e3ec8c51d3df3a8b5789992134e483f46c1a0f9e5850fdab",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 283187
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-062-Talonflame_ex-BvFdJqJQ.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/062.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050400_P_FUAIAROIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1443,18 +1502,21 @@
       "name": "Delicious Onigiri",
       "setCode": "TMPDELTAREIGN",
       "number": "063/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/063.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050401_T_OISHIIOMUSUBI.jpg",
+        "sha256": "e2c9102e0973db023fb6779307a0587f45df43c38e561fa8cf810a1323396314",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 191362
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-063-Yummy_Onigiri-CTP3gIqM.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/063.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050401_T_OISHIIOMUSUBI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1477,11 +1539,6 @@
       },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-064-Adventuring_Lantern-Cw4wakZI.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050402_T_BOUKENNORANTAN.jpg",
           "status": "staged"
         }
@@ -1493,18 +1550,21 @@
       "name": "Custom Vest",
       "setCode": "TMPDELTAREIGN",
       "number": "065/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/065.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050403_T_TOKUCHIXYUUCHIXYOKKI.jpg",
+        "sha256": "8efed2bcd8569bbb42db73588d978a10e5c86d86fffbd90030953c27103d1258",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 188436
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-065-Custom_Vest-mB6nR1cj.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/065.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050403_T_TOKUCHIXYUUCHIXYOKKI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1514,18 +1574,21 @@
       "name": "Mega Rayquaza Cap",
       "setCode": "TMPDELTAREIGN",
       "number": "066/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/066.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050404_T_MREKKUUZAKIXYAPPU.jpg",
+        "sha256": "f9028dbd92e3a297c3e9ba0e8b4ec2dfd797c5cd2643e828e7371e738622bc47",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 222382
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-066-Mega_Rayquaza_Cap-CSICoudX.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/066.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050404_T_MREKKUUZAKIXYAPPU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1535,18 +1598,21 @@
       "name": "Emcee's Hype",
       "setCode": "TMPDELTAREIGN",
       "number": "067/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/067.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050405_T_EMUSHINOMORIAGE.jpg",
+        "sha256": "0a06e83126502d88fc5ad5ca10135498c3bd8223b95b7f311a5204b48dc6b504",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 185977
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-067-Emcee's_Hype-D77e1yhI.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/067.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050405_T_EMUSHINOMORIAGE.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1556,18 +1622,21 @@
       "name": "Aarune",
       "setCode": "TMPDELTAREIGN",
       "number": "068/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/068.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050406_T_GIRI.jpg",
+        "sha256": "fcac5f0c5843553ee28da3f5a3f57f4489a194597888397408eb6767ab1cfe25",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 228833
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-068-Aarune-Cb8cluVi.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/068.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050406_T_GIRI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1577,18 +1646,21 @@
       "name": "Zinnia's Trust",
       "setCode": "TMPDELTAREIGN",
       "number": "069/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/069.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050407_T_HIGANANOSHINRAI.jpg",
+        "sha256": "0204ac3add20d26c5ba146e7698828f904878e13339cab68ffa3aebbe77d4709",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 193318
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-069-Zinnia's_Trust-B0790uA1.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/069.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050407_T_HIGANANOSHINRAI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1598,18 +1670,21 @@
       "name": "Tate & Liza's Training",
       "setCode": "TMPDELTAREIGN",
       "number": "070/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/070.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050408_T_FUUTORANNOSHIXYUGIXYOU.jpg",
+        "sha256": "da636e7f5e6fba1bdc2633817d7cd565eadbc81c9ada6dce930302b9ff6804e0",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 192089
+      },
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-070-Tate___Liza's_Training-RGnkiYUX.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
-          "url": "https://www.serebii.net/card/stormemeralda/070.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050408_T_FUUTORANNOSHIXYUGIXYOU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1623,14 +1698,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-071-Legendary_Trench_L-BcwBJPau.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/071.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-071-Legendary_Trench_L-BcwBJPau.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1644,14 +1719,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-072-Legendary_Trench_R-K4m_tN1I.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/072.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-072-Legendary_Trench_R-K4m_tN1I.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1665,14 +1740,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-073-Legendary_Summit_L-CqYHMbvd.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/073.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-073-Legendary_Summit_L-CqYHMbvd.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1686,14 +1761,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-074-Legendary_Summit_R-FUHb2eB0.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/074.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-074-Legendary_Summit_R-FUHb2eB0.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1707,14 +1782,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-075-Legendary_Lava_Lake_L-DZYPtU3E.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/075.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-075-Legendary_Lava_Lake_L-DZYPtU3E.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1728,14 +1803,14 @@
       "asset": null,
       "attempts": [
         {
-          "url": "https://www.pokemonproxies.com/assets/6a-076-Legendary_Lava_Lake_R-DwgK0Goc.png",
-          "status": "failed",
-          "error": "Unsupported or invalid image header"
-        },
-        {
           "url": "https://www.serebii.net/card/stormemeralda/076.jpg",
           "status": "failed",
           "error": "HTTP 404"
+        },
+        {
+          "url": "https://www.pokemonproxies.com/assets/6a-076-Legendary_Lava_Lake_R-DwgK0Goc.png",
+          "status": "failed",
+          "error": "Unsupported or invalid image header"
         }
       ]
     },
@@ -1745,13 +1820,21 @@
       "name": "Masquerain",
       "setCode": "TMPDELTAREIGN",
       "number": "077/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/077.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050518_P_AMEMOSU.jpg",
+        "sha256": "c186a6dd7272c59ba91202528a6dc39e4da5961339167cdc77ce73c2519c8b6a",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 282535
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/077.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050518_P_AMEMOSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1761,13 +1844,21 @@
       "name": "Growlithe",
       "setCode": "TMPDELTAREIGN",
       "number": "078/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/078.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050519_P_GADEI.jpg",
+        "sha256": "1fd800064d3b1c6a077cf023c0d76294dc3994b80333f1a0ca34a4a7ee9aa3be",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 268164
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/078.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050519_P_GADEI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1777,13 +1868,21 @@
       "name": "Magmortar",
       "setCode": "TMPDELTAREIGN",
       "number": "079/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/079.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050520_P_BUBAN.jpg",
+        "sha256": "5c7ccf750885190a2a2bd0050a55b094b8accefb87bb2c0cf98b79b25f741afd",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 383357
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/079.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050520_P_BUBAN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1793,13 +1892,21 @@
       "name": "Kyogre",
       "setCode": "TMPDELTAREIGN",
       "number": "080/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/080.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050521_P_KAIOGA.jpg",
+        "sha256": "8e7373e1db2e62d3f160bdd8b4771f8e8877e6a422580e774707b0a0af5532b0",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 344162
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/080.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050521_P_KAIOGA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1809,13 +1916,21 @@
       "name": "Electivire",
       "setCode": "TMPDELTAREIGN",
       "number": "081/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/081.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050522_P_EREKIBURU.jpg",
+        "sha256": "0924fbecedf9dc7fe4b58981921262955f1a52ad220d3e65a0e7387234362c1f",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 278632
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/081.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050522_P_EREKIBURU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1825,13 +1940,21 @@
       "name": "Pincurchin",
       "setCode": "TMPDELTAREIGN",
       "number": "082/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/082.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050523_P_BACHINUNI.jpg",
+        "sha256": "441638dadf8c4484001274d15b13bf1ceaaa086aee88c636a0271574d28ae9bf",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 340714
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/082.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050523_P_BACHINUNI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1841,13 +1964,21 @@
       "name": "Enamorus",
       "setCode": "TMPDELTAREIGN",
       "number": "083/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/083.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050524_P_RABUTOROSU.jpg",
+        "sha256": "e0ded5d67da776114752eead859ac93655dbce3a5b34a98afa870fb35fde801a",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 225184
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/083.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050524_P_RABUTOROSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1857,13 +1988,21 @@
       "name": "Groudon",
       "setCode": "TMPDELTAREIGN",
       "number": "084/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/084.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050525_P_GURADON.jpg",
+        "sha256": "fd56a1dc79e07b964c89af0fc93c0522c210e05c3719a531f36ea84d1b70dfe9",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 337574
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/084.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050525_P_GURADON.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1873,13 +2012,21 @@
       "name": "Inkay",
       "setCode": "TMPDELTAREIGN",
       "number": "085/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/085.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050526_P_MAIKA.jpg",
+        "sha256": "79e4d4599292dd53bdab7a2f9f92d121a6fa8eab0444c0e6b4c72b6b973c72f4",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 442833
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/085.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050526_P_MAIKA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1889,13 +2036,21 @@
       "name": "Azurill",
       "setCode": "TMPDELTAREIGN",
       "number": "086/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/086.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050527_P_RURIRI.jpg",
+        "sha256": "248b5d5e3cf074b0e2ebe9f520dce3fd8110e2c008cbb9e69a02e564a171ba7d",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 379581
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/086.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050527_P_RURIRI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1905,13 +2060,21 @@
       "name": "Altaria",
       "setCode": "TMPDELTAREIGN",
       "number": "087/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/087.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050528_P_CHIRUTARISU.jpg",
+        "sha256": "40de246b98ee4b69a8e845970cbf924a71d1d49c6fe0d1e24999409960cf0ce0",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 236543
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/087.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050528_P_CHIRUTARISU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1921,13 +2084,21 @@
       "name": "Kecleon",
       "setCode": "TMPDELTAREIGN",
       "number": "088/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/088.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050529_P_KAKUREON.jpg",
+        "sha256": "2e37929ac8bd0f5ff3d63c0b4813cb86b22deb77fb94b94e914bb61f463bf344",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 549184
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/088.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050529_P_KAKUREON.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1937,13 +2108,21 @@
       "name": "Mega Golisopod ex",
       "setCode": "TMPDELTAREIGN",
       "number": "089/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/089.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050530_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
+        "sha256": "d49ac308f68588c2f1e138b52a0a7339cbc40328daeea6b0ee00578c422aaeb9",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 581297
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/089.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050530_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1953,13 +2132,21 @@
       "name": "Heat Rotom ex",
       "setCode": "TMPDELTAREIGN",
       "number": "090/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/090.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050531_P_HITOROTOMUIEKKUSU.jpg",
+        "sha256": "76e57cae34972fc36e6f3e842bc9b1581981ab91b310652d725482c2297533c0",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 490215
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/090.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050531_P_HITOROTOMUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1969,13 +2156,21 @@
       "name": "Wishiwashi ex",
       "setCode": "TMPDELTAREIGN",
       "number": "091/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/091.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050532_P_YOWASHIIEKKUSU.jpg",
+        "sha256": "1bb2c2d53b848c2c9d77d97c3b1efaf29ef5287e9a3adb28bc2c735b9e89662e",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 465015
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/091.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050532_P_YOWASHIIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -1985,13 +2180,21 @@
       "name": "Raikou ex",
       "setCode": "TMPDELTAREIGN",
       "number": "092/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/092.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050533_P_RAIKOUIEKKUSU.jpg",
+        "sha256": "0304736383a530097f346b6d3feeae5cce3a7b1746fb066e948d91b19df0b9dd",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 460308
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/092.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050533_P_RAIKOUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2001,13 +2204,21 @@
       "name": "Mega Golurk ex",
       "setCode": "TMPDELTAREIGN",
       "number": "093/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/093.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050534_P_MGORUGUIEKKUSU.jpg",
+        "sha256": "c8f19957fa86cd79bd0e3574d634e1e2b8eb885293341fc2fa03e1d8b3e8ac58",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 578552
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/093.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050534_P_MGORUGUIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2017,13 +2228,21 @@
       "name": "Mega Malamar ex",
       "setCode": "TMPDELTAREIGN",
       "number": "094/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/094.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050535_P_MKARAMANEROIEKKUSU.jpg",
+        "sha256": "474218b78d61a82d746fa4937c7c0aad66f41d94ec26b10f81f7a3c4a4cfee07",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 590943
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/094.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050535_P_MKARAMANEROIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2033,13 +2252,21 @@
       "name": "Mega Rayquaza ex",
       "setCode": "TMPDELTAREIGN",
       "number": "095/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/095.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050536_P_MREKKUUZAIEKKUSU.jpg",
+        "sha256": "843fea3a3f35a13a69dae584b6f3cdc317d90a9bac5e0f6fb41bebb3ff6018b7",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 629995
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/095.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050536_P_MREKKUUZAIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2049,13 +2276,21 @@
       "name": "Talonflame ex",
       "setCode": "TMPDELTAREIGN",
       "number": "096/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/096.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050537_P_FUAIAROIEKKUSU.jpg",
+        "sha256": "44e39032765cdc95f28143575e4d0d5807dd5744cd1b25be507bcdbfbd8967ab",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 491258
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/096.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050537_P_FUAIAROIEKKUSU.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2065,13 +2300,21 @@
       "name": "Adventuring Lantern",
       "setCode": "TMPDELTAREIGN",
       "number": "097/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/097.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050538_T_BOUKENNORANTAN.jpg",
+        "sha256": "15b447012917ae8143d55bcb8078d0b35e908ebad74e9d7043c4e5c5c582d3bb",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 437208
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/097.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050538_T_BOUKENNORANTAN.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2081,13 +2324,21 @@
       "name": "Pokémon Catcher",
       "setCode": "TMPDELTAREIGN",
       "number": "098/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/098.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050539_T_POKEMONKIXYATCHIXYA.jpg",
+        "sha256": "c7b3f2c8c38a05c58945633b5a6b0b8e148d5829451dc0e87bf927a23e8a53eb",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 423650
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/098.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050539_T_POKEMONKIXYATCHIXYA.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2097,13 +2348,21 @@
       "name": "Custom Vest",
       "setCode": "TMPDELTAREIGN",
       "number": "099/076",
-      "status": "missing",
-      "asset": null,
+      "status": "needs-visual-review",
+      "asset": {
+        "path": "images/099.jpg",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050540_T_TOKUCHIXYUUCHIXYOKKI.jpg",
+        "sha256": "b54618fb9a13682a55394ebb1ee4826ebcb349874de50ce43f5b383a319ed475",
+        "mime": "image/jpeg",
+        "ext": "jpg",
+        "width": 868,
+        "height": 1212,
+        "bytes": 453237
+      },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/099.jpg",
-          "status": "failed",
-          "error": "HTTP 404"
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050540_T_TOKUCHIXYUUCHIXYOKKI.jpg",
+          "status": "staged"
         }
       ]
     },
@@ -2116,17 +2375,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/100.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/100.jpg",
-        "sha256": "5faf5eaf68f055a20c4ca49c62c787b16fe1fa461d03ed570e6ae1097ed0c74e",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050541_T_EMUSHINOMORIAGE.jpg",
+        "sha256": "f107d6151c56532762918f80f4a6471f32f7d21cae0735456dd9e26878ba7519",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 226042
+        "width": 868,
+        "height": 1212,
+        "bytes": 391852
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/100.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050541_T_EMUSHINOMORIAGE.jpg",
           "status": "staged"
         }
       ]
@@ -2140,17 +2399,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/101.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/101.jpg",
-        "sha256": "cf1bc4a82abf83afde29d9e4e54ce65b955ab419e4b572d0063d86df89fac0d6",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050542_T_GIRI.jpg",
+        "sha256": "15c188484804b6ec64c8e965df3a764271126db95f1086a0e4381a9007b02a7b",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 220241
+        "width": 868,
+        "height": 1212,
+        "bytes": 412444
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/101.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050542_T_GIRI.jpg",
           "status": "staged"
         }
       ]
@@ -2164,17 +2423,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/102.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/102.jpg",
-        "sha256": "3fc91656a2151768d0dc39b69344f14271d600f29c7a60764c4904cf24939253",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050543_T_HIGANANOSHINRAI.jpg",
+        "sha256": "1bf6c8e9beb592cdcac0ccab6d77e4042d172a93887df94219fad366cb78d106",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 241728
+        "width": 868,
+        "height": 1212,
+        "bytes": 365366
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/102.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050543_T_HIGANANOSHINRAI.jpg",
           "status": "staged"
         }
       ]
@@ -2188,17 +2447,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/103.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/103.jpg",
-        "sha256": "30f5f956813ef230c21fe9e41301d11b37b3108ba6279bd9286c781f88b148d3",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050544_T_FUUTORANNOSHIXYUGIXYOU.jpg",
+        "sha256": "142812e19ac495991400a49d0c36529501f7084ac1180fbec37107c66b5b0cd6",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 230871
+        "width": 868,
+        "height": 1212,
+        "bytes": 390400
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/103.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050544_T_FUUTORANNOSHIXYUGIXYOU.jpg",
           "status": "staged"
         }
       ]
@@ -2284,17 +2543,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/107.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/107.jpg",
-        "sha256": "fc5395c6eb51be22c7e3612583afa0a53879c1f8756fe84be98e68a64e989b1d",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050548_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
+        "sha256": "7fbc105ef45cff5d0ede9974d1d4d4739732279046b3521cd0f17f4950de354e",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 271584
+        "width": 868,
+        "height": 1212,
+        "bytes": 542704
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/107.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050548_P_MGUSOKUMUSHIXYAIEKKUSU.jpg",
           "status": "staged"
         }
       ]
@@ -2308,17 +2567,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/108.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/108.jpg",
-        "sha256": "99804b7e3a95f6342483e75000c2eb0236295e76fe30f16982b7b98f551c1732",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050549_P_RAIKOUIEKKUSU.jpg",
+        "sha256": "85fb59a016790acd28f74b7e9f9cf8b8e7a9f391b3f87ff0dd9fdf6bca2a5ee8",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 262472
+        "width": 868,
+        "height": 1212,
+        "bytes": 455523
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/108.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050549_P_RAIKOUIEKKUSU.jpg",
           "status": "staged"
         }
       ]
@@ -2332,17 +2591,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/109.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/109.jpg",
-        "sha256": "81e706dcd9724b9103112c5263e391c19b5bdb9a83acd669d4d765e8807ad966",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050550_P_MGORUGUIEKKUSU.jpg",
+        "sha256": "427719af8a480ec3f10030546ec1f2c5859538a53c9a4b2efe7141e4ed51965d",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 240338
+        "width": 868,
+        "height": 1212,
+        "bytes": 547682
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/109.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050550_P_MGORUGUIEKKUSU.jpg",
           "status": "staged"
         }
       ]
@@ -2356,17 +2615,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/110.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/110.jpg",
-        "sha256": "b9ce08c5e3e187545c4f561ad5e3af06933d5e68a017bf7b54d9ce5cc0b82b6f",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050551_P_MREKKUUZAIEKKUSU.jpg",
+        "sha256": "c9f4542fecc5a85d577ff800574d5122dd5dfa95f99bdfbcf7b0fa99cf3f06f9",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 350980
+        "width": 868,
+        "height": 1212,
+        "bytes": 695257
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/110.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050551_P_MREKKUUZAIEKKUSU.jpg",
           "status": "staged"
         }
       ]
@@ -2380,17 +2639,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/111.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/111.jpg",
-        "sha256": "3f51805d6b62a991cea1c0deac41a9a74798ba410e3ea790072075c7bbae8485",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050552_T_GIRI.jpg",
+        "sha256": "353f6160d4d0dcd5e49e2e234e2cc4a469661f25e422539332e7f8e56cc2e654",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 265096
+        "width": 868,
+        "height": 1212,
+        "bytes": 460783
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/111.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050552_T_GIRI.jpg",
           "status": "staged"
         }
       ]
@@ -2404,17 +2663,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/112.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/112.jpg",
-        "sha256": "0b57c614886394aa9e26555983c66032a2dba9d766471a287d7feeca02d048af",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050553_T_HIGANANOSHINRAI.jpg",
+        "sha256": "d77646941224dbd7ec69971c518844169bbaf639b35a3cdb6e580795aa0e417b",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 800,
-        "height": 1116,
-        "bytes": 252716
+        "width": 868,
+        "height": 1212,
+        "bytes": 416077
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/112.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050553_T_HIGANANOSHINRAI.jpg",
           "status": "staged"
         }
       ]
@@ -2428,17 +2687,17 @@
       "status": "needs-visual-review",
       "asset": {
         "path": "images/113.jpg",
-        "source": "https://www.serebii.net/card/stormemeralda/113.jpg",
-        "sha256": "85c2a59b61e7b1ed447205ad16d8f2ca05127e6ef76f4fdde36b4723eef6c053",
+        "source": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050554_P_MREKKUUZAIEKKUSU.jpg",
+        "sha256": "dbbdc3b7e64c4a269490ad0c40cc53ec109337f8c8c59a347c5081cfb5e844b0",
         "mime": "image/jpeg",
         "ext": "jpg",
-        "width": 600,
-        "height": 837,
-        "bytes": 408610
+        "width": 868,
+        "height": 1212,
+        "bytes": 661607
       },
       "attempts": [
         {
-          "url": "https://www.serebii.net/card/stormemeralda/113.jpg",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050554_P_MREKKUUZAIEKKUSU.jpg",
           "status": "staged"
         }
       ]
