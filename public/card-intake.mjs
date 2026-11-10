@@ -97,18 +97,22 @@ function renderQueue(){
 }
 function showSelected(){if(selected>=queue.length)selected=queue.length-1;fill(queue[selected]||null);renderQueue()}
 function mergeImported(cards){
-  let added=0,skipped=0;
+  const staged=[];
+  let skipped=0;
+  // Validate the entire incoming batch before changing the browser-local queue.
   for(const c of cards){
     const id=intakeIdentity(c);
-    const existing=queue.some(x=>intakeIdentity(x)===id ||
+    const already=[...queue,...staged].some(x=>intakeIdentity(x)===id ||
       (x.set_code && c.set_code && x.card_number && c.card_number &&
         x.set_code===c.set_code && x.card_number===c.card_number));
-    if(existing){skipped++;continue}
-    if(queue.length>=MAX_INTAKE_CARDS)throw Error('500-candidate queue limit reached. Export/clear older batches.');
-    queue.push(c);added++;
+    if(already){skipped++;continue}
+    if(queue.length+staged.length>=MAX_INTAKE_CARDS)
+      throw Error('500-candidate queue limit reached. Export/clear older batches.');
+    staged.push(c);
   }
-  saveLocal();if(added)selected=queue.length-added;showSelected();
-  return {added,skipped};
+  queue.push(...staged);
+  saveLocal();if(staged.length)selected=queue.length-staged.length;showSelected();
+  return {added:staged.length,skipped};
 }
 // Public GitHub staging branch, not the authoritative Master DB or private tag store.
 // Discovery publishing updates this isolated feed branch; it NEVER changes main.
