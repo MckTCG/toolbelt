@@ -48,6 +48,48 @@ async function load(url){
   return {bytes,image};
  }finally{clearTimeout(timer)}
 }
+
+// Discover official M6 artwork URLs by the *printed card number*, using a
+// catalogue only to discover source addresses. Never infer URLs from names.
+async function discoverM6Official(){
+ const map=new Map(),errors=[];
+ const request=async url=>{
+  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),16000);
+  try{
+   const response=await fetch(url,{signal:ctrl.signal,headers:{'User-Agent':'Mozilla/5.0 (compatible; TCG-Lab-artwork-ingest/1.0)'}});
+   if(!response.ok)throw Error('HTTP '+response.status);
+   return await response.text();
+  }finally{clearTimeout(timer)}
+ };
+ try{
+  const index=await request('https://dexli.st/sets/japan/m6');
+  const paths=[...new Set([...index.matchAll(/\/cards\/ja\/japan-\d+/g)].map(x=>x[0]))];
+  if(paths.length<90)errors.push('Index yielded only '+paths.length+' card links');
+  let nextPage=0;
+  async function lookup(){
+   while(nextPage<paths.length){
+    const href=paths[nextPage++];
+    try{
+     const page=await request('https://dexli.st'+href);
+     const heading=(page.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]||page.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'').replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ');
+     const number=heading.match(/\b(\d{3})\s*\/\s*76\b/);
+     const raw=page.match(/www\.pokemon-card\.com(?:%2F|\/)assets(?:%2F|\/)images(?:%2F|\/)card_images(?:%2F|\/)large(?:%2F|\/)M6(?:%2F|\/)[A-Za-z0-9_%.-]+\.jpg/i);
+     if(!number||!raw)continue;
+     const official='https://'+decodeURIComponent(raw[0]);
+     const n=Number(number[1]);
+     if(n>=1&&n<=113&&/^https:\/\/www\.pokemon-card\.com\/assets\/images\/card_images\/large\/M6\/\d+_[PT]_[a-z0-9_.-]+\.jpg$/i.test(official)){
+      if(!map.has(n))map.set(n,official);
+     }
+    }catch(e){errors.push(href+' '+String(e.message).slice(0,75))}
+   }
+  }
+  await Promise.all(Array.from({length:6},()=>lookup()));
+ }catch(e){errors.push('Index: '+String(e.message).slice(0,160))}
+ return {map,errors};
+}
+const discovery=await discoverM6Official();
+console.log('Number-matched official URL candidates: '+discovery.map.size+'/113; lookup errors: '+discovery.errors.length);
+
 const rows=new Array(seed.cards.length);
 let next=0;
 async function worker(){
@@ -55,7 +97,7 @@ async function worker(){
  const i=next++,card=seed.cards[i];
  const number=String(i+1).padStart(3,'0');
  if(!card.id.endsWith(number)||Number(card.number.split('/')[0])!==i+1)throw Error('Seed order mismatch at '+number);
- const candidates=[...new Set([card.image,card.imageJP].filter(Boolean))];
+ const candidates=[...new Set([discovery.map.get(i+1),card.imageJP,card.image].filter(Boolean))];
  let selected=null;const attempts=[];
  for(const url of candidates){
   try{
@@ -72,7 +114,7 @@ async function worker(){
  }
 }
 await Promise.all(Array.from({length:8},()=>worker()));
-const manifest={schema:'tcg-lab-card-art-staging-v1',generatedAt:new Date().toISOString(),setCode:seed.set.code,verifiedCount:0,stagedCount:rows.filter(r=>r.asset).length,missingCount:rows.filter(r=>!r.asset).length,rows};
+const manifest={schema:'tcg-lab-card-art-staging-v1',generatedAt:new Date().toISOString(),setCode:seed.set.code,discoveredOfficial:discovery.map.size,discoveryErrors:discovery.errors.slice(0,40),verifiedCount:0,stagedCount:rows.filter(r=>r.asset).length,missingCount:rows.filter(r=>!r.asset).length,rows};
 await fs.writeFile(path.join(output,'staging-report.json'),JSON.stringify(manifest,null,2));
 const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
 const cards=rows.map(r=>'<article><h3>'+esc(r.number)+' '+esc(r.name)+'</h3>'+(r.asset?'<img loading="lazy" src="'+esc(r.asset.path)+'" alt="'+esc(r.name)+'">':'<p>MISSING</p>')+'<p>'+esc(r.status)+'</p><small>'+esc(r.asset?.source||r.attempts.map(a=>a.error).join(' | '))+'</small></article>').join('');
