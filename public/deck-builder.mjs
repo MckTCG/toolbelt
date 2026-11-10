@@ -22,9 +22,9 @@ document.addEventListener('error',e=>{if(e.target.tagName==='IMG')advanceImage(e
 function tempEntity(r){return {entity_id:r.id,name:r.name,card_type:r.category,stage:r.stage||'',pokemon_types:r.pokemonType||'',hp:r.hp||'',evolves_from:r.evolvesFrom||'',combined_text:r.textEN||'',temp:true,tempStatus:r.status,printings:[{printing_id:r.id+':printing',set_code:r.setCode,card_number:r.number||'?',image_url:localArtworkFor(localArt,r.id+':printing')||r.image||'',rarity:'Provisional'}]}}
 function tags(c){return (dbStore.tags?.[c.entity_id]||[]).filter(t=>t.status==='approved')}
 function integrateCatalog(){
- dbStore=readJSON(DB_KEY,{});const tempCards=(Array.isArray(dbStore.tempCards)?dbStore.tempCards:[]).filter(r=>r&&typeof r.id==='string'&&typeof r.name==='string'&&Array.isArray(dbStore.tempSets)&&dbStore.tempSets.some(s=>s.code===r.setCode)).map(tempEntity);
+ dbStore=readJSON(DB_KEY,{});const tempCards=(Array.isArray(dbStore.tempCards)?dbStore.tempCards:[]).filter(r=>r&&r.setCode!=='TMPDELTAREIGN'&&typeof r.id==='string'&&typeof r.name==='string'&&Array.isArray(dbStore.tempSets)&&dbStore.tempSets.some(s=>s.code===r.setCode)).map(tempEntity);
  cards=[...standard.entities.map(c=>({...c,printings:c.printings.map(p=>({...p,image_url:localArtworkFor(localArt,p.printing_id)||p.image_url,image_fallbacks:imageFallbacks(p)}))})),...tempCards];cardMap=new Map(cards.map(c=>[c.entity_id,c]));
- sets=[...standard.sets.map(s=>({code:s.set_code,name:s.name})),...(dbStore.tempSets||[]).map(s=>({code:s.code,name:'TEMP — '+s.name}))];
+ sets=[...standard.sets.map(s=>({code:s.set_code,name:s.name})),...(dbStore.tempSets||[]).filter(s=>s.code!=='TMPDELTAREIGN').map(s=>({code:s.code,name:'TEMP — '+s.name}))];
  const setVal=$('setFilter').value,typeVal=$('typeFilter').value,tagVal=$('tagFilter').value;
  $('setFilter').innerHTML='<option value="">All Standard + TEMP</option>'+sets.map(s=>`<option value="${esc(s.code)}">${esc(s.name)} (${esc(s.code)})</option>`).join('');if(sets.some(s=>s.code===setVal))$('setFilter').value=setVal;
  const types=[...new Set(cards.flatMap(c=>String(c.pokemon_types||'').split(/[|,]/).map(x=>x.trim()).filter(Boolean)))].sort();$('typeFilter').innerHTML='<option value="">All types</option>'+types.map(t=>`<option>${esc(t)}</option>`).join('');if(types.includes(typeVal))$('typeFilter').value=typeVal;

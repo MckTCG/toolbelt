@@ -1,11 +1,14 @@
-# Delta Reign (English DLR) — import pending
+# Delta Reign English master catalogue — completed
 
-Status: **not imported**. This document replaces the former M6/Storm Emeralda TEMP migration.
+**Status:** 141 English DLR numbered printings imported into the existing master Card DB, represented by 107 grouped gameplay records, with all 141 English artwork files hosted locally by Toolbelt.
 
-- Destination: existing master Card DB, with shared printing IDs for Deck Builder and Proxy Workshop.
-- Reference hierarchy: Limitless TCG (English checklist, printings, text, images), official Pokémon sources (validation), independent checklists (reconciliation).
-- Before importing, confirm actual published English card count, set codes, card numbers, variants, gameplay text and image permissions from the sources. Do not assume the Japanese M6 numbering matches English DLR.
-- Avoid duplicate gameplay entities when multiple printings share identical gameplay text.
-- Local image hosting may be added after exact-printing verification and permission review; missing artwork must not hide card records.
-- Existing browser-local TEMP records and decks must be preserved until a separate migration is reviewed.
-- No English DLR card data or artwork has been added by this cleanup.
+- Set code DLR; release date 2026-11-06.
+- Data: Limitless English card printing pages, with number, effect, stage/evolution, rarity, and image identity checked during extraction.
+- Original Standard catalogue: 2,036 entities preserved; added 107 entities, now 2,143.
+- Art: public/assets/card-art/DLR/001.png through 141.png, with hashes and printing IDs in public/data/card-art-manifest.json.
+- Integration: Card DB explorer and Deck Builder prefer same-origin image files. No new independent database, no TEMP seed.
+- The obsolete Japanese M6 set code TMPDELTAREIGN is hidden from the active local browser, but existing browser-local TEMP backups, tags and saved decks are preserved.
+- Independent QA: docs/dlr-master-import-audit.json.
+- Remaining verification: live Cloudflare Worker and end-to-end print-to-PDF on browsers; these are not claimed as executed.
+
+This file retains its earlier path for continuity; the import is no longer pending.

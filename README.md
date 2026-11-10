@@ -107,11 +107,13 @@ For physical printing, confirm the shop's printable area and print at 100%/actua
 Phase 1 intentionally uses the browser's print dialog rather than bundling PDF-generation libraries. Card-DB/decklist import and card-type filters remain deferred.
 
 
-## Delta Reign (English DLR) — pending master catalogue import
+## Delta Reign (English DLR) — master catalogue integrated (November 2026)
 
-The earlier Japanese M6 / Storm Emeralda provisional seed, browser importer, artwork audit, and hosted M6 image files have been removed from the active Toolbelt source. **No English DLR records have been imported yet.**
+English **Delta Reign (DLR)**, released 6 November 2026, is now an ordinary set inside the existing master Card DB: **141 numbered printings** grouped into **107 gameplay entities**; **all 141 English card scans** are committed under `public/assets/card-art/DLR/` and indexed by unique printing ID in `public/data/card-art-manifest.json`.
 
-Planned source hierarchy: Limitless TCG for English printing IDs, set numbering, card text and artwork; official Pokémon TCG publications for validation; independent set checklists for reconciliation. Verify sources, licensing and images before bundling. Integrate the published English DLR set into the existing master Card DB, not a new TEMP seed or separate catalogue.
-
-Preserve unrelated browser-local TEMP records, tags, and saved decks. Historical M6 records already imported into a user's browser may still exist in its local storage and require a separate, reviewed migration/removal; this repository cleanup does not silently delete them.
+- Source: [Limitless DLR](https://limitlesstcg.com/cards/DLR), individually reconciled by card number, gameplay text, rarity and image filename. Official Pokémon release information confirms the set. See `docs/dlr-master-import-audit.json` for the programmatic QA report.
+- The preexisting **2,036 catalogue entities were preserved**. Card DB and Deck Builder prefer locally hosted artwork; source URLs remain in printing metadata for provenance/fallback.
+- The old provisional Japanese M6 import, seed and hosted files have been removed from the repository. On browsers where M6 TEMP records were previously imported, set code `TMPDELTAREIGN` is **archived from active browsing** without deleting any local data, tags or saved deck references. Backups still include those records.
+- English DLR entries do **not** require the user to visit an importer or write to browser localStorage; the published set is part of the master catalogue for every visitor after deployment.
+- Source extraction and basic structure/asset checks passed. End-to-end browser-level printing and live Cloudflare deployment remain separate verification steps. Proxy Workshop Phase 2 remains unchanged.
 
