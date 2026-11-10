@@ -1,0 +1,32 @@
+name: Tagger Master DB and Delta Reign integration QA
+on:
+  pull_request:
+    paths:
+      - public/_headers
+      - public/card-db.html
+      - public/data/card-art-manifest.json
+      - public/assets/card-art/DLR/**
+      - scripts/test-tagger-master-access.mjs
+      - .github/workflows/tagger-master-sync-qa.yml
+  push:
+    branches: [main]
+    paths:
+      - public/_headers
+      - public/card-db.html
+      - public/data/card-art-manifest.json
+      - public/assets/card-art/DLR/**
+      - scripts/test-tagger-master-access.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-master-for-tagger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/test-tagger-master-access.mjs
+      - run: node scripts/test-tagger-master-access.mjs
