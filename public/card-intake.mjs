@@ -23,7 +23,6 @@ function download(filename,object){
 function getElement(name){return form.elements.namedItem(name)}
 function collect(){
   const raw={...queue[selected]};
-  for(const [key,element]of Array.from(form.elements).filter(([k,v])=>false)){} // no-op; explicit fields below
   const keys=[
     'source_url','name','category','language','set_code','set_name','card_number','stage','pokemon_types','hp',
     'evolves_from','weakness','resistance','retreat_cost','regulation_mark','release_date','rarity','image_url',
