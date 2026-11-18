@@ -2,7 +2,7 @@ name: Build Flowing Fists Phase 2 provisional proxies (one time)
 on:
   push:
     branches: [feature/flowing-fists-leaks-phase2-20261118]
-    paths: [.github/workflows/flowing-fists-phase2-build-once.yml]
+    paths: [.github/workflows/flowing-fists-phase2-build-once.yml, scripts/build-flowing-fists-phase2.py]
 permissions:
   contents: write
 jobs:
