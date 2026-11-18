@@ -1,0 +1,38 @@
+[
+  {
+    "name": "reddit-ninetales-photo.jpg",
+    "source_url": "https://i.redd.it/vleyi8dez72i1.jpeg",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "4d868299f187f88ba28206162a5515d90164a86eff2b5b8159e84f48897d6eae",
+    "bytes": 278001,
+    "role": "source image; not automatically print approved"
+  },
+  {
+    "name": "kantopost-ninetales.jpg",
+    "source_url": "https://www.kantopost.com/content/images/2026/11/pokemon-cards-flowing-fists-leak.jpeg",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "49b220feb5d700aef3ffcb6948ae453023bcea39e98eb39963593e93021fe37a",
+    "bytes": 210676,
+    "role": "source image; not automatically print approved"
+  },
+  {
+    "name": "darkdex-three-card.jpg",
+    "source_url": "https://media.darkdex.app/blog/mega-lucario-garchomp-z-leak-40a51bf714-1000x470.webp",
+    "width": 1000,
+    "height": 470,
+    "sha256": "4fafcf17a7f8a51ed3b43b24ad02f90c4a4fecfda82c2e259c78566fef9b265b",
+    "bytes": 93035,
+    "role": "source image; not automatically print approved"
+  },
+  {
+    "name": "darkdex-blastoise.jpg",
+    "source_url": "https://media.darkdex.app/blog/blastoise-083-leak-16c340c2f8-1000x470.webp",
+    "width": 1000,
+    "height": 470,
+    "sha256": "9421fdd3df3cf60b692537a9782c8b02d23877375a7b9b2c77fd1f47a82338e7",
+    "bytes": 55691,
+    "role": "source image; not automatically print approved"
+  }
+]

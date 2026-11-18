@@ -1,0 +1,115 @@
+{
+  "schema": "tcg-lab-flowing-fists-proxy-images-v1",
+  "artwork_status": "unconfirmed leaked card photographs; test proxy only",
+  "output_size": [
+    744,
+    1040
+  ],
+  "source_note": "Individual card crops, not official scans. Raster resizing adds no image detail.",
+  "cards": [
+    {
+      "name": "Mega Lucario Z ex",
+      "set_code": "FLO",
+      "number": "111",
+      "file": "cards/mega-lucario-z-ex-111.jpg",
+      "sha256": "f2e18242f17f889e2a75838dd8e0926022de4474839b7591ae4b2f179d15c2fc",
+      "size_bytes": 221329,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        303,
+        426
+      ],
+      "source_file": "source-audit/darkdex-three-card.jpg",
+      "source_image_url": "https://media.darkdex.app/blog/mega-lucario-garchomp-z-leak-40a51bf714-1000x470.webp",
+      "crop_rectangle": [
+        177,
+        20,
+        480,
+        446
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "readable-photo; visibly blurry; not a production scan"
+    },
+    {
+      "name": "Mega Garchomp Z ex",
+      "set_code": "FLO",
+      "number": "112",
+      "file": "cards/mega-garchomp-z-ex-112.jpg",
+      "sha256": "4181c99e3bcf961bff88554c053943f5a071b632d2feadd6cd4c38f4fb8c3055",
+      "size_bytes": 208513,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        303,
+        426
+      ],
+      "source_file": "source-audit/darkdex-three-card.jpg",
+      "source_image_url": "https://media.darkdex.app/blog/mega-lucario-garchomp-z-leak-40a51bf714-1000x470.webp",
+      "crop_rectangle": [
+        525,
+        20,
+        828,
+        446
+      ],
+      "status": "unconfirmed-leak; number provisional",
+      "print_quality": "readable-photo; visibly blurry; not a production scan"
+    },
+    {
+      "name": "Blastoise",
+      "set_code": "FLO",
+      "number": "083",
+      "file": "cards/blastoise-083.jpg",
+      "sha256": "4b9531a00ad1c78bbbe58761f0941673f25810dc3ab5069723c822a3338c5038",
+      "size_bytes": 227978,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        302,
+        426
+      ],
+      "source_file": "source-audit/darkdex-blastoise.jpg",
+      "source_image_url": "https://media.darkdex.app/blog/blastoise-083-leak-16c340c2f8-1000x470.webp",
+      "crop_rectangle": [
+        348,
+        20,
+        650,
+        446
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "readable-photo; visibly blurry; not a production scan"
+    },
+    {
+      "name": "Ninetales",
+      "set_code": "FLO",
+      "number": "082",
+      "file": "cards/ninetales-082.jpg",
+      "sha256": "cf36c952026a5f206db98fd3ac9e31bcf92d9be74c346209cf3a70f546b80585",
+      "size_bytes": 277560,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        729,
+        1018
+      ],
+      "source_file": "source-audit/kantopost-ninetales.jpg",
+      "source_image_url": "https://www.kantopost.com/content/images/2026/11/pokemon-cards-flowing-fists-leak.jpeg",
+      "crop_rectangle": [
+        603,
+        29,
+        1332,
+        1047
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "readable-photo; visibly blurry; not a production scan"
+    }
+  ]
+}
