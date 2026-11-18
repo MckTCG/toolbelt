@@ -1,0 +1,83 @@
+name: Verify live Flowing Fists Phase 2 (one-time)
+on:
+  push:
+    branches: [qa/flowing-fists-phase2-live-20261118]
+    paths: [.github/workflows/flowing-fists-phase2-live-once.yml]
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Check production central catalogue and images
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const root='https://mute-dust-0d50.forcoin99.workers.dev/';
+          let done=false;
+          for(let attempt=1;attempt<=18;attempt++){
+            try{
+              const response=await fetch(root+'data/temp-catalog-v1.json',{cache:'no-store',signal:AbortSignal.timeout(18000)});
+              assert(response.ok,'Central TEMP HTTP '+response.status);
+              const cat=await response.json(),cards=cat.cards.filter(x=>x.setCode==='TMPFLO');
+              assert.equal(cards.length,18,'Central TEMP not updated yet: '+cards.length);
+              const files=[
+                'hawlucha-ir-087.jpg','mega-lucario-z-ex-ur-097.jpg',
+                'regigigas-ir-091.jpg','korrinas-seriousness-sir-113.jpg',
+                'mega-absol-z-ex-sir-110.jpg','mega-glimmora-ex-055.jpg'
+              ];
+              for(const file of files){
+                const r=await fetch(root+'assets/flowing-fists-leaks/cards/'+file,{cache:'no-store',signal:AbortSignal.timeout(18000)});
+                assert(r.ok,'Photo HTTP '+r.status+' '+file);
+                assert((r.headers.get('content-type')||'').includes('image'),'Wrong MIME '+file);
+                const bytes=await r.arrayBuffer();assert(bytes.byteLength>12000,'Incomplete photo '+file);
+                console.log('PASS PHOTO',file,bytes.byteLength);
+              }
+              const intake=await fetch(root+'card-intake.html',{cache:'no-store',signal:AbortSignal.timeout(18000)});
+              assert((await intake.text()).includes('Load Flowing Fists leaks (27)'),'Card Intake not updated');
+              console.log('PASS LIVE HTTP: 18 Flowing Fists printings, audited image files and 27-card intake.');
+              done=true;break;
+            }catch(error){
+              console.log('Check '+attempt+': '+error.message);
+              if(attempt<18)await new Promise(ok=>setTimeout(ok,8000));
+            }
+          }
+          assert(done,'Production deploy cannot be confirmed');
+          JS
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Verify deployed Proxy Workshop
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const page=await browser.newPage({viewport:{width:1200,height:860}});
+          const errors=[];page.on('pageerror',e=>errors.push(e.message));
+          try{
+            const root='https://mute-dust-0d50.forcoin99.workers.dev/';
+            await page.goto(root+'proxy-workshop.html',{waitUntil:'domcontentloaded',timeout:45000});
+            await page.locator('#openImporter').click();
+            await page.waitForFunction(()=>document.querySelector('#proxyImportStatus')?.textContent.includes('ready'),{timeout:40000});
+            await page.locator('#piSet').selectOption('TMPFLO');
+            assert((await page.locator('#piResultCount').textContent()).includes('18 matching gameplay cards'));
+            await page.locator('#piSearch').fill('087');
+            const tile=page.locator('.pi-card').first();
+            await tile.locator('img').first().evaluate(img=>new Promise((ok,fail)=>{
+              if(img.complete&&img.naturalWidth)return ok();
+              img.addEventListener('load',ok,{once:true});img.addEventListener('error',fail,{once:true});
+            }));
+            assert.equal(await tile.locator('img').first().evaluate(img=>img.naturalWidth),744);
+            await tile.locator('[data-quick-qty="4"]').click();
+            await page.waitForFunction(()=>document.querySelector('#proxyImportStatus')?.textContent.includes('Added 4'),{timeout:12000});
+            await page.locator('#paperSize').selectOption('letter');
+            const d=await page.evaluate(()=>window.__proxyDiagnostics());
+            assert.equal(d.cards,4);assert.equal(d.pages,1);assert.equal(d.capacity,9);
+            assert.deepEqual(errors,[]);
+            console.log('PASS LIVE CHROMIUM: Hawlucha proxy loads, queues 4 and fits one Letter page.');
+          }finally{await browser.close()}
+          JS
