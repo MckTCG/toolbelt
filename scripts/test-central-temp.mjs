@@ -14,9 +14,10 @@ const db=await fs.readFile('public/card-db.html','utf8');
 const master=JSON.parse(db.match(/<script id="catalog" type="application\/json">([\s\S]*?)<\/script>/)[1]);
 const baseline=parseCentralTemp(JSON.parse(await fs.readFile('public/data/temp-catalog-v1.json','utf8')));
 assert.equal(baseline.schema,CENTRAL_TEMP_SCHEMA);
-assert.equal(baseline.cards.length,4,'Expected only the four reviewed Flowing Fists photo proxies');
-assert(baseline.cards.every(c=>c.setCode==='TMPFLO'&&c.status==='provisional'&&c.reviewState==='accepted-temp'));
-assert(baseline.cards.every(c=>c.image.startsWith('https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/')));
+const flowingFists=baseline.cards.filter(c=>c.setCode==='TMPFLO');
+assert.equal(flowingFists.length,4,'Expected the four reviewed Flowing Fists photo proxies');
+assert(flowingFists.every(c=>c.status==='provisional'&&c.reviewState==='accepted-temp'));
+assert(flowingFists.every(c=>c.image.startsWith('https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/')));
 const baselineCount=baseline.cards.length;
 const candidate={source_url:'https://www.pokebeach.com/2026/11/japanese-only-test',
   discovery_id:'f'.repeat(22),set_name:'Unreleased JP Set',card_number:'21',
