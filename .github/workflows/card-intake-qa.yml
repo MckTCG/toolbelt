@@ -1,7 +1,7 @@
 name: Master Card DB Intake v1 QA
 on:
   push:
-    branches: [feature/card-db-intake-v1, feature/card-intake-bulk-temp-20261110]
+    branches: [feature/card-db-intake-v1, feature/card-intake-bulk-temp-20261110, feature/flowing-fists-leak-intake-20261118]
     paths:
       - public/card-intake*.mjs
       - public/card-intake.html
@@ -67,6 +67,7 @@ jobs:
       - run: node scripts/test-card-intake-loupe-browser.mjs
       - run: node scripts/test-temp-intake-browser.mjs
       - run: node scripts/test-temp-intake-bulk-browser.mjs
+      - run: node scripts/test-flowing-fists-intake.mjs
       - run: node scripts/test-central-temp-browser.mjs
       - name: Capture desktop and mobile loupe previews
         uses: actions/upload-artifact@v4
