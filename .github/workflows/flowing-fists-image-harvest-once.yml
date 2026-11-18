@@ -1,0 +1,88 @@
+name: Flowing Fists proxy image harvest (branch only)
+on:
+  push:
+    branches: [feature/flowing-fists-leak-intake-20261118]
+    paths: [.github/workflows/flowing-fists-image-harvest-once.yml]
+permissions: {contents: write}
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: true}
+      - run: python -m pip install -q requests beautifulsoup4 pillow
+      - name: Fetch Reddit originals, article images and report metadata
+        run: |
+          python - <<'PY'
+          import requests, pathlib, json, io, hashlib, re, html
+          from PIL import Image, ImageOps
+          root=pathlib.Path('public/assets/flowing-fists-leaks/source-audit')
+          root.mkdir(parents=True,exist_ok=True)
+          session=requests.Session()
+          session.headers.update({'User-Agent':'Mozilla/5.0 (compatible; TCG-Lab-ArtifactAudit/1.0)'})
+          seeds=[
+            ('reddit-ninetales-photo','https://i.redd.it/vleyi8dez72i1.jpeg'),
+            ('reddit-six-card-collage','https://i.redd.it/t1xwc0hlj72i1.png'),
+            ('kantopost-ninetales','https://www.kantopost.com/content/images/2026/11/pokemon-cards-flowing-fists-leak.jpeg'),
+            ('darkdex-three-card','https://media.darkdex.app/blog/mega-lucario-garchomp-z-leak-40a51bf714-1000x470.webp'),
+            ('darkdex-blastoise','https://media.darkdex.app/blog/blastoise-083-leak-16c340c2f8-1000x470.webp')
+          ]
+          posts=[
+          'https://www.reddit.com/r/PokemonTCG/comments/1xysvit/more_flowing_fists_leaks/',
+          'https://www.reddit.com/r/PokemonTCG/comments/1xz9fgy/flowing_fists_leaked_cards_so_far/',
+          'https://www.reddit.com/r/PokeInvesting/comments/1xz307a/leaked_cards_from_flowing_fists/',
+          'https://www.reddit.com/r/PokeCollectors/comments/1xy3594/mega_lucario_z_ex_from_flowing_fists_leaked/',
+          'https://www.reddit.com/r/PokemonTCGCollectors/comments/1xy2b3h/leaked_video_of_upcoming_flowing_fists_set_with/'
+          ]
+          for i,url in enumerate(posts):
+            try:
+              req=session.get(url+'.json?raw_json=1',timeout=15)
+              print('POST JSON',req.status_code,len(req.content),url,flush=True)
+              if req.status_code==200 and 'json' in req.headers.get('Content-Type',''):
+                data=req.json()[0]['data']['children'][0]['data']
+                for j,item in enumerate(data.get('media_metadata',{}).items()):
+                  code,entry=item
+                  u=html.unescape(entry.get('s',{}).get('u',''))
+                  if u.startswith('https://i.redd.it/') or u.startswith('https://preview.redd.it/'):
+                    seeds.append((f'post{i}-gallery{j}',u))
+                for key in ('url_overridden_by_dest','url'):
+                  u=data.get(key,'')
+                  if u.startswith('https://i.redd.it/') or u.startswith('https://preview.redd.it/'):
+                    seeds.append((f'post{i}-{key}',u))
+            except Exception as exc:print('POST ERROR',str(exc)[:200],flush=True)
+          seen=set();records=[]
+          for label,url in seeds:
+            if url in seen:continue
+            seen.add(url)
+            try:
+              r=session.get(url,timeout=20)
+              print('FETCH',label,'status=',r.status_code,'bytes=',len(r.content),'mime=',r.headers.get('Content-Type'),flush=True)
+              if r.status_code!=200 or len(r.content)>9_000_000:continue
+              img=Image.open(io.BytesIO(r.content))
+              img=ImageOps.exif_transpose(img)
+              print('IMAGE',label,img.size,img.format,flush=True)
+              if img.width<280 or img.height<350:continue
+              fmt='PNG' if img.mode=='RGBA' else 'JPEG'
+              ext='png' if fmt=='PNG' else 'jpg'
+              name=f'{label}.{ext}'
+              path=root/name
+              if fmt=='JPEG':img.convert('RGB').save(path,format='JPEG',quality=88,optimize=True)
+              else:img.save(path,format='PNG',optimize=True)
+              records.append({'name':name,'source_url':url,'width':img.width,'height':img.height,
+                              'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                              'bytes':path.stat().st_size,'role':'source image; not automatically print approved'})
+            except Exception as exc:print('FETCH ERROR',label,str(exc)[:200],flush=True)
+          (root/'audit.json').write_text(json.dumps(records,indent=2)+'\n')
+          print('HARVESTED',len(records),'IMAGES',flush=True)
+          for row in records:print('HARVEST',row['name'],row['width'],row['height'],row['bytes'],row['source_url'],flush=True)
+          PY
+      - name: Commit source snapshots only to development branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/assets/flowing-fists-leaks/source-audit/
+          if ! git diff --staged --quiet; then
+            git commit -m 'Audit and retain original readable Flowing Fists image sources'
+            git push origin HEAD:refs/heads/feature/flowing-fists-leak-intake-20261118
+          fi
