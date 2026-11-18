@@ -46,8 +46,8 @@ try{
  }
  assert.equal(await builder.locator('#deckList [data-print-row]').count(),3);
  const raw=await builder.evaluate(()=>JSON.parse(localStorage.getItem('tcg-lab-deck-builder-draft-v1')));
- assert.equal(raw.rows.length,3);
- assert.equal(new Set(raw.rows.map(x=>x.printingId)).size,3);
+ assert.equal(raw.deck.rows.length,3);
+ assert.equal(new Set(raw.deck.rows.map(x=>x.printingId)).size,3);
  const ready=builder.waitForEvent('download',{timeout:10000});
  await builder.locator('#exportJSON').click();
  const download=await ready;
