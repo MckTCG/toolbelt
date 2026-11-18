@@ -16,7 +16,7 @@ jobs:
           python - <<'PY'
           from PIL import Image, ImageOps, ImageEnhance
           import io,base64,pathlib
-          root=pathlib.Path('public/assets/flowing-fists-leaks/source-audit')
+          root=pathlib.Path('public/assets/flowing-fists-leaks/cards')
           for path in root.glob('*.jpg'):
             im=Image.open(path);im=ImageOps.exif_transpose(im);im.thumbnail((540,900))
             b=io.BytesIO();im.convert('RGB').save(b,format='JPEG',quality=45,optimize=True)
