@@ -15,7 +15,7 @@ const master=JSON.parse(db.match(/<script id="catalog" type="application\/json">
 const baseline=parseCentralTemp(JSON.parse(await fs.readFile('public/data/temp-catalog-v1.json','utf8')));
 assert.equal(baseline.schema,CENTRAL_TEMP_SCHEMA);
 const flowingFists=baseline.cards.filter(c=>c.setCode==='TMPFLO');
-assert.equal(flowingFists.length,4,'Expected the four reviewed Flowing Fists photo proxies');
+assert.equal(flowingFists.length,18,'Expected four original plus fourteen Phase 2 photo proxies');
 assert(flowingFists.every(c=>c.status==='provisional'&&c.reviewState==='accepted-temp'));
 assert(flowingFists.every(c=>c.image.startsWith('https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/')));
 const baselineCount=baseline.cards.length;
