@@ -1,0 +1,40 @@
+name: Flowing Fists artwork source audit
+on:
+  push:
+    branches: [feature/flowing-fists-leak-intake-20261118]
+    paths: [.github/workflows/flowing-fists-art-audit.yml]
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect article-linked image candidates (no unverified imports)
+        run: |
+          python -m pip -q install requests beautifulsoup4 pillow
+          python - <<'PY'
+          import requests,bs4,io,json
+          from PIL import Image
+          data=json.load(open('public/data/flowing-fists-leak-intake-20261118.json'))
+          urls=list(dict.fromkeys(x['source_url'] for x in data['cards']))
+          for url in urls:
+            print('ARTICLE',url,flush=True)
+            try:
+              r=requests.get(url,timeout=20,headers={'User-Agent':'Mozilla/5.0'})
+              print('HTTP',r.status_code,'BYTES',len(r.content),flush=True)
+              soup=bs4.BeautifulSoup(r.text,'html.parser')
+              links=[]
+              for img in soup.find_all('img'):
+                src=img.get('src') or img.get('data-src')
+                if src and src.startswith('http'):links.append((src,img.get('alt','')))
+              for x in soup.select('meta[property="og:image"]'):
+                src=x.get('content')
+                if src and src.startswith('http'):links.append((src,'OG IMAGE'))
+              for src,alt in list(dict.fromkeys(links))[:25]:
+                try:
+                  pic=requests.get(src,timeout=12,headers={'User-Agent':'Mozilla/5.0'})
+                  im=Image.open(io.BytesIO(pic.content))
+                  print('IMAGE',im.size,im.format,src[:350],'ALT',alt[:110],flush=True)
+                except Exception as e:print('IMAGE UNREADABLE',src[:200],str(e)[:100],flush=True)
+            except Exception as e:print('ARTICLE ERROR',str(e)[:180],flush=True)
+          PY
