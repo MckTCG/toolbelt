@@ -31,7 +31,7 @@ SPEC=[
  # name, no, suffix, source, [left, top, right, bottom], type, stage, HP, rarity, language
  ("Hawlucha","087","hawlucha-ir-087","pika-hawlucha-ir",(3,3,731,1014),"Fighting","Basic","80","Illustration Rare","en"),
  ("Mega Lucario Z ex","097","mega-lucario-z-ex-ur-097","pika-lucario-ur",(6,6,729,1024),"Metal","Stage 1","330","Ultra Rare","en"),
- ("Regigigas","091","regigigas-ir-091","reddit-six-card-sheet",(46,621,420,1139),"Colorless","Basic","160","Illustration Rare","en"),
+ ("Regigigas","091","regigigas-ir-091","reddit-six-card-sheet",(46,621,420,1167),"Colorless","Basic","160","Illustration Rare","en"),
  ("Mega Absol Z ex","094","mega-absol-z-ex-ur-094","reddit-wide-gallery",(11,726,198,988),"Psychic","Basic","270","Ultra Rare","en"),
  ("Mega Absol Z ex","110","mega-absol-z-ex-sir-110","reddit-wide-gallery",(626,727,815,990),"Psychic","Basic","270","Special Illustration Rare","en"),
  ("Korrina's Seriousness","103","korrinas-seriousness-ur-103","reddit-wide-gallery",(423,729,613,992),"","Trainer","", "Ultra Rare","en"),
