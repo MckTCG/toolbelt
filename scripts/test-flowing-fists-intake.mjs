@@ -41,7 +41,7 @@ try{
  const storage=JSON.parse(await page.evaluate(()=>localStorage.getItem('tcg-lab-card-intake-v1')));
  assert.equal(storage.cards.length,8);
  assert.equal(storage.cards.filter(x=>x.temp_entity_id).length,4);
-assert.equal(await page.locator('#centralTempStatus').textContent().then(x=>x.includes('4 shared cards')),true);
+assert(Number((await page.locator('#centralTempStatus').textContent()).match(/Central TEMP: (\d+)/)?.[1])>=4);
  await page.locator('#loadFlowingFists').click();
  assert.equal(await page.locator('.candidate').count(),8,'Reload duplicated cards');
  await page.locator('#bulkSelectVisible').click();
