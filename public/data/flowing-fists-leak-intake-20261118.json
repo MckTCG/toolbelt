@@ -1,12 +1,12 @@
 {
   "schema": "tcg-lab-card-intake-v1",
   "exported_at": "2026-11-18T00:00:00Z",
-  "batch_status": "source-reported-unverified",
+  "batch_status": "eight source-reported provisional cards; four have readable cropped images, four remain without verified per-card image",
   "source_note": "Seven distinct source-reported Flowing Fists printings; no card art files independently verified. Source articles are not card image assets.",
   "cards": [
     {
       "discovery_id": "0000000000000000000001",
-      "source_url": "https://blog.pokepursuittcg.com/articles/flowing-fists-leaks/",
+      "source_url": "https://darkdex.app/blog/flowing-fists-leak-mega-lucario-z-garchomp-z-secret-rares",
       "source_kind": "article-or-other",
       "source_published_at": "2026-11-17",
       "extraction_method": "manual-source-cross-check",
@@ -22,9 +22,14 @@
       "source_verified": false,
       "artwork_verified": false,
       "translation_status": "",
-      "image_url": "",
-      "review_note": "Unconfirmed English photo; 111/080 visible in reports. REND illustrator reported. Artwork not locally verified; do not print from article hero image. Distinct artwork printing from 058/080.",
-      "discovered_at": "2026-11-18T00:00:00Z"
+      "image_url": "https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/mega-lucario-z-ex-111.jpg",
+      "review_note": "Unconfirmed leak; 111/080 reported. Image is a readable but low-resolution crop (303×426 native pixels), upscaled without generative enhancement for test proxies; NOT an official scan or tournament-legal image.",
+      "discovered_at": "2026-11-18T00:00:00Z",
+      "temp_entity_id": "temp:reveal:0000000000000000000001",
+      "temp_accepted_at": "2026-11-18T10:00:00Z",
+      "stage": "Stage 1",
+      "pokemon_types": "Metal",
+      "hp": "330"
     },
     {
       "discovery_id": "0000000000000000000002",
@@ -44,13 +49,18 @@
       "source_verified": false,
       "artwork_verified": false,
       "translation_status": "",
-      "image_url": "",
-      "review_note": "Unconfirmed English photo. 112/080 is reported but difficult to read. Do not assert collector number as verified. Distinct artwork from Japanese 067/078.",
-      "discovered_at": "2026-11-18T00:00:00Z"
+      "image_url": "https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/mega-garchomp-z-ex-112.jpg",
+      "review_note": "Unconfirmed leak; number 112/080 is reported but remains provisional. Readable low-resolution crop (303×426 native pixels) for test proxies only; NOT an official scan.",
+      "discovered_at": "2026-11-18T00:00:00Z",
+      "temp_entity_id": "temp:reveal:0000000000000000000002",
+      "temp_accepted_at": "2026-11-18T10:00:00Z",
+      "stage": "Stage 2",
+      "pokemon_types": "Dragon",
+      "hp": "360"
     },
     {
       "discovery_id": "0000000000000000000003",
-      "source_url": "https://blog.pokepursuittcg.com/articles/flowing-fists-leaks/",
+      "source_url": "https://darkdex.app/blog/flowing-fists-leak-mega-lucario-z-garchomp-z-secret-rares",
       "source_kind": "article-or-other",
       "source_published_at": "2026-11-17",
       "extraction_method": "manual-source-cross-check",
@@ -66,9 +76,14 @@
       "source_verified": false,
       "artwork_verified": false,
       "translation_status": "",
-      "image_url": "",
-      "review_note": "Unconfirmed English photo, Nurikabe art reportedly 083/080. Gameplay Gushing Pump matches Japanese Aura Seeker Blastoise 016/078; printing artwork differs. No print-grade asset verified.",
-      "discovered_at": "2026-11-18T00:00:00Z"
+      "image_url": "https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/blastoise-083.jpg",
+      "review_note": "Unconfirmed Blastoise IR 083/080. Readable low-resolution crop (302×426 native pixels) for test proxies; gameplay matches previously revealed Aura Seeker print, but this is different leaked art.",
+      "discovered_at": "2026-11-18T00:00:00Z",
+      "temp_entity_id": "temp:reveal:0000000000000000000003",
+      "temp_accepted_at": "2026-11-18T10:00:00Z",
+      "stage": "Stage 2",
+      "pokemon_types": "Water",
+      "hp": "170"
     },
     {
       "discovery_id": "0000000000000000000004",
@@ -157,6 +172,33 @@
       "image_url": "",
       "review_note": "Reported early English pack-opening footage. Exact number/artwork unverified.",
       "discovered_at": "2026-11-18T00:00:00Z"
+    },
+    {
+      "source_url": "https://www.kantopost.com/pokemon-tcg/flowing-fists-ninetales-leak/",
+      "source_kind": "article-or-other",
+      "source_published_at": "2026-11-18",
+      "extraction_method": "manual-source-verified-cropped-artwork",
+      "extraction_confidence": "provisional",
+      "discovery_id": "0000000000000000000008",
+      "language": "en",
+      "set_code": "FLO",
+      "set_name": "Flowing Fists",
+      "card_number": "082",
+      "name": "Ninetales",
+      "category": "Pokémon",
+      "rarity": "Illustration Rare",
+      "stage": "Stage 1",
+      "pokemon_types": "Fire",
+      "hp": "110",
+      "status": "provisional",
+      "source_verified": false,
+      "artwork_verified": false,
+      "translation_status": "",
+      "image_url": "https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/ninetales-082.jpg",
+      "temp_entity_id": "temp:reveal:0000000000000000000008",
+      "temp_accepted_at": "2026-11-18T10:00:00Z",
+      "review_note": "Unconfirmed Ninetales IR reportedly 082/080. Clearer readable photo crop (729×1018 native pixels); test proxy only, authenticity not verified.",
+      "discovered_at": "2026-11-18T10:00:00Z"
     }
   ]
 }
