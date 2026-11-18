@@ -14,7 +14,10 @@ const db=await fs.readFile('public/card-db.html','utf8');
 const master=JSON.parse(db.match(/<script id="catalog" type="application\/json">([\s\S]*?)<\/script>/)[1]);
 const baseline=parseCentralTemp(JSON.parse(await fs.readFile('public/data/temp-catalog-v1.json','utf8')));
 assert.equal(baseline.schema,CENTRAL_TEMP_SCHEMA);
-assert.equal(baseline.cards.length,0,'First central release must not invent records');
+assert.equal(baseline.cards.length,4,'Expected only the four reviewed Flowing Fists photo proxies');
+assert(baseline.cards.every(c=>c.setCode==='TMPFLO'&&c.status==='provisional'&&c.reviewState==='accepted-temp'));
+assert(baseline.cards.every(c=>c.image.startsWith('https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/cards/')));
+const baselineCount=baseline.cards.length;
 const candidate={source_url:'https://www.pokebeach.com/2026/11/japanese-only-test',
   discovery_id:'f'.repeat(22),set_name:'Unreleased JP Set',card_number:'21',
   name:'ワンパチ',category:'Pokémon',stage:'Basic',language:'jp',
@@ -39,19 +42,19 @@ assert(!serialized.includes('"tags"')&&!serialized.includes('"notes"')&&!seriali
 const planned=compareCentralProposal(baseline,proposal);
 assert(planned.ok);
 assert.deepEqual(planned.changes.map(x=>x.type),['new']);
-assert.equal(planned.catalog.cards.length,1);
+assert.equal(planned.catalog.cards.length,baselineCount+1);
 const centralized=planned.catalog;
 const merged=mergeTempStores(first.store,centralized);
-assert.equal(merged.view.tempCards.length,1,'Local unpublished duplicate should collapse with published identity');
+assert.equal(merged.view.tempCards.length,baselineCount+1,'Local unpublished duplicate should collapse with published identity');
 assert.equal(merged.hiddenCollisions,1);
 assert.deepEqual(merged.view.tags,local.tags);
 assert.equal(first.store.tempCards.length,1,'Central merge mutated source local state');
 const second={...candidate,discovery_id:'a'.repeat(22),name:'Test Rival',card_number:'22'};
 const localOther=planTempAcceptance(second,first.store,{now:'2026-11-10T16:00:00Z'});
 const view=mergeTempStores(localOther.store,centralized);
-assert.equal(view.view.tempCards.length,2,'Local draft should remain playable alongside central card');
-assert.deepEqual(view.view.tempCards.map(x=>x.name).sort(),['Test Rival','ワンパチ'].sort());
-assert.equal(combineCatalog(master,view.view).cards.filter(x=>x.temp).length,2);
+assert.equal(view.view.tempCards.length,baselineCount+2,'Local draft should remain playable alongside central card');
+assert.deepEqual(view.view.tempCards.filter(x=>x.setCode!=='TMPFLO').map(x=>x.name).sort(),['Test Rival','ワンパチ'].sort());
+assert.equal(combineCatalog(master,view.view).cards.filter(x=>x.temp).length,baselineCount+2);
 
 const collision={...proposal,cards:[{...proposal.cards[0],id:'temp:reveal:separate-identity'}]};
 assert.equal(compareCentralProposal(centralized,collision).ok,false,'Identical set+number with another ID must block');
@@ -59,8 +62,8 @@ const newer={...proposal,cards:[{...proposal.cards[0],textEN:'Unofficial revisio
 assert.equal(compareCentralProposal(centralized,newer).ok,false,'Updates require explicit review');
 const update=compareCentralProposal(centralized,newer,{allowUpdates:true});
 assert(update.ok&&update.changes[0].type==='updated');
-assert.equal(update.catalog.cards[0].textEN,'Unofficial revision from public source');
-assert.equal(centralized.cards[0].textEN,'','Previous central version mutated');
+assert.equal(update.catalog.cards.find(c=>c.id===proposal.cards[0].id).textEN,'Unofficial revision from public source');
+assert.equal(centralized.cards.find(c=>c.id===proposal.cards[0].id).textEN,'','Previous central version mutated');
 assert.throws(()=>parseCentralTemp({...centralized,cards:[...centralized.cards,...centralized.cards]}),/Duplicate/);
 assert.throws(()=>parseCentralTemp({...centralized,cards:[{...centralized.cards[0],image:'javascript:alert(1)'}]}),/HTTPS/);
 assert.throws(()=>createTempProposal({...local,tempSets:[],tempCards:[]}),/Accept at least one/);
@@ -82,14 +85,14 @@ try{
  result=await run(proposal,['--apply']);
  assert.equal(result.status,0,result.stderr);
  const published=JSON.parse(await fs.readFile(dbFile,'utf8'));
- assert.equal(published.cards.length,1);
+ assert.equal(published.cards.length,baselineCount+1);
  result=await run(collision,['--apply']);
  assert.notEqual(result.status,0,'Collision was published');
- assert.equal(JSON.parse(await fs.readFile(dbFile,'utf8')).cards.length,1);
+ assert.equal(JSON.parse(await fs.readFile(dbFile,'utf8')).cards.length,baselineCount+1);
  result=await run(newer,['--apply']);
  assert.notEqual(result.status,0,'Unreviewed revision was published');
  result=await run(newer,['--allow-updates','--apply']);
  assert.equal(result.status,0,result.stderr);
- assert.equal(JSON.parse(await fs.readFile(dbFile,'utf8')).cards[0].textEN,'Unofficial revision from public source');
+ assert.equal(JSON.parse(await fs.readFile(dbFile,'utf8')).cards.find(c=>c.id===proposal.cards[0].id).textEN,'Unofficial revision from public source');
 }finally{await fs.rm(directory,{recursive:true,force:true})}
 console.log('PASS central TEMP: JP-only public proposal, private-data stripping, reviewed atomic publisher, collision and update protection, local+central read-only integration.');
