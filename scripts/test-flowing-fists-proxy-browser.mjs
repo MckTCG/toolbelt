@@ -13,9 +13,9 @@ const photos=path.join(root,'assets/flowing-fists-leaks');
 const manifest=JSON.parse(fs.readFileSync(path.join(photos,'manifest-v1.json'),'utf8'));
 const catalog=parseCentralTemp(JSON.parse(fs.readFileSync(path.join(root,'data/temp-catalog-v1.json'),'utf8')));
 const cards=catalog.cards.filter(c=>c.setCode==='TMPFLO');
-assert.equal(cards.length,4,'Four provisional Flowing Fists records were not published');
-assert.equal(manifest.cards.length,4,'Four individually cropped sources expected');
-assert.equal(new Set(manifest.cards.map(x=>x.sha256)).size,4);
+assert.equal(cards.length,18,'Four original plus fourteen Phase 2 provisional printings expected');
+assert.equal(manifest.cards.length,18,'Eighteen individually cropped sources expected');
+assert.equal(new Set(manifest.cards.map(x=>x.sha256)).size,18);
 for(const x of manifest.cards){
  const bytes=fs.readFileSync(path.join(photos,x.file));
  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),x.sha256);
@@ -26,7 +26,7 @@ for(const x of manifest.cards){
  assert.equal(central.image,'https://mute-dust-0d50.forcoin99.workers.dev/assets/flowing-fists-leaks/'+x.file);
  assert.equal(central.reviewState,'accepted-temp');
  assert.equal(central.status,'provisional');
- assert.equal(central.language,'en');
+ assert(['en','other'].includes(central.language),'Incorrect provisional language');
  assert(!central.textEN,'Do not publish guessed text');
 }
 const server=http.createServer((req,res)=>{
@@ -65,14 +65,20 @@ try {
  await page.waitForFunction(()=>document.querySelector('#proxyImportStatus')?.textContent.includes('ready'),{timeout:35000});
  assert((await page.locator('#proxyImportStatus').textContent()).includes('centrally published TEMP'));
  await page.locator('#piSet').selectOption('TMPFLO');
- assert((await page.locator('#piResultCount').textContent()).includes('4 matching gameplay cards'));
+ assert((await page.locator('#piResultCount').textContent()).includes('18 matching gameplay cards'));
  for(const item of [
-  {name:'Mega Lucario Z ex',qty:4},
-  {name:'Mega Garchomp Z ex',qty:1},
-  {name:'Blastoise',qty:1},
-  {name:'Ninetales',qty:2}
+  {name:'Mega Lucario Z ex',number:'111',qty:4},
+  {name:'Mega Garchomp Z ex',number:'112',qty:1},
+  {name:'Blastoise',number:'083',qty:1},
+  {name:'Ninetales',number:'082',qty:2},
+  {name:'Hawlucha',number:'087',qty:2},
+  {name:'Regigigas',number:'091',qty:1},
+  {name:'Mega Lucario Z ex',number:'097',qty:1},
+  {name:'Mega Absol Z ex',number:'110',qty:1},
+  {name:"Korrina's Seriousness",number:'113',qty:1},
+  {name:'Mega Glimmora ex',number:'055',qty:1}
  ]){
-  await page.locator('#piSearch').fill(item.name);
+  await page.locator('#piSearch').fill(item.number);
   await page.waitForFunction(()=>document.querySelectorAll('.pi-card').length===1);
   const tile=page.locator('.pi-card').first();
   assert((await tile.textContent()).includes(item.name));
@@ -86,21 +92,21 @@ try {
   await page.waitForFunction(name=>document.querySelector('#proxyImportStatus')?.textContent.includes('Added')&&
     document.querySelector('#proxyImportStatus')?.textContent.includes(name),item.name,{timeout:15000});
  }
- assert.equal(await page.locator('[data-tab="queue"]').textContent(),'Print queue (8)');
+ assert.equal(await page.locator('[data-tab="queue"]').textContent(),'Print queue (15)');
  await page.locator('[data-tab="queue"]').click();
  const queue=await page.evaluate(()=>window.__proxyQueue.groups());
- assert.equal(queue.reduce((sum,row)=>sum+row.qty,0),8);
- assert.equal(queue.length,4,'Separate Flowing Fists printings should not overwrite one another');
+ assert.equal(queue.reduce((sum,row)=>sum+row.qty,0),15);
+ assert.equal(queue.length,10,'Alternate Flowing Fists printings should not overwrite one another');
  await page.locator('#paperSize').selectOption('letter');
  let paper=await page.evaluate(()=>window.__proxyDiagnostics());
  assert.deepEqual({cards:paper.cards,pages:paper.pages,capacity:paper.capacity,format:paper.format},
-  {cards:8,pages:1,capacity:9,format:'letter'});
+  {cards:15,pages:2,capacity:9,format:'letter'});
  await page.locator('#paperSize').selectOption('tabloid');
  paper=await page.evaluate(()=>window.__proxyDiagnostics());
- assert.equal(paper.cards,8);assert.equal(paper.pages,1);assert.equal(paper.capacity,18);
- assert(imageHits.length>=4,'Four hosted proxy assets were not loaded by the browser');
+ assert.equal(paper.cards,15);assert.equal(paper.pages,1);assert.equal(paper.capacity,18);
+ assert(imageHits.length>=10,'Ten hosted proxy assets were not loaded by the browser');
  assert.deepEqual(errors,[],'JavaScript errors: '+errors.join('; '));
- console.log('PASS Flowing Fists proxy Chromium: four exact TEMP artwork images, 8 queued cards, Letter 9-up and Tabloid 18-up, provenance intact.');
+ console.log('PASS Flowing Fists proxy Chromium: 18 indexed photos, 10 distinct printings and 15 queued copies, Letter 9-up and Tabloid 18-up, provenance intact.');
 } finally {
  await browser.close();await new Promise(ok=>server.close(ok));
 }

@@ -1,0 +1,49 @@
+{
+  "schema": "flowing-fists-phase2-source-audit",
+  "items": [
+    {
+      "label": "pika-lucario-ur",
+      "source_url": "https://pika-collect.fr/img/news-images/articles/23a360bf-3c7b-4bc9-a133-2993165bb48b/2.webp",
+      "file": "pika-lucario-ur.jpg",
+      "dimensions": [
+        734,
+        1028
+      ],
+      "sha256": "d65e90bddcd7b6c05d90850e7bad98c432cf45ef34a07bad8cc79b7cf4dc4a68",
+      "bytes": 166568
+    },
+    {
+      "label": "pika-hawlucha-ir",
+      "source_url": "https://pika-collect.fr/img/news-images/articles/23a360bf-3c7b-4bc9-a133-2993165bb48b/6.webp",
+      "file": "pika-hawlucha-ir.jpg",
+      "dimensions": [
+        734,
+        1017
+      ],
+      "sha256": "0103d21f0764fa1e3559e03d104849fce14c90f76856c3fccff7f9e78e096f31",
+      "bytes": 161611
+    },
+    {
+      "label": "reddit-six-card-sheet",
+      "source_url": "https://i.redd.it/sxd8glzr2a2i1.jpeg",
+      "file": "reddit-six-card-sheet.jpg",
+      "dimensions": [
+        1290,
+        1243
+      ],
+      "sha256": "d71e432bd5a2d42c870a615aa9396a40525c15a27435fdefcc16e430a6ae104c",
+      "bytes": 247424
+    },
+    {
+      "label": "reddit-wide-gallery",
+      "source_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "file": "reddit-wide-gallery.jpg",
+      "dimensions": [
+        2048,
+        1039
+      ],
+      "sha256": "ae4310dd9e7e910e8cca39a872d8b93bb626039da0e57f1c0d433d84d1116385",
+      "bytes": 430515
+    }
+  ]
+}
