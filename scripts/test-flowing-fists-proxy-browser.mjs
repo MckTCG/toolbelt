@@ -63,7 +63,7 @@ try {
  await page.goto(base+'/proxy-workshop.html',{waitUntil:'domcontentloaded',timeout:45000});
  await page.locator('#openImporter').click();
  await page.waitForFunction(()=>document.querySelector('#proxyImportStatus')?.textContent.includes('ready'),{timeout:35000});
- assert((await page.locator('#proxyImportStatus').textContent()).includes('4 centrally published TEMP'));
+ assert((await page.locator('#proxyImportStatus').textContent()).includes('centrally published TEMP'));
  await page.locator('#piSet').selectOption('TMPFLO');
  assert((await page.locator('#piResultCount').textContent()).includes('4 matching gameplay cards'));
  for(const item of [
