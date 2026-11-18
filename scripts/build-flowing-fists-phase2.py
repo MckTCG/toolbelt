@@ -86,6 +86,10 @@ for spec in SPEC:
     meta=build_crop(spec)
     if meta["file"] not in existing_images:
         manifest["cards"].append(meta);existing_images.add(meta["file"])
+    else:
+        # A corrected crop must update its manifest checksum and native pixels.
+        index=next(i for i,item in enumerate(manifest["cards"]) if item["file"]==meta["file"])
+        manifest["cards"][index]=meta
     if cid in ids:continue
     if ("TMPFLO",str(int(num))) in printings:
         raise ValueError("Printing collision "+name+" "+num)
