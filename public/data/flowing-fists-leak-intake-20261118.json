@@ -21,7 +21,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Unconfirmed English photo; 111/080 visible in reports. REND illustrator reported. Artwork not locally verified; do not print from article hero image. Distinct artwork printing from 058/080.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -43,7 +43,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Unconfirmed English photo. 112/080 is reported but difficult to read. Do not assert collector number as verified. Distinct artwork from Japanese 067/078.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -65,7 +65,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Unconfirmed English photo, Nurikabe art reportedly 083/080. Gameplay Gushing Pump matches Japanese Aura Seeker Blastoise 016/078; printing artwork differs. No print-grade asset verified.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -87,7 +87,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Reported early English pack-opening footage. Exact number/artwork unverified; do not conflate with Japanese Aura Seeker Kubfu.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -109,7 +109,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Reported early English pack-opening footage. Exact number/artwork unverified.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -131,7 +131,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Reported early English pack-opening footage. Exact number/artwork unverified.",
       "discovered_at": "2026-11-18T00:00:00Z"
@@ -153,7 +153,7 @@
       "status": "provisional",
       "source_verified": false,
       "artwork_verified": false,
-      "translation_status": "official",
+      "translation_status": "",
       "image_url": "",
       "review_note": "Reported early English pack-opening footage. Exact number/artwork unverified.",
       "discovered_at": "2026-11-18T00:00:00Z"
