@@ -168,15 +168,15 @@
       "set_code": "FLO",
       "number": "091",
       "file": "cards/regigigas-ir-091.jpg",
-      "sha256": "12d053dc732c849b5646095b2a1bce2c6426968b22a5d40319dac5017448b550",
-      "size_bytes": 178178,
+      "sha256": "783948e057d171802106a078c374428a485730c61dc4059c98456416859e6c3d",
+      "size_bytes": 176449,
       "image_dimensions": [
         744,
         1040
       ],
       "native_crop_dimensions": [
         374,
-        518
+        546
       ],
       "source_file": "phase2-source/reddit-six-card-sheet.jpg",
       "source_image_url": "https://i.redd.it/sxd8glzr2a2i1.jpeg",
@@ -184,7 +184,7 @@
         46,
         621,
         420,
-        1139
+        1167
       ],
       "status": "unconfirmed-leak",
       "print_quality": "provisional leaked photo (very low resolution); source retained"
