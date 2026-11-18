@@ -5,7 +5,7 @@
     744,
     1040
   ],
-  "source_note": "Individual card crops, not official scans. Raster resizing adds no image detail.",
+  "source_note": "Provisional leaked photographs and gallery crops. 744x1040 output does not imply native 300 DPI quality.",
   "cards": [
     {
       "name": "Mega Lucario Z ex",
@@ -110,6 +110,370 @@
       ],
       "status": "unconfirmed-leak",
       "print_quality": "readable-photo; visibly blurry; not a production scan"
+    },
+    {
+      "name": "Hawlucha",
+      "set_code": "FLO",
+      "number": "087",
+      "file": "cards/hawlucha-ir-087.jpg",
+      "sha256": "9e9673866d5e70bc2c232dcd6bb93806f2dbe4a3f10c0a3bf38e3cebaa778f35",
+      "size_bytes": 219949,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        728,
+        1011
+      ],
+      "source_file": "phase2-source/pika-hawlucha-ir.jpg",
+      "source_image_url": "https://pika-collect.fr/img/news-images/articles/23a360bf-3c7b-4bc9-a133-2993165bb48b/6.webp",
+      "crop_rectangle": [
+        3,
+        3,
+        731,
+        1014
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Lucario Z ex",
+      "set_code": "FLO",
+      "number": "097",
+      "file": "cards/mega-lucario-z-ex-ur-097.jpg",
+      "sha256": "b7069160c1594e96bcdaab20100ce4f4a6828e3137c269ad40926dce052bfe85",
+      "size_bytes": 219747,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        723,
+        1018
+      ],
+      "source_file": "phase2-source/pika-lucario-ur.jpg",
+      "source_image_url": "https://pika-collect.fr/img/news-images/articles/23a360bf-3c7b-4bc9-a133-2993165bb48b/2.webp",
+      "crop_rectangle": [
+        6,
+        6,
+        729,
+        1024
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Regigigas",
+      "set_code": "FLO",
+      "number": "091",
+      "file": "cards/regigigas-ir-091.jpg",
+      "sha256": "12d053dc732c849b5646095b2a1bce2c6426968b22a5d40319dac5017448b550",
+      "size_bytes": 178178,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        374,
+        518
+      ],
+      "source_file": "phase2-source/reddit-six-card-sheet.jpg",
+      "source_image_url": "https://i.redd.it/sxd8glzr2a2i1.jpeg",
+      "crop_rectangle": [
+        46,
+        621,
+        420,
+        1139
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Absol Z ex",
+      "set_code": "FLO",
+      "number": "094",
+      "file": "cards/mega-absol-z-ex-ur-094.jpg",
+      "sha256": "3cf1f521001a98b220ea11a75b99cef87259696db70a09dd4acd6f1e12d00e3e",
+      "size_bytes": 156562,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        187,
+        262
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        11,
+        726,
+        198,
+        988
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Absol Z ex",
+      "set_code": "FLO",
+      "number": "110",
+      "file": "cards/mega-absol-z-ex-sir-110.jpg",
+      "sha256": "a1ba02f93520b661bcc6a52b63d7fc88f3b6fbc192cad043c90cdd63cb084691",
+      "size_bytes": 113128,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        189,
+        263
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        626,
+        727,
+        815,
+        990
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Korrina's Seriousness",
+      "set_code": "FLO",
+      "number": "103",
+      "file": "cards/korrinas-seriousness-ur-103.jpg",
+      "sha256": "e1bf85f589c8869719c7e741c22f9fe3b1f6198446bf55657c86bb0cef4a32be",
+      "size_bytes": 190156,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        190,
+        263
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        423,
+        729,
+        613,
+        992
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Korrina's Seriousness",
+      "set_code": "FLO",
+      "number": "113",
+      "file": "cards/korrinas-seriousness-sir-113.jpg",
+      "sha256": "84a39a4bb8e7d9707b9bc8997649943073ed44c1b676501fd8c9ae129c2721ec",
+      "size_bytes": 148374,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        201,
+        266
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        1240,
+        729,
+        1441,
+        995
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Glimmora ex",
+      "set_code": "FLO",
+      "number": "055",
+      "file": "cards/mega-glimmora-ex-055.jpg",
+      "sha256": "7bf3c1a1a1e8398e21bc3a5cca1e143d1de80773a4f868df827f78b7fa8b21ea",
+      "size_bytes": 203874,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        184,
+        264
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        629,
+        412,
+        813,
+        676
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Tatsugiri ex",
+      "set_code": "FLO",
+      "number": "022",
+      "file": "cards/mega-tatsugiri-ex-022.jpg",
+      "sha256": "71707e25c038844330444b188eb2c4fa2edcdf97cdf59d71ca49b38da938b724",
+      "size_bytes": 186182,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        190,
+        263
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        11,
+        412,
+        201,
+        675
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Sigilyph ex",
+      "set_code": "FLO",
+      "number": "032",
+      "file": "cards/sigilyph-ex-032.jpg",
+      "sha256": "23b9cfcba878dc4d481ba71a1fff3af2244b55129ce7a4701b51ced06a7e7be9",
+      "size_bytes": 207941,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        191,
+        265
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        214,
+        412,
+        405,
+        677
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Riolu",
+      "set_code": "FLO",
+      "number": "045",
+      "file": "cards/riolu-045.jpg",
+      "sha256": "63c5c3e31c868d62767f64864ce5c3fc37a1f6ffb0c24b1fe4028095f5a5a046",
+      "size_bytes": 176267,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        187,
+        264
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        421,
+        412,
+        608,
+        676
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Lucario Z ex",
+      "set_code": "FLO",
+      "number": "058",
+      "file": "cards/mega-lucario-z-ex-058.jpg",
+      "sha256": "ee85f3425daf83f3914a18e0f3ef28850f20ede4b24f554ca9aac1cc50abfc2b",
+      "size_bytes": 225982,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        186,
+        265
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        838,
+        412,
+        1024,
+        677
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Togedemaru ex",
+      "set_code": "FLO",
+      "number": "060",
+      "file": "cards/togedemaru-ex-060.jpg",
+      "sha256": "edcd610e5777f785d982b260229c29694710610f0368f90eb619126e1f3d52d8",
+      "size_bytes": 177786,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        188,
+        266
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        1041,
+        412,
+        1229,
+        678
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
+    },
+    {
+      "name": "Mega Lucario Z ex",
+      "set_code": "FLO",
+      "number": "115",
+      "file": "cards/mega-lucario-z-ex-gold-115.jpg",
+      "sha256": "c74461fa6f4e005ea4c93463e4660b7b0df2d389b13c5ae2693eae761e060d7c",
+      "size_bytes": 131458,
+      "image_dimensions": [
+        744,
+        1040
+      ],
+      "native_crop_dimensions": [
+        199,
+        261
+      ],
+      "source_file": "phase2-source/reddit-wide-gallery.jpg",
+      "source_image_url": "https://i.redd.it/e6l99idvsb2i1.jpeg",
+      "crop_rectangle": [
+        1455,
+        731,
+        1654,
+        992
+      ],
+      "status": "unconfirmed-leak",
+      "print_quality": "provisional leaked photo (very low resolution); source retained"
     }
   ]
 }
