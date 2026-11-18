@@ -237,6 +237,22 @@ function mergeImported(cards){
 // Public GitHub staging branch, not the authoritative Master DB or private tag store.
 // Discovery publishing updates this isolated feed branch; it NEVER changes main.
 const DISCOVERY_URL='https://raw.githubusercontent.com/MckTCG/toolbelt/automation/card-discovery-feed/public/data/card-discoveries-v1.json';
+$('loadFlowingFists').addEventListener('click',async()=>{
+  const button=$('loadFlowingFists');
+  button.disabled=true;
+  try{
+    const response=await fetch('./data/flowing-fists-leak-intake-20261118.json',{cache:'no-cache'});
+    if(!response.ok)throw Error('Flowing Fists batch HTTP '+response.status);
+    const raw=await response.text();
+    if(raw.length>200_000)throw Error('Flowing Fists batch exceeds size limit');
+    const payload=JSON.parse(raw);
+    const cards=importBatch(payload);
+    const result=mergeImported(cards);
+    notice('Flowing Fists: '+result.added+' new source-reported cards staged, '+
+      result.skipped+' already in your queue. Artwork is NOT print-verified; review each card before TEMP acceptance.','warn');
+  }catch(error){notice('Could not load Flowing Fists intake: '+error.message,'bad')}
+  finally{button.disabled=false}
+});
 $('loadDiscoveries').addEventListener('click',async()=>{
   const button=$('loadDiscoveries');button.disabled=true;
   $('discoveryStatus').textContent='Checking the unverified discovery staging feed…';
