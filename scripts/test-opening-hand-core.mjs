@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import {isBasic,missingStage,expandRows,sampleSeven,noHit,anyHit,twoCopies,pairedHit,deckMetrics,runOpeningExperiment} from '../public/opening-hand-core.mjs';
+
+function seeded(seed=123) {
+  return () => {seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+}
+const basic={name:'Kangaskhan ex',card_type:'Pokémon',stage:'Basic',qty:4};
+const supporter={name:"Professor's Research",card_type:'Trainer',subtypes:['Supporter'],stage:'',qty:56};
+const rows=[basic,supporter];
+const cards=expandRows(rows);
+assert.equal(cards.length,60);
+assert.equal(isBasic(basic),true);
+assert.equal(isBasic(supporter),false);
+assert.equal(missingStage({...basic,stage:''}),true);
+assert.equal(missingStage({name:'Mystery',card_type:'Unknown'}),true);
+assert.deepEqual(rows.map(r=>r.qty),[4,56]);
+const draw=sampleSeven(cards,seeded(4));
+assert.equal(draw.length,7);
+assert.equal(cards.length,60,'Sampling must not mutate original deck');
+const exact=noHit(4,60,7);
+assert.ok(exact>0.60 && exact<0.61,'Four Basics should mulligan roughly 60% of the time');
+assert.ok(Math.abs(anyHit(4,60)+exact-1)<1e-12);
+assert.equal(noHit(0,60),1);
+assert.equal(noHit(60,60),0);
+assert.equal(pairedHit(cards,'Kangaskhan ex','Kangaskhan ex'),twoCopies(4,60));
+assert.ok(pairedHit(cards,'Kangaskhan ex',"Professor's Research")>0);
+assert.equal(deckMetrics(cards).complete,true);
+assert.equal(deckMetrics([...cards.slice(0,59),{name:'Unknown',card_type:'Pokémon',stage:''}]).mulliganProbability,null);
+const r=runOpeningExperiment(cards,1000,'Kangaskhan ex',"Professor's Research",seeded(9));
+assert.equal(r.accepted,1000);
+assert.ok(r.raw>=1000);
+assert.equal(r.invalid,r.mulligans);
+assert.equal(r.raw-r.invalid,r.accepted);
+assert.equal(r.metadataComplete,true);
+assert.equal(r.conditioned,true);
+assert.ok(r.samples.every(s=>s.cards.length===7 && s.basics>=1));
+assert.throws(()=>expandRows([{...basic,qty:121}]));
+assert.throws(()=>runOpeningExperiment(cards,10001));
+const noMetadata=cards.map(c=>({...c}));
+noMetadata[0]={...noMetadata[0],stage:''};
+const uncertain=runOpeningExperiment(noMetadata,10,'Kangaskhan ex','',seeded(3));
+assert.equal(uncertain.conditioned,false);
+assert.equal(uncertain.raw,10);
+assert.equal(uncertain.accepted,10);
+console.log('Opening Hand Lab core tests passed.');
