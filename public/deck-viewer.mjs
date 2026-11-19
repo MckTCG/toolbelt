@@ -107,7 +107,13 @@ function importText(value) {
   if (!trimmed) throw Error('Paste a deck list first');
   if (trimmed.startsWith('{')) return importJSON(JSON.parse(trimmed));
   if (!catalogueReady) throw Error('Card catalogue is still loading. Try again after it finishes.');
-  const lines = parseTextDeck(trimmed,catalog);
+  // Accept section headings from TCG Live and Limitless exports:
+  // "Pokémon: 18", "Pokémon (18)", "Trainer - 34", "Energy: 8".
+  const listOnly = trimmed.replace(/^\uFEFF/, '').split(/\r?\n/).filter(line => {
+    const value = line.trim();
+    return !/^(?:Pok[eé]mon|Trainers?|Energ(?:y|ies)|Total Cards|Cards)\s*(?:(?::|[-–]|\()\s*\d+\s*\)?|\d+)\s*$/i.test(value);
+  }).join('\n');
+  const lines = parseTextDeck(listOnly,catalog);
   const quantity = lines.reduce((n,r) => n+r.qty,0);
   if (quantity > 120) throw Error('Deck cannot exceed 120 cards');
   const deckRows = lines.map(line => {
