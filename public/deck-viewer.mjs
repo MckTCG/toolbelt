@@ -110,7 +110,7 @@ function importText(value) {
   if (!catalogueReady) throw Error('Card catalogue is still loading. Try again after it finishes.');
   const result = parseViewerDeck(trimmed,catalog);
   const size = result.totalCards===40?40:60;
-  useDeck({name:'Imported deck',size,rows:result.rows});
+  useDeck({name:'Imported deck',size,rows:result.rows,provisionalCount:result.provisionalCount,unknownStages:result.unknownStages});
   if(result.provisionalCount){
     setStatus('Imported '+result.totalCards+' cards. '+result.provisionalCount+' printings were not in the local catalogue; artwork is being fetched from the matching set/number. These cards are viewer-only and do not change the Master DB.'+(result.unknownStages.length?' Basic stage uncertain: '+result.unknownStages.join(', '):''));
   }
@@ -128,7 +128,7 @@ function imgMarkup(card, scope, index, qty = null) {
     '<button type="button" class="image" data-zoom-scope="' + scope + '" data-zoom-index="' + index + '" aria-label="Zoom ' + esc(card.name) + '">' +
     image + (qty != null ? '<span class="qty">×' + qty + '</span>' : '') + '</button>' +
     '<span class="label">' + esc(card.name) + '</span>' +
-    '<span class="meta">' + esc(card.set_code || '') + ' #' + esc(card.card_number || '?') + '</span></article>';
+    '<span class="meta">' + esc(card.set_code || '') + ' #' + esc(card.card_number || '?') + (card.importFallback?' · External printing':'') + '</span></article>';
 }
 function renderDeckGrid() {
   $('deckGrid').innerHTML = resolved.length ? resolved.map((c,i) => imgMarkup(c,'deck',i,c.qty)).join('') :
@@ -170,7 +170,7 @@ function render() {
   const count = expanded.length, m=deckMetrics(expanded);
   $('deckTitle').textContent = deck ? deck.name : 'No deck imported';
   $('deckCount').textContent = count + (deck ? ' / ' + deck.size : '') + ' cards';
-  $('deckNote').textContent = deck ? (count===deck.size ? 'Complete deck list' : 'Incomplete list — import a full deck to test accurately') : 'Import a deck list to begin.';
+  $('deckNote').textContent = deck ? (count===deck.size ? 'Complete deck list' : 'Incomplete list — import a full deck to test accurately') + (deck.provisionalCount?' · '+deck.provisionalCount+' printings absent from local Card DB; using external artwork and provisional metadata.':'') : 'Import a deck list to begin.';
   const checks = deck ? deckChecks(resolved,deck.size,'practice') : {errors:[]};
   const badges = deck ? [
     count + ' cards',m.basics + ' Basic Pokémon',resolved.filter(r=>r.card_type==='Pokémon').reduce((n,r)=>n+r.qty,0) + ' Pokémon',
@@ -178,6 +178,7 @@ function render() {
     resolved.filter(r=>r.card_type==='Energy').reduce((n,r)=>n+r.qty,0) + ' Energy'
   ] : [];
   if (deck && resolved.some(r => r.temp)) badges.push('TEMP / provisional');
+  if (deck?.provisionalCount) badges.push(deck.provisionalCount+' external printings');
   if (deck && m.unknown) badges.push(m.unknown + ' unknown card stages/types');
   $('deckBadges').innerHTML=badges.map(t=>'<span class="pill">' + esc(t) + '</span>').join('');
   const testable = count >= 7 && (count===40 || count===60);
@@ -271,7 +272,7 @@ function renderZoom() {
   $('zoomImage').dataset.fallbacks=JSON.stringify((c.imageFallbacks||[]).map(safeURL).filter(Boolean));
   $('zoomImage').alt=c.name;
   $('zoomDetails').textContent=(c.set_code||'') + ' #' + (c.card_number||'?') + (isBasic(c)?' · Basic Pokémon':'') +
-    (c.temp?' · PROVISIONAL':'') + ' · ' + (zoomAt+1) + '/' + zoomCards.length;
+    (c.temp?' · PROVISIONAL':'') + (c.importFallback?' · EXTERNAL PRINTING':'') + ' · ' + (zoomAt+1) + '/' + zoomCards.length;
   $('zoomPrev').disabled=zoomCards.length<2;
   $('zoomNext').disabled=zoomCards.length<2;
 }
