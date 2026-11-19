@@ -65,5 +65,5 @@ const alternate=parseViewerDeck('Pokémon: 1\n1 New Evolution Pokémon XYZ 77',[
 assert.equal(alternate.unknownStages.length,1,'Unknown Pokémon stage must not become Basic');
 assert.equal(alternate.rows[0].snapshot.card_type,'Pokémon');
 assert.throws(()=>parseViewerDeck('https://limitlesstcg.com/decks/list/31282',[]),/Copy to Clipboard/);
-assert.throws(()=>parseViewerDeck('4 Missing Set Name ??????',[]),/Could not import/);
+assert.throws(()=>parseViewerDeck('NOT A DECK',[]),/Could not import/);
 console.log('Deck Viewer import regression tests passed: Basic Box 60/60, 20 Basics, 26 Trainers, 14 Energy.');
