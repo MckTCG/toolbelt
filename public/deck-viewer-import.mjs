@@ -45,8 +45,8 @@ function inferMetadata(name,set,num,sectionType,candidates) {
   candidateTypes.length===1?candidateTypes[0]:BASIC_ENERGY.test(name)?'Energy':'Unknown';
  const stages=[...new Set(candidates.filter(c=>c.card_type==='Pokémon').map(c=>String(c.stage||'').split(',')[0].trim()).filter(Boolean))];
  const subs=[...new Set(candidates.flatMap(c=>c.subtypes||[]))];
- const stage=card_type==='Pokémon' ? VERIFIED_BASIC_PRINTINGS.has(printKey)?'Basic':stages.length===1?stages[0]:'' : '';
  const subtype=card_type==='Trainer'?VERIFIED_TRAINERS.get(printKey)|| (subs.length===1?subs[0]:'') : '';
+ const stage=card_type==='Pokémon' ? VERIFIED_BASIC_PRINTINGS.has(printKey)?'Basic':stages.length===1?stages[0]:'' : card_type==='Trainer'?subtype:'';
  return {card_type,stage,subtypes:subtype?[subtype]:[],basic_energy_type:card_type==='Energy'&&BASIC_ENERGY.test(name)?name:null};
 }
 function fallbackRow(name,set,num,qty,sectionType,candidates){
@@ -63,7 +63,7 @@ export function parseViewerDeck(text,catalog) {
  if(typeof text!=='string'||!text.trim())throw Error('Paste a deck list first');
  const raw=text.replace(/^\uFEFF/,'').trim();
  if(/^https?:\/\/\S+$/i.test(raw))throw Error('This is a webpage URL, not a deck list. On Limitless click “Copy to Clipboard”, then paste the copied deck text here.');
- const rows=[],errors=[],warnings=[],seen=new Map();let currentCategory='Unknown';
+ const rows=[],errors=[],warnings=[];let currentCategory='Unknown';
  const all=Array.isArray(catalog)?catalog:[];
  for(const lineRaw of raw.split(/\r?\n/)) {
    let line=lineRaw.trim();
@@ -96,8 +96,6 @@ export function parseViewerDeck(text,catalog) {
      rows.push(fallbackRow(name,set,num,qty,currentCategory,choices));
      warnings.push((set?set+' '+num+' · ':'')+name);
    }
-   const check=rows[rows.length-1];const group=check.entityId+'|'+check.printingId;
-   seen.set(group,(seen.get(group)||0)+qty);
  }
  if(errors.length)throw Error('Could not import these lines:\n'+errors.slice(0,6).join('\n'));
  if(!rows.length)throw Error('No cards found in this list.');
