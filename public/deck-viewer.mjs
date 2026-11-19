@@ -1,4 +1,5 @@
-import {safeURL,parseTextDeck,deckChecks,makePayload,payloadURL,sanitizePayload} from './deck-core.mjs';
+import {safeURL,deckChecks,makePayload,payloadURL,sanitizePayload} from './deck-core.mjs';
+import {parseViewerDeck} from './deck-viewer-import.mjs';
 import {isBasic,missingStage,expandRows,sampleSeven,deckMetrics,anyHit,pairedHit,runOpeningExperiment} from './opening-hand-core.mjs';
 import {indexedArt,localArtworkFor} from './card-art-resolver.mjs';
 import {loadCentralTemp,mergeTempStores} from './temp-central-core.mjs';
@@ -107,23 +108,12 @@ function importText(value) {
   if (!trimmed) throw Error('Paste a deck list first');
   if (trimmed.startsWith('{')) return importJSON(JSON.parse(trimmed));
   if (!catalogueReady) throw Error('Card catalogue is still loading. Try again after it finishes.');
-  // Accept section headings from TCG Live and Limitless exports:
-  // "Pokémon: 18", "Pokémon (18)", "Trainer - 34", "Energy: 8".
-  const listOnly = trimmed.replace(/^\uFEFF/, '').split(/\r?\n/).filter(line => {
-    const value = line.trim();
-    return !/^(?:Pok[eé]mon|Trainers?|Energ(?:y|ies)|Total Cards|Cards)\s*(?:(?::|[-–]|\()\s*\d+\s*\)?|\d+)\s*$/i.test(value);
-  }).join('\n');
-  const lines = parseTextDeck(listOnly,catalog);
-  const quantity = lines.reduce((n,r) => n+r.qty,0);
-  if (quantity > 120) throw Error('Deck cannot exceed 120 cards');
-  const deckRows = lines.map(line => {
-    const c = byId.get(line.entityId);
-    const p = c?.printings?.find(p => p.printing_id === line.printingId);
-    if (!c || !p) throw Error('A card is missing from the catalogue. Refresh Card DB.');
-    return {...line,snapshot:snapshot(c,p)};
-  });
-  const size = quantity === 40 ? 40 : 60;
-  useDeck({name:'Imported deck',size,rows:deckRows});
+  const result = parseViewerDeck(trimmed,catalog);
+  const size = result.totalCards===40?40:60;
+  useDeck({name:'Imported deck',size,rows:result.rows});
+  if(result.provisionalCount){
+    setStatus('Imported '+result.totalCards+' cards. '+result.provisionalCount+' printings were not in the local catalogue; artwork is being fetched from the matching set/number. These cards are viewer-only and do not change the Master DB.'+(result.unknownStages.length?' Basic stage uncertain: '+result.unknownStages.join(', '):''));
+  }
 }
 function importJSON(payload) {
   const d = sanitizePayload(payload);
