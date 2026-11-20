@@ -1,6 +1,6 @@
 import {safeURL,deckChecks,makePayload,payloadURL,sanitizePayload} from './deck-core.mjs';
 import {parseViewerDeck} from './deck-viewer-import.mjs';
-import {isBasic,missingStage,expandRows,sampleSeven,deckMetrics,anyHit,pairedHit,runOpeningExperiment} from './opening-hand-core.mjs';
+import {isBasic,missingStage,expandRows,sampleSeven,deckMetrics,anyHit,pairedHit,runOpeningExperiment,cardIdentity,cardLabel} from './opening-hand-core.mjs';
 import {indexedArt,localArtworkFor} from './card-art-resolver.mjs';
 import {loadCentralTemp,mergeTempStores} from './temp-central-core.mjs';
 
@@ -157,12 +157,15 @@ function renderExactStats() {
     '</strong>' + esc(label) + '<br><small>' + esc(note) + '</small></div>').join('');
 }
 function renderSelectors() {
-  const names = [...new Set(resolved.map(r => r.name))].sort((a,b) => a.localeCompare(b));
-  const oldX=$('cardX').value, oldY=$('cardY').value;
-  $('cardX').replaceChildren(...names.map(n => new Option(n,n)));
-  $('cardY').replaceChildren(new Option('None',''),...names.map(n => new Option(n,n)));
-  if (names.includes(oldX)) $('cardX').value = oldX;
-  if (names.includes(oldY)) $('cardY').value = oldY;
+  // Every distinct printing has its own ID, even when the card names match.
+  const options = [...new Map(resolved.map(c => [cardIdentity(c),c])).values()]
+    .sort((a,b) => cardLabel(a).localeCompare(cardLabel(b)));
+  const ids = new Set(options.map(cardIdentity));
+  const oldX=$('cardX').value,oldY=$('cardY').value;
+  $('cardX').replaceChildren(...options.map(c => new Option(cardLabel(c),cardIdentity(c))));
+  $('cardY').replaceChildren(new Option('None',''),...options.map(c => new Option(cardLabel(c),cardIdentity(c))));
+  if(ids.has(oldX))$('cardX').value=oldX;
+  if(ids.has(oldY))$('cardY').value=oldY;
 }
 function render() {
   resolved = deck ? deck.rows.map(resolveRow) : [];
@@ -243,8 +246,11 @@ function runStats() {
     ];
     const summary='<div class="metricgrid">' + set.map(([label,value,note]) => '<div class="metric"><strong>' +
       esc(value) + '</strong>' + esc(label) + '<br><small>' + esc(note) + '</small></div>').join('') + '</div>';
-    const theoretical = first ? 'Theoretical raw X: ' + pc(anyHit(expanded.filter(c=>c.name===first).length,expanded.length)) +
-      (second ? ' · X + Y: ' + pc(pairedHit(expanded,first,second)) : '') : '';
+    const xLabel = cardLabel(resolved.find(c=>cardIdentity(c)===first)||{name:first});
+    const yLabel = second ? cardLabel(resolved.find(c=>cardIdentity(c)===second)||{name:second}) : '';
+    const theoretical = first ? 'Theoretical raw ' + xLabel + ': ' +
+      pc(anyHit(expanded.filter(c=>cardIdentity(c)===first).length,expanded.length)) +
+      (second ? ' · '+xLabel+' + '+yLabel+': ' + pc(pairedHit(expanded,first,second)) : '') : '';
     const starters = Object.entries(r.starterCounts).sort((a,b)=>b[1]-a[1]).slice(0,10)
       .map(([name,n]) => esc(name) + ': ' + pc(n/Math.max(1,r.accepted))).join(' · ');
     $('labResults').innerHTML = summary +
