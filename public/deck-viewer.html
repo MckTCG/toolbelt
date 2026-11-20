@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090e18">
+<title>TCG Lab — Deck Viewer & Opening Hand Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#090e18;--panel:#121c2d;--panel2:#18263a;--line:#2b3d56;--text:#edf2ff;--muted:#9cacc2;--mint:#91f5c7;--amber:#f1bd71;--red:#ffb1a5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{background:radial-gradient(780px 450px at 95% -12%,#1b4b4b55,transparent),var(--bg);color:var(--text);margin:0}button,input,textarea,select{font:inherit}button,select,textarea,input{color:var(--text);background:#0e1928;border:1px solid var(--line);border-radius:10px;padding:10px 12px}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}button:hover:not(:disabled){border-color:#91f5c7}button.primary{background:var(--mint);color:#09291f;border-color:var(--mint);font-weight:750}a{color:var(--mint);text-decoration:none}a:hover{text-decoration:underline}:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.shell{max-width:1350px;margin:auto;padding:22px 24px 70px}.topbar,.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.topbar{justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{font-size:18px;font-weight:800;letter-spacing:.08em}.brand b{color:var(--mint)}.nav{display:flex;gap:18px;flex-wrap:wrap;font-size:13px}.eyebrow{color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-top:27px}h1{margin:8px 0;font-size:clamp(28px,4vw,43px);letter-spacing:-.045em}p{line-height:1.6}.intro,.sub,.note{color:var(--muted);font-size:13px}.intro{margin:0 0 24px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:19px;margin:14px 0}.panel summary{font-weight:760;font-size:17px;cursor:pointer;list-style-position:outside;padding:1px 0}.panel summary::marker{color:var(--mint)}.panel[open] summary{margin-bottom:14px}.status{color:var(--muted);font-size:12px;margin:10px 0;white-space:pre-line}.status.error{color:var(--red)}.status.good{color:var(--mint)}textarea{width:100%;min-height:122px;resize:vertical;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}input[type=text]{flex:1;min-width:180px}.pill{border:1px solid var(--line);border-radius:30px;color:var(--muted);font-size:12px;padding:6px 10px}.actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:11px}.grow{flex:1}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(134px,1fr));gap:13px}.grid.hand{grid-template-columns:repeat(7,minmax(0,1fr));gap:9px}.card{min-width:0}.card button.image{border:0;padding:0;display:block;width:100%;overflow:hidden;background:#1a2b3e;aspect-ratio:63/88;border-radius:9px;position:relative}.card img{width:100%;height:100%;object-fit:contain;display:block}.fallback{height:100%;display:grid;place-items:center;text-align:center;padding:10px;font-size:12px;color:var(--muted)}.card .qty{position:absolute;top:5px;right:5px;background:#091a24ed;border:1px solid #ffffff60;border-radius:8px;padding:3px 6px;font-size:12px;font-weight:800}.card .label{display:block;margin-top:5px;font-weight:650;font-size:12px;overflow-wrap:anywhere}.card .meta{color:var(--muted);font-size:11px;margin-top:2px}.card.basic .image{outline:2px solid #84e7bc;outline-offset:1px}.card.temp .meta{color:var(--amber)}.empty{padding:24px;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted);font-size:13px}
+#deckHeader{display:flex;justify-content:space-between;align-items:start;gap:15px;flex-wrap:wrap;margin-top:24px}#deckHeader h2{font-size:22px;margin:0 0 5px}.summary{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.handHeader{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:4px 0 14px}.handMessage{font-size:13px;font-weight:650}.handMessage.bad{color:var(--amber)}.handMessage.good{color:var(--mint)}.handActions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:15px 0 0}select{max-width:100%;min-width:110px}.metricgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}.metric{background:#0f1b2a;border:1px solid var(--line);border-radius:11px;padding:13px}.metric strong{display:block;font-size:25px;margin-bottom:5px;color:var(--mint)}.metric small{color:var(--muted);line-height:1.4}.controlgrid{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:12px 0}.controlgrid label{display:grid;gap:5px;font-size:12px;color:var(--muted);flex:1;min-width:145px}.controlgrid button{align-self:end}.breakdown{color:var(--muted);font-size:12px;line-height:1.7}.divider{border-top:1px solid var(--line);margin:17px 0}dialog{background:#142238;color:var(--text);border:1px solid #536b88;border-radius:17px;padding:16px;max-height:95vh;max-width:min(620px,95vw);width:100%}dialog::backdrop{background:#000b}dialog img{display:block;width:min(380px,68vw);height:min(70vh,550px);object-fit:contain;margin:10px auto}.zoomnav{display:flex;justify-content:space-between;align-items:center;gap:12px}.zoomnav button{min-width:44px}#zoomName{text-align:center;flex:1;font-size:14px}.warn{color:var(--amber)}.foot{font-size:11px;color:var(--muted);margin-top:25px}
+@media(max-width:750px){.shell{padding:15px 12px 48px}.panel{padding:14px}.grid{grid-template-columns:repeat(auto-fill,minmax(93px,1fr));gap:9px}.grid.hand{grid-template-columns:repeat(4,minmax(0,1fr))}.card .label{font-size:11px}.card .meta{font-size:10px}.nav{gap:10px}button{padding:9px 10px}.status{font-size:11px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">TCG <b>LAB</b> <span class="sub">/ Deck Viewer</span></div>
+    <nav class="nav"><a href="./">Toolbelt home</a><a href="./deck-builder.html">Advanced Deck Builder</a><a href="./card-db.html">Card DB</a></nav>
+  </header>
+  <div class="eyebrow">VIEW · DRAW 7 · ANALYZE</div>
+  <h1>Opening Hand Lab</h1>
+  <p class="intro">Paste a Pokémon TCG Live / Limitless-style deck list. Inspect your cards, draw seven, study mulligans and send the deck to the simulator.</p>
+  <details id="pastePanel" class="panel" open>
+    <summary>Import a deck from your clipboard</summary>
+    <p class="sub">Paste a plain-text deck list with quantities, names, and preferably set codes/card numbers. You can also import TCG Lab deck JSON. No account or upload required.</p>
+    <textarea id="importText" aria-label="Deck list" placeholder="Pokémon: 15&#10;3 Dreepy TWM 128&#10;3 Drakloak TWM 129&#10;2 Dragapult ex TWM 130&#10;..."></textarea>
+    <div class="actions">
+      <button id="pasteBtn" type="button">Paste clipboard</button>
+      <button id="importBtn" class="primary" type="button">Import deck</button>
+      <button id="clearBtn" type="button">Clear</button>
+      <span class="grow"></span>
+      <button id="loadJson" type="button">Open JSON</button>
+      <input id="jsonFile" hidden type="file" accept=".json,application/json">
+    </div>
+    <div id="catalogStatus" class="status" role="status">Loading card catalogue…</div>
+    <div id="importStatus" class="status" role="status"></div>
+  </details>
+  <section id="deckHeader">
+    <div><h2 id="deckTitle">No deck imported</h2><div id="deckNote" class="sub">Import a deck list to begin.</div><div id="deckBadges" class="summary"></div></div>
+    <div class="actions"><select id="simMode" aria-label="Simulator mode"><option value="quick">Quick Solo</option><option value="setup-full">Full Tabletop</option></select><button id="playBtn" type="button" class="primary" disabled>Play in Simulator</button></div>
+  </section>
+  <details id="handPanel" class="panel" open>
+    <summary>Opening Hand Tester</summary>
+    <div class="handHeader"><span id="handStatus" class="handMessage">Draw seven cards from your imported deck.</span><span id="mulliganBadge" class="pill">Mulligans: 0</span></div>
+    <div id="handGrid" class="grid hand"><div class="empty" style="grid-column:1/-1">Your seven cards will appear here.</div></div>
+    <div class="handActions"><button id="drawBtn" class="primary" type="button" disabled>Shuffle &amp; Draw 7</button><button id="resetHandBtn" type="button" disabled>New opening</button><span id="handCount" class="sub">Each draw shuffles the complete deck.</span></div>
+  </details>
+  <details id="statsPanel" class="panel">
+    <summary>Consistency Test (Deck Stats + Deep Lab)</summary>
+    <p class="sub">Exact opening probabilities are calculated from card counts. Batch experiments sample independent games and automatically mulligan until a Basic appears where card metadata is complete.</p>
+    <div id="exactStats" class="metricgrid"></div>
+    <div class="divider"></div>
+    <div class="controlgrid">
+      <label>Simulated games<select id="sampleSize"><option value="100">100</option><option value="1000" selected>1,000</option><option value="10000">10,000</option></select></label>
+      <label>Find card X<select id="cardX"></select></label>
+      <label>Plus card Y (optional)<select id="cardY"><option value="">None</option></select></label>
+      <button id="runStatsBtn" class="primary" type="button" disabled>Run consistency test</button>
+    </div>
+    <div id="labResults" class="breakdown">Import a deck to enable experiments.</div>
+  </details>
+  <section aria-labelledby="deckGridTitle">
+    <div class="row" style="justify-content:space-between;margin:23px 0 13px"><h2 id="deckGridTitle" style="margin:0;font-size:21px">Deck cards</h2><span id="deckCount" class="pill">0 cards</span></div>
+    <div id="deckGrid" class="grid"><div class="empty" style="grid-column:1/-1">Cards in your deck will appear here, with quantity badges.</div></div>
+  </section>
+  <p class="foot">Provisional TEMP translations remain unofficial. Tests measure drawing probabilities, not gameplay success or win rates. Pokémon card art belongs to its rights holders. This feature does not modify your saved decks or simulator state.</p>
+</main>
+<dialog id="zoomDialog" aria-labelledby="zoomName">
+  <div class="zoomnav"><button id="zoomPrev" type="button" aria-label="Previous card">←</button><strong id="zoomName">Card</strong><button id="zoomNext" type="button" aria-label="Next card">→</button><button id="zoomClose" type="button" aria-label="Close">✕</button></div>
+  <img id="zoomImage" alt=""><p id="zoomDetails" class="sub" style="text-align:center"></p>
+</dialog>
+<script type="module" src="./deck-viewer.mjs"></script>
+</body></html>

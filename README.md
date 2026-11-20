@@ -66,6 +66,16 @@ The first GitHub-connected Cloudflare build is initiated by a new commit after l
 - This is **manual intake**, not an automated card-reveal importer or finished Deck Builder. The TEMP data export is the future Deck Builder's input contract.
 - There is no guarantee of continuous cross-device sync; download regular backups. Never interpret preliminary notes as official English card text.
 
+## Deck Viewer & Opening Hand Lab (feature branch)
+
+- Page: `public/deck-viewer.html`. Standalone read-only deck view: paste a Pokémon TCG Live/Limitless-style list, click **Paste clipboard** when permissions allow, or load a `tcg-lab-deck-v1` JSON file. Quantities and artwork are shown as a compact grid; click art to zoom/navigate. Last deck is stored locally in `tcg-lab-deck-viewer-last-v1`.
+- Catalogue and provisional TEMP intake reuse `card-db.html`, the central TEMP overlay, and the verified local artwork manifest. When Limitless-style pasted lists include printings absent from the frozen local catalogue, the viewer keeps the exact set/number in a **viewer-only snapshot**, uses corresponding external artwork URLs, and prominently labels these as external/provisional rather than silently substituting an incorrect printing. Only verified card stage/type hints are used; unknown Pokémon stages remain explicitly unknown.
+- Collapsible **Opening Hand Tester** independently shuffles/draws seven cards, identifies Basic Pokémon, tracks successive mulligans, and supports a fresh opening. Testing is enabled for completed 40- or 60-card decks.
+- Collapsible **Consistency Test** ports the existing Quick Solo Deck Stats / Deep Lab opening-hand approach into a pure `public/opening-hand-core.mjs`: exact hypergeometric probabilities, 100/1,000/10,000 independent opening experiments, possible starters, card X or X+Y, and raw vs accepted openings. When Pokémon stage metadata is incomplete, mulligan figures are withheld. It does not simulate card effects, opponent actions, or win rates.
+- **Play in Simulator** uses the existing `tcg-lab-deck-v1` transfer format, opening Quick Solo or Full Tabletop in a new tab. This launches a new game and **does not preserve the hand** from the viewer.
+- The existing Deck Builder is unchanged and linked as an advanced editing option. The Prerelease Lab remains a subsequent integration; this first branch only introduces the standalone viewer.
+- Tests: `node scripts/test-opening-hand-core.mjs` and `node scripts/test-deck-viewer-import.mjs` (Limitless Basic Box #31282, 60 cards, 20 Basics). Review on the branch before merging; the Toolbelt launcher links to the viewer once deployed.
+
 ## Deck Builder v0.1
 
 - Page: `public/deck-builder.html`. Reads the Standard catalogue directly from Card DB's embedded JSON and TEMP cards/approved tags from the same-origin Card DB browser store; no duplicated Standard dataset.
