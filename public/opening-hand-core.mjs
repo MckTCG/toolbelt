@@ -37,11 +37,19 @@ export function twoCopies(count, total, draw = 7) {
   const p1 = draw * (count / total) * noHit(count - 1, total - 1, draw - 1);
   return Math.max(0, Math.min(1, 1 - p0 - p1));
 }
-export function pairedHit(cards, first, second) {
+// IDs refer to distinct cards/printings; names are not unique (e.g., Bouffalant).
+export function cardIdentity(c) { return String(c?.printing_id || c?.id || c?.entity_id || c?.name || ''); }
+export function cardLabel(c) {
+  const name=String(c?.name || 'Unknown card');
+  const set=String(c?.set_code || '').trim();
+  const num=String(c?.card_number || c?.cardNumber || '').trim();
+  return num ? name+' ('+(set ? set+' ' : '')+'#'+num+')' : name+(c?.id?' ('+c.id+')':'');
+}
+export function pairedHit(cards, first, second, keyOf = cardIdentity) {
   const total = cards.length;
   if (!first || !second || total < 7) return NaN;
-  const a = cards.filter(c => c.name === first).length;
-  const b = cards.filter(c => c.name === second).length;
+  const a = cards.filter(c => keyOf(c) === first).length;
+  const b = cards.filter(c => keyOf(c) === second).length;
   if (first === second) return twoCopies(a, total);
   return Math.max(0, Math.min(1, 1 - noHit(a, total) - noHit(b, total) + noHit(a + b, total)));
 }
@@ -55,7 +63,7 @@ export function deckMetrics(cards) {
     energyProbability: total >= 7 ? anyHit(cards.filter(c => c.card_type === 'Energy').length, total) : null
   };
 }
-export function runOpeningExperiment(cards, trials = 1000, first = '', second = '', rng = Math.random) {
+export function runOpeningExperiment(cards, trials = 1000, first = '', second = '', rng = Math.random, keyOf = cardIdentity) {
   if (!Number.isInteger(trials) || trials < 1 || trials > 10000) throw Error('Choose 1–10,000 simulated games');
   if (cards.length < 7) throw Error('Need at least seven cards');
   const meta = deckMetrics(cards);
@@ -71,8 +79,8 @@ export function runOpeningExperiment(cards, trials = 1000, first = '', second = 
     for (let attempt = 0; attempt < 300; attempt++) {
       hand = sampleSeven(cards, rng);
       const basics = hand.filter(isBasic).length;
-      const firstCount = first ? hand.filter(c => c.name === first).length : 0;
-      const secondCount = second ? hand.filter(c => c.name === second).length : 0;
+      const firstCount = first ? hand.filter(c => keyOf(c) === first).length : 0;
+      const secondCount = second ? hand.filter(c => keyOf(c) === second).length : 0;
       const pair = second ? first === second ? firstCount >= 2 : firstCount > 0 && secondCount > 0 : false;
       result.raw++;
       if (firstCount > 0) result.rawFirst++;
@@ -88,13 +96,13 @@ export function runOpeningExperiment(cards, trials = 1000, first = '', second = 
     result.accepted++;
     result.mulligans += mulligans;
     if (mulligans) result.gamesWithMulligan++;
-    const firstCount = first ? hand.filter(c => c.name === first).length : 0;
-    const secondCount = second ? hand.filter(c => c.name === second).length : 0;
+    const firstCount = first ? hand.filter(c => keyOf(c) === first).length : 0;
+    const secondCount = second ? hand.filter(c => keyOf(c) === second).length : 0;
     if (firstCount) result.acceptedFirst++;
     if (second && (first === second ? firstCount >= 2 : firstCount > 0 && secondCount > 0)) result.acceptedPair++;
-    for (const name of new Set(hand.filter(isBasic).map(c => c.name)))
-      result.starterCounts[name] = (result.starterCounts[name] || 0) + 1;
-    if (result.samples.length < 8) result.samples.push({cards:hand.map(c => c.name), basics:hand.filter(isBasic).length, mulligans});
+    for (const label of new Set(hand.filter(isBasic).map(cardLabel)))
+      result.starterCounts[label] = (result.starterCounts[label] || 0) + 1;
+    if (result.samples.length < 8) result.samples.push({cards:hand.map(cardLabel), basics:hand.filter(isBasic).length, mulligans});
   }
   return result;
 }
