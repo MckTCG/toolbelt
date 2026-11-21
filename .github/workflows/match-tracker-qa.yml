@@ -25,3 +25,5 @@ jobs:
       - run: node --check public/match-tracker.mjs
       - run: node scripts/test-match-tracker.mjs
       - run: python3 scripts/test-match-tracker-schema.py
+      - name: Validate Cloudflare Worker bundle without deploying
+        run: npx --yes wrangler@4 deploy --dry-run --outdir .wrangler-dry-run
