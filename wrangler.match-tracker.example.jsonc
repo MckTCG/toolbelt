@@ -1,0 +1,21 @@
+{
+  // Deployment example. DO NOT change the production build command until
+  // database_id is replaced and MATCH_TRACKER_TOKEN is configured as a secret.
+  "name": "mute-dust-0d50",
+  "compatibility_date": "2026-10-26",
+  "workers_dev": true,
+  "main": "./worker/match-tracker.mjs",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/match-tracker/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "MATCHES_DB",
+      "database_name": "toolbelt-matches",
+      "database_id": "REPLACE_WITH_D1_DATABASE_UUID",
+      "migrations_dir": "./migrations"
+    }
+  ]
+}
