@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TCG Lab — Match Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#090e18;--panel:#121c2d;--panel2:#19263a;--line:#2b3d56;--text:#edf2ff;--muted:#9cacc2;--mint:#91f5c7;--amber:#f1bd71;--red:#ffb1a5;font-family:Inter,system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}.shell{max-width:1150px;margin:auto;padding:20px 20px 65px}
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:0 0 18px;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:.07em}.brand b{color:var(--mint)}a{color:var(--mint)}.muted,small{color:var(--muted)}.eyebrow{margin:25px 0 4px;color:var(--mint);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.14em}h1{font-size:clamp(29px,4vw,43px);margin:5px 0}h2{font-size:19px;margin:0 0 12px}p{line-height:1.5}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}.flex{display:flex;flex-wrap:wrap;gap:11px;align-items:end}.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:11px;margin:13px 0}.field{display:grid;gap:6px;min-width:0}.field span{font-size:12px;color:var(--muted)}
+button,input,select,textarea{font:inherit;border-radius:9px;border:1px solid var(--line);background:#0c1725;color:var(--text);padding:11px;width:100%;min-height:43px}textarea{min-height:170px;resize:vertical;font:12px/1.5 ui-monospace,Consolas,monospace}button{cursor:pointer;width:auto;min-width:100px}button.primary{background:var(--mint);color:#08241b;font-weight:800;border:1px solid var(--mint)}button:disabled{opacity:.48;cursor:not-allowed}button:hover:not(:disabled){border-color:var(--mint)}button.warn{border-color:#8b5151;color:var(--red)}:focus-visible{outline:2px solid var(--mint);outline-offset:3px}input[type=password]{min-width:220px}.status{font-size:13px;color:var(--muted);white-space:pre-wrap;min-height:16px;margin:8px 0}.status.error{color:var(--red)}.status.good{color:var(--mint)}.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:10px 0}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.metric{background:var(--panel2);padding:13px;border-radius:10px}.metric strong{font-size:24px;display:block;color:var(--mint);font-variant-numeric:tabular-nums}.metric small{font-size:11px}
+.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px;min-width:620px}th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase}td button{padding:7px;min-height:36px;min-width:62px}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:50vh;overflow:auto;background:#0b1625;border:1px solid var(--line);border-radius:10px;padding:13px;font-size:12px}.pill{display:inline-block;font-size:12px;border:1px solid var(--line);padding:5px 9px;border-radius:22px;color:var(--muted)}
+dialog{background:var(--panel);color:var(--text);width:min(900px,96vw);max-height:88vh;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:18px}dialog::backdrop{background:#000a}
+@media(max-width:520px){.shell{padding:15px 10px 40px}.panel{padding:14px}.metrics{gap:5px}.metric{padding:10px}.metric strong{font-size:20px}.fields{grid-template-columns:1fr 1fr;gap:8px}.field.wide{grid-column:1/-1}header{font-size:13px}}
+@media print{header,#authPanel,#recordPanel,#historyPanel,.actions{display:none!important}body{background:white;color:black}.panel{background:white;color:black;border:1px solid #aaa}.metric{background:#eee;color:black}}
+</style>
+</head>
+<body><main class="shell">
+<header><div class="brand">TCG <b>LAB</b> / Match Tracker</div><nav><a href="./">Toolbelt home</a> · <a href="./deck-viewer.html">Opening Hand Lab</a></nav></header>
+<div class="eyebrow">MATCH HISTORY · STATISTICS · DATA OWNERSHIP</div>
+<h1>Match Tracker</h1>
+<p class="muted">Archive original PTCGL logs and manually recorded games. Export complete JSON backups, match CSVs, log TXT files, and matchup statistics. Your access key stays in this tab's memory.</p>
+<section id="authPanel" class="panel">
+<h2>Connect to your cloud archive</h2>
+<div class="flex"><label class="field" style="flex:1"><span>Private access key (not saved by the browser)</span><input id="token" type="password" autocomplete="off" placeholder="Cloudflare Worker secret"></label><button id="connect" class="primary">Connect</button><button id="disconnect">Disconnect</button></div>
+<p id="authStatus" class="status" role="status">Checking cloud configuration…</p>
+</section>
+<section id="recordPanel" class="panel">
+<h2>Record a game</h2>
+<p class="muted">Paste a PTCGL log and select <strong>Inspect log</strong> to extract what we can verify. You always control the outcome and deck labels. A Bo3 match should be entered as separate games until series grouping is implemented.</p>
+<div class="fields">
+<label class="field"><span>Played date</span><input id="playedAt" type="date" required></label>
+<label class="field"><span>Source</span><select id="source"><option value="ptcgl">PTCGL battle log</option><option value="manual">Manual / IRL</option><option value="simulator">Simulator</option></select></label>
+<label class="field"><span>My deck / archetype</span><input id="myDeck" placeholder="e.g. Pory-Hon" maxlength="160"></label>
+<label class="field"><span>Deck version</span><input id="deckVersion" placeholder="e.g. v3" maxlength="80"></label>
+<label class="field"><span>Opponent archetype</span><input id="opponentDeck" placeholder="e.g. Dragapult" maxlength="160"></label>
+<label class="field"><span>Result</span><select id="result" required><option value="">Select result</option><option value="win">Win</option><option value="loss">Loss</option><option value="tie">Tie</option></select></label>
+<label class="field"><span>Went first?</span><select id="wentFirst"><option value="">Unknown</option><option value="true">First</option><option value="false">Second</option></select></label>
+<label class="field"><span>Environment</span><select id="matchType"><option value="ladder">PTCGL ladder</option><option value="testing">Testing</option><option value="tournament">Tournament</option><option value="casual">Casual</option></select></label>
+<label class="field"><span>Game format</span><select id="format"><option value="bo1">Bo1</option><option value="bo3">Bo3 (individual game)</option></select></label>
+<label class="field"><span>My in-game name</span><input id="myPlayer" placeholder="For log result detection" maxlength="160"></label>
+<label class="field"><span>Opponent player (optional)</span><input id="opponentPlayer" maxlength="160"></label>
+<label class="field"><span>Session</span><input id="sessionName" placeholder="Cup prep — November" maxlength="160"></label>
+</div>
+<label class="field"><span>Notes</span><textarea id="notes" style="min-height:78px;font:inherit" placeholder="Misplays, prize issues, alternate lines, opponent strategy…"></textarea></label>
+<label class="field" style="margin-top:12px"><span>Original PTCGL battle log (stored exactly as pasted)</span><textarea id="rawLog" placeholder="Setup&#10;YourName drew 7 cards for the opening hand.&#10;…"></textarea></label>
+<div class="actions"><button id="inspect">Inspect log</button><button id="save" class="primary" disabled>Save to cloud</button><button id="clear">Clear form</button></div>
+<p id="parseStatus" class="status" role="status"></p><p id="saveStatus" class="status" role="status"></p>
+</section>
+<section class="panel" id="statsPanel">
+<h2>Performance overview</h2>
+<div class="metrics"><div class="metric"><strong id="games">—</strong><small>Games</small></div><div class="metric"><strong id="wins">—</strong><small>Wins / losses / ties</small></div><div class="metric"><strong id="rate">—</strong><small>Win rate</small></div></div>
+<div class="actions"><button id="refreshStats">Refresh statistics</button><button id="statsCsv" disabled>Export matchup stats CSV</button><button id="printStats">Print / PDF</button></div>
+<div class="tablewrap"><table><thead><tr><th>Your deck</th><th>Opponent</th><th>Games</th><th>W–L–T</th><th>Win rate</th></tr></thead><tbody id="matchups"><tr><td colspan="5">Connect to load statistics.</td></tr></tbody></table></div>
+</section>
+<section id="historyPanel" class="panel">
+<h2>Match history and backups</h2>
+<div class="actions"><button id="refresh">Refresh history</button><button id="exportJson" disabled>Complete JSON backup</button><button id="exportCsv" disabled>Match CSV</button><button id="exportTxt" disabled>Original logs TXT</button></div>
+<div class="flex"><label class="field"><span>Restore previously exported JSON archive (duplicates are skipped)</span><input id="restoreFile" type="file" accept=".json,application/json" disabled></label><button id="restore" disabled>Restore archive</button></div>
+<p id="historyStatus" class="status" role="status"></p>
+<div class="tablewrap"><table><thead><tr><th>Date</th><th>Your deck</th><th>Opponent</th><th>Result</th><th>First?</th><th>Log</th></tr></thead><tbody id="history"><tr><td colspan="6">No matches loaded.</td></tr></tbody></table></div>
+<div class="actions"><button id="prev" disabled>Previous</button><span id="pageText" class="muted">0 games</span><button id="next" disabled>Next</button></div>
+</section>
+<dialog id="detail"><h2 id="detailTitle">Saved game</h2><div id="detailMeta" class="muted"></div><pre id="detailLog"></pre><div class="actions"><button id="detailClose">Close</button><button id="detailDownload">Download log TXT</button><button id="detailDelete" class="warn">Delete match</button></div></dialog>
+</main><script type="module" src="./match-tracker.mjs"></script></body></html>
