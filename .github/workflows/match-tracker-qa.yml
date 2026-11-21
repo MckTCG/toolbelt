@@ -1,0 +1,27 @@
+name: Match Tracker D1 v1 validation
+on:
+  pull_request:
+    paths:
+      - 'public/match-tracker*'
+      - 'worker/match-tracker.mjs'
+      - 'migrations/**'
+      - 'scripts/test-match-tracker.mjs'
+      - 'scripts/test-match-tracker-schema.py'
+      - '.github/workflows/match-tracker-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  match-tracker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check worker/match-tracker.mjs
+      - run: node --check public/match-tracker-core.mjs
+      - run: node --check public/match-tracker.mjs
+      - run: node scripts/test-match-tracker.mjs
+      - run: python3 scripts/test-match-tracker-schema.py
