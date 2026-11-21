@@ -1,6 +1,6 @@
 # Toolbelt Match Tracker — Cloudflare D1 (staged v1)
 
-**Status:** implementation branch only. The UI is not connected to online storage until the Cloudflare database, binding and secret are provisioned. **Do not merge/deploy blindly.** Existing production Wrangler config remains static-assets-only deliberately.
+**Status:** implementation branch only. The UI is not connected to online storage until the Cloudflare database, binding and secret are provisioned. **Do not merge/deploy blindly.** The main production branch remains static-assets-only. The feature branch now contains the actual D1 binding and Worker entrypoint.
 
 ## Files
 
@@ -8,18 +8,18 @@
 - public/match-tracker-core.mjs: conservative log extraction (no invented winner), CSV generation with spreadsheet formula safeguards.
 - worker/match-tracker.mjs: same-origin single-owner API, Bearer-secret authentication, D1 queries, duplicate checks.
 - migrations/0001_match_tracker.sql: SQLite tables and indices.
-- wrangler.match-tracker.example.jsonc: deployment example, not active.
+- wrangler.jsonc: staged D1 binding for Cloudflare database toolbelt-matches (actual UUID populated from the owner dashboard).
 
 ## Create Cloudflare D1 and connect Worker (one-time owner action)
 
 Cloudflare provisioning cannot be performed through this repository's GitHub connection. You must use your own Cloudflare account/CLI. **Do not send access tokens or secrets in chat or commit them to Git.**
 
-1. On Windows with Node.js installed, open a terminal in the checked-out Toolbelt repository and run: npx wrangler login
-2. Create the database with: npx wrangler d1 create toolbelt-matches. Copy the database_id UUID. This ID is not a password.
-3. Update root wrangler.jsonc using the example settings, replace REPLACE_WITH_D1_DATABASE_UUID with the actual ID, and keep the Worker name mute-dust-0d50. The production build command remains npx wrangler deploy. **Do not put the bearer token in this configuration.**
+1. **Completed:** D1 database toolbelt-matches was created in the Cloudflare dashboard; its UUID is already configured in the feature branch's root wrangler.jsonc.
+2. Initialize tables via the Cloudflare dashboard's D1 **Console** by executing the SQL from migrations/0001_match_tracker.sql. It creates the matches table and indices. Alternatively, use the Wrangler migration command below, which also records migration history.
+3. Leave the database UUID in committed config; it is not secret. Do not put private bearer tokens in this configuration. When ready, production build command remains npx wrangler deploy.
 4. Generate a long random secret in a trusted local terminal: node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))". Store it in a password manager. Never publish it.
 5. Run: npx wrangler secret put MATCH_TRACKER_TOKEN. Paste the secret when prompted. This stores it in Cloudflare, not GitHub.
-6. Apply the migration to the remote database: npx wrangler d1 migrations apply toolbelt-matches --remote
+6. If using Wrangler to apply SQL instead of Cloudflare Console, run: npx wrangler d1 migrations apply toolbelt-matches --remote. If SQL was already applied manually in Console, do not assume migration history is recorded; the initial CREATE statements are idempotent, so the migration command may still be used later.
 7. Deploy: npx wrangler deploy. Verify https://mute-dust-0d50.forcoin99.workers.dev/api/match-tracker/health reports configured: true. This endpoint intentionally exposes no match records.
 8. Open /match-tracker.html, enter your key and click Connect. Save a test game, refresh, retrieve the original log, export JSON and CSV, and verify restore deduplication.
 
