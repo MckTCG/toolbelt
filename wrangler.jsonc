@@ -2,7 +2,20 @@
   "name": "mute-dust-0d50",
   "compatibility_date": "2026-10-26",
   "workers_dev": true,
+  "main": "./worker/match-tracker.mjs",
   "assets": {
-    "directory": "./public"
-  }
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/match-tracker/*"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "MATCHES_DB",
+      "database_name": "toolbelt-matches",
+      "database_id": "ad94b450-91c7-43be-ac07-0fa6de11395e",
+      "migrations_dir": "./migrations"
+    }
+  ]
 }
